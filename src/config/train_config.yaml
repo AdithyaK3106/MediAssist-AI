@@ -1,0 +1,9 @@
+training:
+  batch_size: 32
+  epochs: 10
+  learning_rate: 2e-5
+  weight_decay: 0.01
+  warmup_steps: 500
+  evaluation_strategy: "steps"
+  save_steps: 1000
+  logging_dir: "./logs"

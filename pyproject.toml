@@ -1,0 +1,20 @@
+[project]
+name = "mediassist-ai"
+version = "0.1.0"
+description = "Hybrid AI Healthcare Assistant"
+authors = [{ name = "MediAssist Team" }]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "streamlit",
+    "torch",
+    "transformers",
+    "scikit-learn",
+    "pandas",
+    "loguru",
+    "ollama"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

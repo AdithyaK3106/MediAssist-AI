@@ -1,0 +1,9 @@
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: true
+  workers: 4
+
+frontend:
+  title: "MediAssist AI Dashboard"
+  theme: "dark"

@@ -1,0 +1,23 @@
+model:
+  classical:
+    name: "logistic_regression"
+    params:
+      C: 1.0
+      solver: "lbfgs"
+      max_iter: 1000
+  transformer:
+    name: "distilbert-base-uncased"
+    num_labels: 41
+    max_length: 128
+  llm:
+    provider: "ollama"
+    model_name: "qwen2.5:latest"
+    temperature: 0.1
+
+uncertainty:
+  method: "entropy"
+  threshold: 0.7
+
+vector_store:
+  type: "faiss"
+  embedding_dim: 768

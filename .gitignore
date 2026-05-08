@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv
+env/
+venv/
+ENV/
+
+# Data & Models (Exclude large binaries from Git)
+data/
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+models/trained/
+models/checkpoints/
+vector_store/
+logs/*.log
+*.csv
+*.json
+*.pdf
+
+# IDEs
+.vscode/
+.idea/
+
+# Environment Variables
+.env
