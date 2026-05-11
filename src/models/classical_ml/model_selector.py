@@ -63,7 +63,7 @@ The best model selected based on F1-score and Top-3 Accuracy is **{best_model}**
 ## Conclusion
 This model is recommended for deployment based on its balanced performance and efficiency.
 """
-        with open(summary_path, "w") as f:
+        with open(summary_path, "w", encoding="utf-8") as f:
             f.write(summary)
             
         # Save to metadata registry
@@ -111,6 +111,6 @@ This report analyzes the safety and reliability of the trained classical ML mode
 2.  **Flag** predictions with high entropy as unreliable.
 3.  **Do not** rely solely on the model for critical diagnoses.
 """
-        with open(safety_path, "w") as f:
+        with open(safety_path, "w", encoding="utf-8") as f:
             f.write(report)
         logger.info(f"Saved safety analysis to {safety_path}")
