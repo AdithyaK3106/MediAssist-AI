@@ -1,0 +1,1 @@
+timestamp,model_name,accuracy,precision,recall,f1_score,top_3_accuracy,training_time,inference_latency,model_size_mb

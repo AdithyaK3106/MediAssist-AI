@@ -1,0 +1,40 @@
+models:
+  logistic_regression:
+    C: 1.0
+    solver: "lbfgs"
+    max_iter: 1000
+    multi_class: "multinomial"
+  naive_bayes:
+    alpha: 1.0
+  svm:
+    C: 1.0
+    kernel: "linear"
+    probability: true
+  random_forest:
+    n_estimators: 100
+    max_depth: null
+    min_samples_split: 2
+  decision_tree:
+    max_depth: 10
+    min_samples_split: 5
+  xgboost:
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.3
+    objective: "multi:softprob"
+  lightgbm:
+    n_estimators: 100
+    num_leaves: 31
+    learning_rate: 0.1
+    objective: "multiclass"
+
+vectorizer:
+  max_features: 5000
+  ngram_range: [1, 2]
+  min_df: 2
+
+data:
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+  random_state: 42

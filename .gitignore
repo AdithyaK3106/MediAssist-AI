@@ -17,9 +17,6 @@ models/trained/
 models/checkpoints/
 vector_store/
 logs/*.log
-*.csv
-*.json
-*.pdf
 
 # IDEs
 .vscode/
