@@ -38,7 +38,7 @@ def evaluate_model(model, X_test, y_test, model_name, training_time=0.0):
     start_time = time.time()
     y_pred = model.predict(X_test)
     inference_time = time.time() - start_time
-    latency = inference_time / len(X_test)
+    latency = inference_time / X_test.shape[0]
     
     # Probabilities for Top-K and Uncertainty
     y_probs = None
