@@ -1,11 +1,11 @@
 {
     "model_type": "logistic_regression",
-    "training_timestamp": "2026-05-11 22:50:15",
+    "training_timestamp": "2026-05-11 23:20:11",
     "hyperparameters": {
         "C": 1.0,
         "solver": "lbfgs",
         "max_iter": 1000,
         "multi_class": "multinomial"
     },
-    "training_time_seconds": 166.57426834106445
+    "training_time_seconds": 63.055527687072754
 }
