@@ -1,0 +1,6 @@
+Metric,Value (%)
+Emergency Escalation Accuracy (EEA),100.0
+Missed Emergency Rate (MER),0.0
+Unsafe Prediction Rate (UPR),0.0
+Medical Consistency Score,10.749185667752444
+Implausible Suppression Rate,100.0

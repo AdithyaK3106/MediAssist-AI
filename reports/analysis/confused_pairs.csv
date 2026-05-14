@@ -1,0 +1,21 @@
+Pair,Count
+"('Infectious Gastroenteritis', 'Noninfectious Gastroenteritis')",42
+"('Noninfectious Gastroenteritis', 'Infectious Gastroenteritis')",40
+"('Cholecystitis', 'Gallstone')",34
+"('Skin Polyp', 'Skin Pigmentation Disorder')",28
+"('Temporary Or Benign Blood In Urine', 'Cystitis')",27
+"('Kidney Stone', 'Pyelonephritis')",25
+"('Depression', 'Post-Traumatic Stress Disorder (Ptsd)')",24
+"('Pyelonephritis', 'Kidney Stone')",23
+"('Acute Bronchitis', 'Chronic Obstructive Pulmonary Disease (Copd)')",22
+"('Skin Polyp', 'Skin Disorder')",22
+"('Marijuana Abuse', 'Personality Disorder')",22
+"('Skin Pigmentation Disorder', 'Seborrheic Keratosis')",22
+"('Pneumonia', 'Acute Bronchospasm')",21
+"('Schizophrenia', 'Personality Disorder')",19
+"('Gum Disease', 'Tooth Disorder')",19
+"('Schizophrenia', 'Psychotic Disorder')",19
+"('Psychotic Disorder', 'Post-Traumatic Stress Disorder (Ptsd)')",16
+"('Personality Disorder', 'Schizophrenia')",16
+"('Seborrheic Keratosis', 'Skin Polyp')",15
+"('Kidney Stone', 'Urinary Tract Infection')",15

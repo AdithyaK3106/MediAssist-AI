@@ -1,0 +1,76 @@
+/* Badges and tags */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-outline {
+    background: transparent;
+    border: 1.5px solid currentColor;
+}
+
+/* Custom list styling */
+.custom-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.custom-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.custom-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #9CA3AF;
+    font-weight: bold;
+}
+
+/* Quick symptom chips */
+.symptom-chip {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid #E5E7EB;
+    border-radius: 20px;
+    color: #4B5563;
+    font-size: 0.875rem;
+    margin: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.symptom-chip:hover {
+    background: #F3F4F6;
+    border-color: #D1D5DB;
+    transform: translateY(-1px);
+}
+
+/* Progress bar container */
+.confidence-bar-bg {
+    width: 100%;
+    background-color: rgba(229, 231, 235, 0.5);
+    border-radius: 9999px;
+    height: 8px;
+    overflow: hidden;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.stChatInputContainer {
+    border-radius: 24px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+    border: 1px solid rgba(255,255,255,0.5) !important;
+    background: rgba(255,255,255,0.9) !important;
+    backdrop-filter: blur(10px) !important;
+}

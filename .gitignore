@@ -13,10 +13,16 @@ ENV/
 data/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
-models/trained/
-models/checkpoints/
+models/
 vector_store/
 logs/*.log
+*.pkl
+*.json
+!data/**/*.json
+!src/**/*.json
+!reports/**/*.json
+!experiments/**/*.json
+!models/metadata/*.json
 
 # IDEs
 .vscode/

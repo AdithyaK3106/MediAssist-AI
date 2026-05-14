@@ -39,7 +39,6 @@ def run_benchmark():
     models_to_train = [
         "logistic_regression",
         "naive_bayes",
-        "svm",
         "random_forest",
         "decision_tree"
     ]

@@ -1,0 +1,21 @@
+{
+    "timestamp": "2026-05-12 00:51:27",
+    "model_name": "decision_tree",
+    "metrics": {
+        "accuracy": 0.15272801302931596,
+        "precision": 0.21463513652962188,
+        "recall": 0.15272801302931596,
+        "f1_score": 0.15373942365484136,
+        "top_3_accuracy": 0.21416938110749187,
+        "training_time_seconds": 52.51200318336487,
+        "inference_latency_seconds_per_sample": 2.6585030633385873e-06,
+        "model_size_mb": 0.7447290420532227,
+        "mean_entropy": 3.9238328228701036,
+        "mean_gap": 0.12016604753020245,
+        "mean_max_confidence": 0.15475726123537337
+    },
+    "config": {
+        "max_depth": 10,
+        "min_samples_split": 5
+    }
+}

@@ -1,8 +1,8 @@
 {
     "model_type": "naive_bayes",
-    "training_timestamp": "2026-05-11 23:20:23",
+    "training_timestamp": "2026-05-12 00:45:47",
     "hyperparameters": {
         "alpha": 1.0
     },
-    "training_time_seconds": 0.497971773147583
+    "training_time_seconds": 0.5311620235443115
 }

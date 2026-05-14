@@ -1,0 +1,8 @@
+@media (max-width: 768px) {
+    .glass-card {
+        padding: 15px;
+    }
+    .stApp {
+        padding: 5px;
+    }
+}

@@ -1,0 +1,32 @@
+{
+  "Flu": [
+    "Are you experiencing body aches?",
+    "Do you have a high fever?",
+    "Do you have a sore throat?"
+  ],
+  "Common Cold": [
+    "Do you have a runny or stuffy nose?",
+    "Are you sneezing frequently?",
+    "Do you have a mild cough?"
+  ],
+  "Asthma": [
+    "Do you experience shortness of breath?",
+    "Is there any wheezing sound when you breathe?",
+    "Do you feel tightness in your chest?"
+  ],
+  "Gastroesophageal Reflux Disease (Gerd)": [
+    "Do you feel a burning sensation in your chest (heartburn)?",
+    "Do you have a sour or bitter taste in your mouth?",
+    "Do you have difficulty swallowing?"
+  ],
+  "Pneumonia": [
+    "Do you have a cough that produces greenish or yellow mucus?",
+    "Are you experiencing chest pain when you breathe or cough?",
+    "Are you experiencing chills or shaking?"
+  ],
+  "Food Allergy": [
+    "Did symptoms appear shortly after eating?",
+    "Do you have any swelling of the lips, tongue, or throat?",
+    "Are you experiencing hives or an itchy rash?"
+  ]
+}

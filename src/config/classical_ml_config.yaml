@@ -14,6 +14,7 @@ models:
     n_estimators: 100
     max_depth: null
     min_samples_split: 2
+    n_jobs: -1
   decision_tree:
     max_depth: 10
     min_samples_split: 5
@@ -22,6 +23,8 @@ models:
     max_depth: 6
     learning_rate: 0.3
     objective: "multi:softprob"
+    n_jobs: -1
+    device: "cuda"
   lightgbm:
     n_estimators: 100
     num_leaves: 31
