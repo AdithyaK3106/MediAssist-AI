@@ -53,6 +53,14 @@ class FollowupEngine:
             # Remove duplicates while preserving order
             questions = list(dict.fromkeys(questions))
             
+            # If no specific questions found but we NEED follow-up, add generic ones
+            if not questions:
+                questions = [
+                    "Could you describe your symptoms in more detail?",
+                    "How long have you been experiencing these symptoms?",
+                    "Are there any other symptoms you haven't mentioned?"
+                ]
+            
             # Return top 3 questions
             return questions[:3]
         else:

@@ -1,64 +1,90 @@
-/* Glassmorphism base styling */
+/* ===== GLASS PANEL — core card ===== */
 .glass-panel {
-    background: rgba(255, 255, 255, 0.7) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    background: rgba(255, 255, 255, 0.62) !important;
+    backdrop-filter: blur(28px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.60) !important;
     border-radius: 24px !important;
-    padding: 24px !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05) !important;
-    transition: all 0.3s ease !important;
+    padding: 28px !important;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.03),
+        0 12px 40px rgba(59, 130, 246, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1),
+                box-shadow 0.25s cubic-bezier(0.4,0,0.2,1) !important;
     margin-bottom: 20px !important;
     position: relative;
     overflow: hidden;
 }
 
-.glass-panel:hover {
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08) !important;
-    transform: translateY(-2px);
+/* Shimmer highlight on top edge */
+.glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255,255,255,0.9) 40%,
+        rgba(200,210,255,0.6) 60%,
+        transparent 100%);
 }
 
+.glass-panel:hover {
+    transform: translateY(-3px) !important;
+    box-shadow:
+        0 8px 12px rgba(0, 0, 0, 0.04),
+        0 24px 60px rgba(59, 130, 246, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/* ===== CHAT BUBBLES ===== */
 .glass-chat-user {
-    background: rgba(236, 24DF, 255, 0.6) !important;
-    border-radius: 18px 18px 0 18px !important;
-    padding: 16px 20px !important;
-    margin-bottom: 12px !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.8) !important;
-    max-width: 85%;
+    background: linear-gradient(135deg, rgba(219,234,254,0.75), rgba(196,219,255,0.65)) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-radius: 20px 20px 4px 20px !important;
+    padding: 14px 18px !important;
+    margin-bottom: 14px !important;
+    border: 1px solid rgba(147, 197, 253, 0.4) !important;
+    box-shadow: 0 2px 12px rgba(59,130,246,0.10) !important;
+    max-width: 88%;
     margin-left: auto;
 }
 
 .glass-chat-assistant {
-    background: rgba(255, 255, 255, 0.8) !important;
-    border-radius: 18px 18px 18px 0 !important;
-    padding: 16px 20px !important;
-    margin-bottom: 12px !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.9) !important;
-    max-width: 90%;
+    background: rgba(255, 255, 255, 0.80) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-radius: 20px 20px 20px 4px !important;
+    padding: 14px 18px !important;
+    margin-bottom: 14px !important;
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05) !important;
+    max-width: 92%;
 }
 
+/* ===== SEVERITY ALERT VARIANTS ===== */
 .glass-alert-critical {
-    background: rgba(254, 226, 226, 0.7) !important;
-    border: 1px solid rgba(239, 68, 68, 0.3) !important;
-    border-left: 4px solid #ef4444 !important;
+    background: linear-gradient(135deg, rgba(254,226,226,0.80), rgba(254,205,205,0.65)) !important;
+    border: 1px solid rgba(239,68,68,0.25) !important;
+    border-left: 4px solid #EF4444 !important;
 }
 
 .glass-alert-high {
-    background: rgba(255, 237, 213, 0.7) !important;
-    border: 1px solid rgba(249, 115, 22, 0.3) !important;
-    border-left: 4px solid #f97316 !important;
+    background: linear-gradient(135deg, rgba(255,237,213,0.80), rgba(254,215,170,0.65)) !important;
+    border: 1px solid rgba(249,115,22,0.25) !important;
+    border-left: 4px solid #F97316 !important;
 }
 
 .glass-alert-medium {
-    background: rgba(254, 249, 195, 0.7) !important;
-    border: 1px solid rgba(234, 179, 8, 0.3) !important;
-    border-left: 4px solid #eab308 !important;
+    background: linear-gradient(135deg, rgba(254,249,195,0.80), rgba(253,240,130,0.65)) !important;
+    border: 1px solid rgba(234,179,8,0.25) !important;
+    border-left: 4px solid #EAB308 !important;
 }
 
 .glass-alert-low {
-    background: rgba(220, 252, 231, 0.7) !important;
-    border: 1px solid rgba(34, 197, 94, 0.3) !important;
-    border-left: 4px solid #22c55e !important;
+    background: linear-gradient(135deg, rgba(220,252,231,0.80), rgba(167,243,208,0.65)) !important;
+    border: 1px solid rgba(34,197,94,0.25) !important;
+    border-left: 4px solid #22C55E !important;
 }

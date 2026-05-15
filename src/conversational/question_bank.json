@@ -28,5 +28,30 @@
     "Did symptoms appear shortly after eating?",
     "Do you have any swelling of the lips, tongue, or throat?",
     "Are you experiencing hives or an itchy rash?"
+  ],
+  "Iron Deficiency Anemia": [
+    "Do you feel unusually tired or weak?",
+    "Is your skin paler than usual?",
+    "Do you experience shortness of breath or dizziness?"
+  ],
+  "Indigestion": [
+    "Do you have pain or bloating in your upper abdomen?",
+    "Do you feel full quickly after starting a meal?",
+    "Are you experiencing any nausea or belching?"
+  ],
+  "Anxiety": [
+    "Do you feel restless, keyed up, or on edge?",
+    "Are you having trouble concentrating?",
+    "Are you experiencing muscle tension or sleep disturbances?"
+  ],
+  "Acute Sinusitis": [
+    "Do you have pressure or pain in your forehead or cheeks?",
+    "Is your nasal discharge thick and yellow or green?",
+    "Have you lost your sense of smell?"
+  ],
+  "Chronic Sinusitis": [
+    "Have you had these symptoms for more than 12 weeks?",
+    "Do you have chronic nasal obstruction or congestion?",
+    "Do you experience post-nasal drip?"
   ]
 }

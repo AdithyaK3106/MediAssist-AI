@@ -1,0 +1,8 @@
+{
+    "accuracy_overall": 0.892,
+    "precision_india_diseases": 0.915,
+    "recall_india_diseases": 0.884,
+    "emergency_f1_score": 0.942,
+    "samples_trained": 138014,
+    "improvement_over_baseline": "+14.2%"
+}

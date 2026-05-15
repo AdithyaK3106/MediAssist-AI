@@ -1,8 +1,53 @@
-@media (max-width: 768px) {
-    .glass-card {
-        padding: 15px;
-    }
-    .stApp {
-        padding: 5px;
-    }
+/* ===== NATIVE CHAT MESSAGE GLASSMORPHISM ===== */
+
+/* User message bubble */
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+    background: linear-gradient(135deg, rgba(219,234,254,0.80), rgba(196,219,255,0.70)) !important;
+    border: 1px solid rgba(147, 197, 253, 0.45) !important;
+    border-radius: 20px 20px 4px 20px !important;
+    box-shadow: 0 2px 14px rgba(59,130,246,0.12) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    padding: 14px 18px !important;
+    margin-bottom: 10px !important;
+    animation: fadeInUp 0.4s ease both;
+}
+
+/* Assistant message bubble */
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
+    background: rgba(255, 255, 255, 0.78) !important;
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
+    border-radius: 20px 20px 20px 4px !important;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.06) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    padding: 14px 18px !important;
+    margin-bottom: 10px !important;
+    animation: fadeInUp 0.4s ease 0.1s both;
+}
+
+/* Remove default Streamlit avatar background */
+[data-testid="chatAvatarIcon-user"],
+[data-testid="chatAvatarIcon-assistant"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Chat message text */
+[data-testid="stChatMessage"] p {
+    color: #334155 !important;
+    line-height: 1.65 !important;
+    margin-bottom: 0 !important;
+    font-size: 0.95rem !important;
+}
+
+/* Responsive layout */
+@media (max-width: 900px) {
+    .glass-panel { padding: 18px !important; border-radius: 18px !important; }
+}
+
+@media (max-width: 640px) {
+    .glass-panel { padding: 14px !important; border-radius: 14px !important; }
+    .symptom-chip { font-size: 0.75rem !important; padding: 6px 12px !important; }
 }

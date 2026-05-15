@@ -1,13 +1,16 @@
-/* Badges and tags */
+/* ===== BADGE / PILL ===== */
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 4px 12px;
+    gap: 5px;
+    padding: 5px 14px;
     border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .badge-outline {
@@ -15,62 +18,96 @@
     border: 1.5px solid currentColor;
 }
 
-/* Custom list styling */
+/* ===== SYMPTOM CHIPS ===== */
+.symptom-chip {
+    display: inline-block;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(147, 197, 253, 0.45);
+    border-radius: 999px;
+    color: #2563EB;
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin: 4px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.08);
+}
+
+.symptom-chip:hover {
+    background: rgba(219, 234, 254, 0.90);
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.18);
+}
+
+/* ===== CUSTOM LIST ===== */
 .custom-list {
     list-style-type: none;
     padding-left: 0;
+    margin: 10px 0;
 }
 
 .custom-list li {
     position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.5rem;
+    padding: 6px 0 6px 1.6rem;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 .custom-list li::before {
-    content: "•";
+    content: "›";
     position: absolute;
-    left: 0;
-    color: #9CA3AF;
-    font-weight: bold;
+    left: 4px;
+    color: #93C5FD;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: 700;
 }
 
-/* Quick symptom chips */
-.symptom-chip {
-    display: inline-block;
-    padding: 8px 16px;
-    background: rgba(255,255,255,0.8);
-    border: 1px solid #E5E7EB;
-    border-radius: 20px;
-    color: #4B5563;
-    font-size: 0.875rem;
-    margin: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.symptom-chip:hover {
-    background: #F3F4F6;
-    border-color: #D1D5DB;
-    transform: translateY(-1px);
-}
-
-/* Progress bar container */
+/* ===== CONFIDENCE PROGRESS BAR ===== */
 .confidence-bar-bg {
     width: 100%;
-    background-color: rgba(229, 231, 235, 0.5);
+    background: rgba(226, 232, 240, 0.6);
     border-radius: 9999px;
     height: 8px;
     overflow: hidden;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    margin: 10px 0 18px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
 }
 
+/* ===== CHAT INPUT ===== */
 .stChatInputContainer {
-    border-radius: 24px !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
-    border: 1px solid rgba(255,255,255,0.5) !important;
-    background: rgba(255,255,255,0.9) !important;
+    border-radius: 22px !important;
+    box-shadow:
+        0 4px 24px rgba(59, 130, 246, 0.10),
+        0 1px 4px rgba(0,0,0,0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+}
+
+/* ===== STREAMLIT BUTTON OVERRIDE ===== */
+.stButton > button {
+    border-radius: 14px !important;
+    border: 1px solid rgba(203, 213, 225, 0.6) !important;
+    background: rgba(255, 255, 255, 0.75) !important;
     backdrop-filter: blur(10px) !important;
+    color: #475569 !important;
+    font-weight: 500 !important;
+    font-size: 0.875rem !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+
+.stButton > button:hover {
+    background: rgba(239, 246, 255, 0.90) !important;
+    border-color: rgba(59, 130, 246, 0.4) !important;
+    color: #2563EB !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.14) !important;
 }

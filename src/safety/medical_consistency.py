@@ -29,10 +29,10 @@ class MedicalConsistencyValidator:
 
         # 2. Define symptom keywords per category
         self.symptom_keywords = {
-            "respiratory": ["cough", "throat", "breath", "chest pain", "runny", "sneeze", "wheez", "mucus", "phlegm"],
+            "respiratory": ["cough", "throat", "breath", "chest pain", "runny", "sneeze", "wheez", "mucus", "phlegm", "nasal", "congestion", "nose", "sinus", "pressure", "discharge"],
             "eye": ["eye", "vision", "blur", "watery", "itchy", "red eye"],
             "gastrointestinal": ["vomit", "diarrhea", "stomach", "abdomin", "nausea", "stool", "constipat", "bowel", "belly"],
-            "neurological": ["dizzi", "seizure", "confus", "conscious", "headache", "migraine", "faint", "numb", "paraly"],
+            "neurological": ["dizzi", "seizure", "confus", "conscious", "headache", "migraine", "faint", "numb", "paraly", "pressure", "face"],
             "fever": ["fever", "chill", "temperature", "sweat", "hot"],
             "cardiovascular": ["chest pain", "heart", "palpitat", "pulse", "blood pressure"],
             "metabolic": ["thirst", "urinat", "weight", "sugar", "hunger"],
