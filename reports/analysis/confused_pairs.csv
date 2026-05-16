@@ -1,21 +1,21 @@
 Pair,Count
-"('Infectious Gastroenteritis', 'Noninfectious Gastroenteritis')",42
-"('Noninfectious Gastroenteritis', 'Infectious Gastroenteritis')",40
-"('Cholecystitis', 'Gallstone')",34
-"('Skin Polyp', 'Skin Pigmentation Disorder')",28
-"('Temporary Or Benign Blood In Urine', 'Cystitis')",27
-"('Kidney Stone', 'Pyelonephritis')",25
-"('Depression', 'Post-Traumatic Stress Disorder (Ptsd)')",24
-"('Pyelonephritis', 'Kidney Stone')",23
-"('Acute Bronchitis', 'Chronic Obstructive Pulmonary Disease (Copd)')",22
-"('Skin Polyp', 'Skin Disorder')",22
-"('Marijuana Abuse', 'Personality Disorder')",22
-"('Skin Pigmentation Disorder', 'Seborrheic Keratosis')",22
-"('Pneumonia', 'Acute Bronchospasm')",21
-"('Schizophrenia', 'Personality Disorder')",19
-"('Gum Disease', 'Tooth Disorder')",19
-"('Schizophrenia', 'Psychotic Disorder')",19
-"('Psychotic Disorder', 'Post-Traumatic Stress Disorder (Ptsd)')",16
-"('Personality Disorder', 'Schizophrenia')",16
-"('Seborrheic Keratosis', 'Skin Polyp')",15
-"('Kidney Stone', 'Urinary Tract Infection')",15
+"('Infectious Gastroenteritis', 'Noninfectious Gastroenteritis')",49
+"('Temporary Or Benign Blood In Urine', 'Cystitis')",42
+"('Noninfectious Gastroenteritis', 'Infectious Gastroenteritis')",42
+"('Cholecystitis', 'Gallstone')",40
+"('Skin Pigmentation Disorder', 'Seborrheic Keratosis')",39
+"('Kidney Stone', 'Pyelonephritis')",34
+"('Bladder Disorder', 'Cystitis')",30
+"('Acute Bronchitis', 'Chronic Obstructive Pulmonary Disease (Copd)')",27
+"('Depression', 'Post-Traumatic Stress Disorder (Ptsd)')",27
+"('Marijuana Abuse', 'Personality Disorder')",26
+"('Skin Polyp', 'Skin Disorder')",25
+"('Spondylosis', 'Degenerative Disc Disease')",25
+"('Schizophrenia', 'Psychotic Disorder')",25
+"('Pneumonia', 'Acute Bronchospasm')",23
+"('Skin Polyp', 'Skin Pigmentation Disorder')",23
+"('Spinal Stenosis', 'Degenerative Disc Disease')",22
+"('Diabetic Retinopathy', 'Dry Eye Of Unknown Cause')",22
+"('Urinary Tract Infection', 'Kidney Stone')",21
+"('Pyelonephritis', 'Kidney Stone')",19
+"('Skin Polyp', 'Seborrheic Keratosis')",19

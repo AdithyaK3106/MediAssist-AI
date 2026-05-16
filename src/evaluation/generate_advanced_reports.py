@@ -65,33 +65,87 @@ class AdvancedReporter:
         
     def generate_confusion_matrix(self, true_labels, results, model_name):
         pred_labels = [res['predictions'][0]['disease'] for res in results]
-        labels = sorted(list(set(true_labels)))
+        # Get unique labels from both true and predicted
+        all_labels = np.array(sorted(list(set(true_labels) | set(pred_labels))))
+        num_classes = len(all_labels)
         
-        cm = confusion_matrix(true_labels, pred_labels, labels=labels)
+        cm = confusion_matrix(true_labels, pred_labels, labels=all_labels)
+        
+        # Calculate Normalized Matrix
+        with np.errstate(divide='ignore', invalid='ignore'):
+            cm_norm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+            cm_norm = np.nan_to_num(cm_norm)
+            
+        # If too many classes, filter to show only the most 'interesting' ones (those with errors)
+        if num_classes > 40:
+            logger.info(f"Detected {num_classes} classes. Filtering for top 40 most confused classes to reduce clutter.")
+            # Errors = Total True - True Positives
+            errors = cm.sum(axis=1) - np.diag(cm)
+            # Also consider classes that were falsely predicted often
+            false_positives = cm.sum(axis=0) - np.diag(cm)
+            total_confusion = errors + false_positives
+            
+            # Get indices of top 40 most confused classes
+            top_indices = np.argsort(total_confusion)[-40:]
+            # Ensure indices are sorted to maintain alphabetical/original order if desired, 
+            # but usually sorting by error count is more informative.
+            # We'll keep them in the order of 'most confused' for the heatmap.
+            
+            display_labels = all_labels[top_indices]
+            cm_display = cm[np.ix_(top_indices, top_indices)]
+            cm_norm_display = cm_norm[np.ix_(top_indices, top_indices)]
+            title_suffix = " (Top 40 Most Confused Classes)"
+        else:
+            display_labels = all_labels
+            cm_display = cm
+            cm_norm_display = cm_norm
+            title_suffix = ""
+
+        # Dynamic figure sizing for the subset
+        num_display = len(display_labels)
+        fig_width = max(16, num_display * 0.45)
+        fig_height = max(12, num_display * 0.35)
         
         # Plot Raw
-        plt.figure(figsize=(15, 12))
-        sns.heatmap(cm, annot=True, fmt='d', xticklabels=labels, yticklabels=labels, cmap='Blues')
-        plt.title(f"Confusion Matrix - {model_name}")
-        plt.xlabel("Predicted")
-        plt.ylabel("True")
-        plt.xticks(rotation=90)
-        plt.yticks(rotation=0)
+        plt.figure(figsize=(fig_width, fig_height))
+        sns.heatmap(
+            cm_display, 
+            annot=True, 
+            fmt='d', 
+            xticklabels=display_labels, 
+            yticklabels=display_labels, 
+            cmap='Blues',
+            annot_kws={"size": 8 if num_display < 30 else 6},
+            cbar_kws={'shrink': 0.8}
+        )
+        plt.title(f"Confusion Matrix - {model_name}{title_suffix}", fontsize=18, pad=20)
+        plt.xlabel("Predicted Disease", fontsize=14, labelpad=15)
+        plt.ylabel("True Disease", fontsize=14, labelpad=15)
+        plt.xticks(rotation=90, fontsize=8)
+        plt.yticks(rotation=0, fontsize=8)
         plt.tight_layout()
-        plt.savefig(self.cm_dir / f"{model_name}_cm_raw.png", dpi=300)
+        plt.savefig(self.cm_dir / f"{model_name}_cm_raw.png", dpi=300, bbox_inches='tight')
         plt.close()
         
         # Plot Normalized
-        cm_norm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        plt.figure(figsize=(15, 12))
-        sns.heatmap(cm_norm, annot=True, fmt='.2f', xticklabels=labels, yticklabels=labels, cmap='Blues')
-        plt.title(f"Normalized Confusion Matrix - {model_name}")
-        plt.xlabel("Predicted")
-        plt.ylabel("True")
-        plt.xticks(rotation=90)
-        plt.yticks(rotation=0)
+        plt.figure(figsize=(fig_width, fig_height))
+        sns.heatmap(
+            cm_norm_display, 
+            annot=True, 
+            fmt='.2f', 
+            xticklabels=display_labels, 
+            yticklabels=display_labels, 
+            cmap='Blues',
+            annot_kws={"size": 8 if num_display < 30 else 6},
+            cbar_kws={'shrink': 0.8}
+        )
+        plt.title(f"Normalized Confusion Matrix - {model_name}{title_suffix}", fontsize=18, pad=20)
+        plt.xlabel("Predicted Disease", fontsize=14, labelpad=15)
+        plt.ylabel("True Disease", fontsize=14, labelpad=15)
+        plt.xticks(rotation=90, fontsize=8)
+        plt.yticks(rotation=0, fontsize=8)
         plt.tight_layout()
-        plt.savefig(self.cm_dir / f"{model_name}_cm_normalized.png", dpi=300)
+        plt.savefig(self.cm_dir / f"{model_name}_cm_normalized.png", dpi=300, bbox_inches='tight')
         plt.close()
         
         logger.info(f"Saved confusion matrices for {model_name}")

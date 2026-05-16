@@ -29,17 +29,17 @@ class MedicalConsistencyValidator:
 
         # 2. Define symptom keywords per category
         self.symptom_keywords = {
-            "respiratory": ["cough", "throat", "breath", "chest pain", "runny", "sneeze", "wheez", "mucus", "phlegm", "nasal", "congestion", "nose", "sinus", "pressure", "discharge"],
-            "eye": ["eye", "vision", "blur", "watery", "itchy", "red eye"],
-            "gastrointestinal": ["vomit", "diarrhea", "stomach", "abdomin", "nausea", "stool", "constipat", "bowel", "belly"],
-            "neurological": ["dizzi", "seizure", "confus", "conscious", "headache", "migraine", "faint", "numb", "paraly", "pressure", "face"],
-            "fever": ["fever", "chill", "temperature", "sweat", "hot"],
-            "cardiovascular": ["chest pain", "heart", "palpitat", "pulse", "blood pressure"],
-            "metabolic": ["thirst", "urinat", "weight", "sugar", "hunger"],
-            "skin": ["rash", "itch", "skin", "blister", "redness", "spot", "sore"],
-            "urinary": ["urinat", "urine", "bladder", "kidney", "pelvi"],
-            "musculoskeletal": ["joint", "muscle", "ache", "pain", "back", "bone", "stiff"],
-            "systemic": ["fatigue", "tired", "weak", "exhaust", "malaise", "swollen"]
+            "respiratory": ["cough", "throat", "breath", "chest pain", "runny", "sneeze", "wheez", "mucus", "phlegm", "nasal", "congestion", "nose", "sinus", "pressure", "discharge", "coryza"],
+            "eye": ["eye", "vision", "blur", "watery", "itchy", "red eye", "blindness", "double vision"],
+            "gastrointestinal": ["vomit", "diarrhea", "stomach", "abdomin", "nausea", "stool", "constipat", "bowel", "belly", "heartburn", "reflux", "acid"],
+            "neurological": ["dizzi", "seizure", "confus", "conscious", "headache", "migraine", "faint", "numb", "paraly", "pressure", "face", "facial", "confusion", "memory"],
+            "fever": ["fever", "chill", "temperature", "sweat", "hot", "warm", "mild fever", "high fever"],
+            "cardiovascular": ["chest pain", "heart", "palpitat", "pulse", "blood pressure", "irregular heartbeat"],
+            "metabolic": ["thirst", "urinat", "weight", "sugar", "hunger", "glucose"],
+            "skin": ["rash", "itch", "skin", "blister", "redness", "spot", "sore", "lesion", "pimples", "growth"],
+            "urinary": ["urinat", "urine", "bladder", "kidney", "pelvi", "urination"],
+            "musculoskeletal": ["joint", "muscle", "ache", "pain", "back", "bone", "stiff", "fracture", "injury", "sprain", "strain"],
+            "systemic": ["fatigue", "tired", "weak", "exhaust", "malaise", "swollen", "chills", "weakness"]
         }
 
     def _extract_symptom_categories(self, user_input: str):
@@ -74,6 +74,12 @@ class MedicalConsistencyValidator:
 
         print(f"\n[MEDICAL CONSISTENCY LAYER] Input Categories Detected: {detected_categories}")
 
+        # Check if any predictions have HIGH consistency
+        has_high_consistency = any(
+            set(detected_categories).intersection(set(self.disease_categories.get(p['disease'], [])))
+            for p in predictions
+        )
+
         for pred in predictions:
             disease = pred['disease']
             original_prob = pred['probability']
@@ -83,7 +89,8 @@ class MedicalConsistencyValidator:
             overlap = set(detected_categories).intersection(set(disease_cats))
             
             if not disease_cats:
-                penalty = 0.9
+                # If we have HIGH consistency alternatives, be more skeptical of UNKNOWNs
+                penalty = 0.4 if has_high_consistency else 0.8
                 consistency = "UNKNOWN"
             elif overlap:
                 penalty = 1.0

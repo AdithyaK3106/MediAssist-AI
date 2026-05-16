@@ -11,6 +11,7 @@ if str(project_root) not in sys.path:
 from src.conversational.conversation_manager import ConversationManager
 from src.models.classical_ml.predict import ClassicalInferencePipeline
 from src.recommendation.home_care import HomeCareRecommender
+from src.recommendation.recommender import HospitalRecommender
 from src.frontend.utils.confidence_formatter import normalize_topk_probabilities, get_confidence_label, get_confidence_color
 
 st.set_page_config(page_title="MediAssist AI", layout="wide", page_icon="🏥", initial_sidebar_state="expanded")
@@ -54,6 +55,9 @@ if "manager" not in st.session_state:
 
 if "home_care_recommender" not in st.session_state:
     st.session_state.home_care_recommender = HomeCareRecommender()
+
+if "hospital_recommender" not in st.session_state:
+    st.session_state.hospital_recommender = HospitalRecommender()
 
 if "history" not in st.session_state:
     st.session_state.history = []
@@ -234,7 +238,16 @@ with col2:
 # ════════════════════════════════════════════════════════════
 with col3:
     if is_emergency:
-        st.markdown("""
+        # Get hospital recommendations
+        hospitals = st.session_state.hospital_recommender.get_recommendations(28.6139, 77.2090, top_k=3)
+        hospital_html = '<div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(185,28,28,0.2);">'
+        hospital_html += '<h4 style="color:#b91c1c;font-size:0.8rem;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Nearest Hospitals</h4>'
+        for h in hospitals:
+            hospital_html += f'<div class="location-card"><div class="location-name">🏥 {h["name"]}</div>'
+            hospital_html += f'<div class="location-meta"><span>{h["city"]}</span><span style="font-weight:700;color:#2563EB;">{h["distance"]:.2f} km</span></div></div>'
+        hospital_html += '</div>'
+
+        st.markdown(f"""
 <div class="glass-panel glass-alert-critical animate-fade-in" style="padding:18px !important;">
 <h3 style="color:#b91c1c;font-size:0.95rem;">&#128680; Emergency Resources</h3>
 <ul class="custom-list" style="color:#991b1b;font-size:0.85rem;">
@@ -242,6 +255,7 @@ with col3:
 <li><strong>Poison Control:</strong> 1-800-222-1222</li>
 <li><strong>Crisis Line:</strong> 988</li>
 </ul>
+{hospital_html}
 </div>
         """, unsafe_allow_html=True)
 
@@ -278,10 +292,20 @@ with col3:
         """, unsafe_allow_html=True)
 
     elif latest_predictions and is_critical:
-        st.markdown("""
+        # Get hospital recommendations
+        hospitals = st.session_state.hospital_recommender.get_recommendations(28.6139, 77.2090, disease_category=top_disease, top_k=3)
+        hospital_html = '<div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(185,28,28,0.2);">'
+        hospital_html += '<h4 style="color:#b91c1c;font-size:0.8rem;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Nearest Hospitals</h4>'
+        for h in hospitals:
+            hospital_html += f'<div class="location-card"><div class="location-name">🏥 {h["name"]}</div>'
+            hospital_html += f'<div class="location-meta"><span>{h["city"]}</span><span style="font-weight:700;color:#2563EB;">{h["distance"]:.2f} km</span></div></div>'
+        hospital_html += '</div>'
+
+        st.markdown(f"""
 <div class="glass-panel glass-alert-critical animate-fade-in" style="padding:18px !important;">
-<h3 style="color:#b91c1c;font-size:0.95rem;">&#128680; Critical — No Home Care</h3>
+<h3 style="color:#b91c1c;font-size:0.95rem;">&#128680; Emergency Resources</h3>
 <p style="color:#991b1b;font-size:0.85rem;">For critical conditions, home care is not appropriate. Please seek emergency medical attention immediately.</p>
+{hospital_html}
 </div>
         """, unsafe_allow_html=True)
 
