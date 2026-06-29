@@ -239,7 +239,7 @@ with col2:
 with col3:
     if is_emergency:
         # Get hospital recommendations
-        hospitals = st.session_state.hospital_recommender.get_recommendations(28.6139, 77.2090, top_k=3)
+        hospitals = st.session_state.hospital_recommender.get_recommendations(13.0075, 77.6957, top_k=3)
         hospital_html = '<div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(185,28,28,0.2);">'
         hospital_html += '<h4 style="color:#b91c1c;font-size:0.8rem;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Nearest Hospitals</h4>'
         for h in hospitals:
@@ -293,7 +293,7 @@ with col3:
 
     elif latest_predictions and is_critical:
         # Get hospital recommendations
-        hospitals = st.session_state.hospital_recommender.get_recommendations(28.6139, 77.2090, disease_category=top_disease, top_k=3)
+        hospitals = st.session_state.hospital_recommender.get_recommendations(13.0075, 77.6957, disease_category=top_disease, top_k=3)
         hospital_html = '<div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(185,28,28,0.2);">'
         hospital_html += '<h4 style="color:#b91c1c;font-size:0.8rem;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Nearest Hospitals</h4>'
         for h in hospitals:

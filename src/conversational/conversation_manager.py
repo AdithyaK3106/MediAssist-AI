@@ -81,7 +81,7 @@ class ConversationManager:
                         top_cat = self.latest_consistency_data['detected_symptoms'][0]
                     
                     hospitals = self.hospital_recommender.get_recommendations(
-                        user_lat=12.9716, user_lon=77.5946, # Bangalore Center
+                        user_lat=13.0075, user_lon=77.6957, # Bangalore KR Puram
                         disease_category=top_cat
                     )
                     

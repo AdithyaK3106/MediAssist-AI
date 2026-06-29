@@ -17,12 +17,24 @@ if not safety_logger.handlers:
 
 STROKE_SYMPTOMS = [
     "slurred speech",
-    "one sided weakness",
     "facial drooping",
+    "face drooping",
+    "facial weakness",
+    "one-sided weakness",
+    "arm weakness",
+    "leg weakness",
+    "sudden confusion",
+    "stroke symptoms",
+    "difficulty speaking",
+    "speech difficulty",
+    "loss of speech",
+    "numbness on one side",
+    "sudden loss of balance",
+    "sudden dizziness",
+    "one sided weakness",
     "loss of balance",
     "sudden numbness",
     "confusion",
-    "facial weakness",
     "cannot speak"
 ]
 
@@ -34,7 +46,9 @@ RESPIRATORY_EMERGENCY = [
     "blue lips",
     "shortness of breath",
     "cant breathe",
-    "can't breathe"
+    "can't breathe",
+    "severe breathing difficulty",
+    "cannot breathe"
 ]
 
 SEVERE_INFECTION = [
@@ -49,22 +63,37 @@ HEMORRHAGIC_WARNING = [
     "bleeding gums",
     "blood in vomit",
     "severe abdominal pain",
-    "uncontrolled bleeding"
+    "uncontrolled bleeding",
+    "severe bleeding"
 ]
 
 CARDIAC_EMERGENCY = [
     "crushing chest pain",
     "pain radiating to arm",
     "irregular heartbeat",
-    "heart attack"
+    "heart attack",
+    "chest pain"
+]
+
+NEUROLOGICAL_EMERGENCY = [
+    "seizure",
+    "unconscious",
+    "loss of consciousness",
+    "stroke symptoms"
+]
+
+ANAPHYLAXIS = [
+    "throat swelling",
+    "allergic reaction with breathing difficulty"
 ]
 
 EMERGENCY_CATEGORIES = {
-    "Neurological Emergency": STROKE_SYMPTOMS,
+    "Neurological Emergency": STROKE_SYMPTOMS + NEUROLOGICAL_EMERGENCY,
     "Respiratory Emergency": RESPIRATORY_EMERGENCY,
     "Severe Infection": SEVERE_INFECTION,
     "Hemorrhagic Warning": HEMORRHAGIC_WARNING,
-    "Cardiac Emergency": CARDIAC_EMERGENCY
+    "Cardiac Emergency": CARDIAC_EMERGENCY,
+    "Anaphylaxis": ANAPHYLAXIS
 }
 
 class EmergencyRuleEngine:
@@ -88,6 +117,7 @@ class EmergencyRuleEngine:
         if detected_categories:
             response = {
                 "is_emergency": True,
+                "emergency_detected": True,
                 "categories": detected_categories,
                 "triggered_symptoms": triggered_symptoms,
                 "severity": "critical",
@@ -96,7 +126,7 @@ class EmergencyRuleEngine:
             self._log_emergency(user_input, response)
             return response
 
-        return {"is_emergency": False}
+        return {"is_emergency": False, "emergency_detected": False}
 
     def _log_emergency(self, user_input: str, response: dict):
         log_entry = {

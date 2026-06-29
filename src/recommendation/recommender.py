@@ -42,8 +42,14 @@ class HospitalRecommender:
             self.df = pd.DataFrame()
 
     def calculate_distance(self, lat1, lon1, lat2, lon2):
-        """Vectorized Euclidean distance calculation."""
-        return np.sqrt((lat1 - lat2)**2 + (lon1 - lon2)**2)
+        """Calculate Haversine distance in kilometers."""
+        lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+        a = np.sin(dlat/2)**2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon/2)**2
+        c = 2 * np.arcsin(np.sqrt(a))
+        r = 6371 # Earth radius in km
+        return c * r
 
     def get_recommendations(self, user_lat: float, user_lon: float, disease_category: str = None, top_k: int = 3) -> List[Dict]:
         """

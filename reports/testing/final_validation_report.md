@@ -1,11 +1,11 @@
 # MediAssist AI Validation Report
 
-**Generated:** 2026-05-14 01:08:50
+**Generated:** 2026-06-04 22:59:17
 
 ## Executive Summary
 - **Total Tests Executed:** 480
 - **Unsafe Prediction Rate (UPR):** 0.00%
-- **Medical Consistency Interventions:** 915
+- **Medical Consistency Interventions:** 704
 - **Emergencies Detected & Escalated:** 21
 - **Implausible Predictions Suppressed:** 0
 
