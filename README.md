@@ -50,7 +50,6 @@ MediAssist/
 ├── models/classical/      # Saved TF-IDF vectorizers and trained classifiers
 ├── notebooks/             # Jupyter notebooks for EDA, error analysis, and benchmarking
 ├── reports/               # Auto-generated validation reports, CSV metrics, and figures
-├── scripts/               # Utility scripts for training, benchmarking, and validation
 ├── src/
 │   ├── conversational/    # Dialogue state, intent detection, and context management
 │   ├── frontend/          # Streamlit app (app.py) and custom CSS styling
@@ -94,14 +93,9 @@ Standard ML metrics (Accuracy, F1-Score) are insufficient to measure healthcare 
    streamlit run src/frontend/app.py
    ```
 
-4. **Run the Safety Test Suite:**
+4. **Run the Test Suite:**
    ```bash
-   pytest tests/test_safety.py -v
-   ```
-
-5. **Generate Final Research Reports:**
-   ```bash
-   python scripts/run_final_research_validation.py
+   pytest tests/ -v
    ```
 
 ---
