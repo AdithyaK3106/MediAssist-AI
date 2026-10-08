@@ -1,0 +1,112 @@
+{
+  "Common Cold": {
+    "severity": "low",
+    "home_care": [
+      "Rest adequately",
+      "Drink warm fluids like herbal tea or broth",
+      "Steam inhalation for nasal congestion",
+      "Warm saline gargle"
+    ],
+    "seek_medical_attention_if": [
+      "Symptoms persist beyond 10 days",
+      "High fever above 102\u00b0F develops",
+      "Difficulty breathing occurs"
+    ]
+  },
+  "Allergy": {
+    "severity": "low",
+    "home_care": [
+      "Avoid known environmental triggers and dust",
+      "Rinse eyes and nasal passages with saline",
+      "Stay indoors during high pollen hours"
+    ],
+    "seek_medical_attention_if": [
+      "Swelling of face, lips, or throat develops",
+      "Breathing becomes labored"
+    ]
+  },
+  "GERD (Acid Reflux)": {
+    "severity": "low",
+    "home_care": [
+      "Avoid spicy, fried, and acidic meals",
+      "Eat smaller and more frequent meals",
+      "Remain upright for 2-3 hours after eating"
+    ],
+    "seek_medical_attention_if": [
+      "Difficulty or pain when swallowing",
+      "Persistent vomiting or unexplained weight loss"
+    ]
+  },
+  "Influenza (Flu)": {
+    "severity": "moderate",
+    "home_care": [
+      "Strict bed rest and hydration",
+      "Electrolyte drinks and warm soups",
+      "Isolate to prevent transmission"
+    ],
+    "seek_medical_attention_if": [
+      "Shortness of breath or chest pain",
+      "Persistent high fever not responding to antipyretics",
+      "Confusion or extreme dizziness"
+    ]
+  },
+  "Gastroenteritis": {
+    "severity": "moderate",
+    "home_care": [
+      "Oral Rehydration Salts (ORS) solution regularly",
+      "Bland diet (BRAT: bananas, rice, applesauce, toast)",
+      "Avoid dairy and caffeine"
+    ],
+    "seek_medical_attention_if": [
+      "Signs of severe dehydration (no urination, sunken eyes)",
+      "Blood in stool or vomit",
+      "Inability to keep any liquids down for >12 hours"
+    ]
+  },
+  "Migraine": {
+    "severity": "moderate",
+    "home_care": [
+      "Rest in a quiet, dark room",
+      "Apply a cold compress to the forehead",
+      "Stay hydrated"
+    ],
+    "seek_medical_attention_if": [
+      "Sudden severe 'thunderclap' headache",
+      "Headache accompanied by stiff neck, fever, or vision loss"
+    ]
+  },
+  "Dengue": {
+    "severity": "high",
+    "home_care": [],
+    "seek_medical_attention_if": [
+      "Immediate consultation required for platelet monitoring",
+      "Seek emergency care if bleeding gums, blood in stool, or persistent severe vomiting occurs"
+    ],
+    "doctor_visit": "Consult a physician immediately for Dengue NS1/IgM and CBC blood tests."
+  },
+  "Malaria": {
+    "severity": "high",
+    "home_care": [],
+    "seek_medical_attention_if": [
+      "Prompt blood smear or rapid diagnostic test (RDT) required",
+      "Immediate care if confusion, jaundice, or dark urine develops"
+    ],
+    "doctor_visit": "Visit a clinic immediately for antimalarial prescription."
+  },
+  "Pneumonia": {
+    "severity": "high",
+    "home_care": [],
+    "seek_medical_attention_if": [
+      "Seek urgent emergency care if lips turn bluish or breathing is rapid and labored"
+    ],
+    "doctor_visit": "Immediate clinical evaluation and chest imaging required."
+  },
+  "Tuberculosis": {
+    "severity": "high",
+    "home_care": [],
+    "seek_medical_attention_if": [
+      "Seek immediate medical attention for sputum AFB testing and chest X-ray"
+    ],
+    "doctor_visit": "Strictly requires supervised clinical anti-tubercular therapy (DOTS)."
+  }
+}

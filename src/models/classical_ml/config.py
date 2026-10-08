@@ -1,5 +1,8 @@
 import os
-import yaml
+try:
+    import yaml
+except ImportError:
+    yaml = None
 
 class Config:
     def __init__(self):
@@ -39,11 +42,12 @@ class Config:
         })
 
     def _load_yaml_config(self):
-        if os.path.exists(self.CONFIG_FILE):
-            with open(self.CONFIG_FILE, "r") as f:
-                return yaml.safe_load(f)
-        else:
-            print(f"Warning: Config file not found at {self.CONFIG_FILE}. Using defaults.")
-            return {}
+        if yaml is not None and os.path.exists(self.CONFIG_FILE):
+            try:
+                with open(self.CONFIG_FILE, "r") as f:
+                    return yaml.safe_load(f) or {}
+            except Exception:
+                return {}
+        return {}
 
 config = Config()

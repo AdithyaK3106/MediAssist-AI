@@ -2,31 +2,33 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pytest_cache/
+.pytest_cache/
 
 # Environments
-.venv
+.venv/
 env/
 venv/
 ENV/
 
-# Data & Models (Exclude large binaries from Git)
-data/
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-models/
-vector_store/
-logs/*.log
-*.pkl
-*.json
-!data/**/*.json
-!src/**/*.json
-!reports/**/*.json
-!experiments/**/*.json
-!models/metadata/*.json
+# Agent & Scratch artifacts
+brain/
 
-# IDEs
+# IDE & Editor files
 .vscode/
 .idea/
+.vibe-wise/
+
+# Runtime Logs
+logs/
+*.log
+
+# Large Deep Learning Model Weights & Checkpoints (exclude huge binaries, keep code/metadata)
+/models/transformers/**/checkpoint-*
+/models/transformers/**/*.bin
+/models/transformers/**/*.safetensors
+/models/transformers/**/*.pt
+vector_store/
 
 # Environment Variables
 .env

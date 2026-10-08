@@ -1,0 +1,123 @@
+{
+  "Dengue": [
+    "fever",
+    "systemic",
+    "musculoskeletal",
+    "skin"
+  ],
+  "Malaria": [
+    "fever",
+    "systemic",
+    "musculoskeletal",
+    "gastrointestinal"
+  ],
+  "Typhoid": [
+    "fever",
+    "gastrointestinal",
+    "systemic"
+  ],
+  "Influenza (Flu)": [
+    "respiratory",
+    "fever",
+    "systemic",
+    "musculoskeletal"
+  ],
+  "Common Cold": [
+    "respiratory",
+    "fever"
+  ],
+  "Pneumonia": [
+    "respiratory",
+    "fever",
+    "cardiovascular",
+    "systemic"
+  ],
+  "Tuberculosis": [
+    "respiratory",
+    "fever",
+    "systemic"
+  ],
+  "Asthma": [
+    "respiratory",
+    "cardiovascular"
+  ],
+  "Gastroenteritis": [
+    "gastrointestinal",
+    "systemic",
+    "fever"
+  ],
+  "GERD (Acid Reflux)": [
+    "gastrointestinal",
+    "cardiovascular"
+  ],
+  "Peptic Ulcer Disease": [
+    "gastrointestinal"
+  ],
+  "Migraine": [
+    "neurological",
+    "eye"
+  ],
+  "Hypertension": [
+    "cardiovascular",
+    "neurological",
+    "systemic"
+  ],
+  "Diabetes": [
+    "metabolic",
+    "urinary",
+    "systemic"
+  ],
+  "Urinary Tract Infection (UTI)": [
+    "urinary",
+    "fever",
+    "systemic"
+  ],
+  "Chicken Pox": [
+    "skin",
+    "fever",
+    "systemic"
+  ],
+  "Acne": [
+    "skin"
+  ],
+  "Psoriasis": [
+    "skin",
+    "musculoskeletal"
+  ],
+  "Impetigo": [
+    "skin"
+  ],
+  "Fungal Infection": [
+    "skin"
+  ],
+  "Arthritis": [
+    "musculoskeletal",
+    "systemic"
+  ],
+  "Cervical Spondylosis": [
+    "musculoskeletal",
+    "neurological"
+  ],
+  "Jaundice": [
+    "gastrointestinal",
+    "systemic",
+    "skin"
+  ],
+  "Hemorrhoids": [
+    "gastrointestinal"
+  ],
+  "Varicose Veins": [
+    "cardiovascular",
+    "musculoskeletal"
+  ],
+  "Allergy": [
+    "respiratory",
+    "skin",
+    "eye"
+  ],
+  "Drug Reaction": [
+    "skin",
+    "systemic",
+    "fever"
+  ]
+}

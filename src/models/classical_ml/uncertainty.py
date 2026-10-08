@@ -1,7 +1,5 @@
 import os
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 from .config import config
 from .utils import setup_logging
 
@@ -18,6 +16,8 @@ def calculate_top2_gap(probabilities):
 
 def analyze_uncertainty(model, X_test, model_name):
     """Generate uncertainty metrics and plots."""
+    import matplotlib.pyplot as plt
+    import seaborn as sns
     logger.info(f"Analyzing uncertainty for {model_name}...")
     
     if not hasattr(model, "predict_proba"):

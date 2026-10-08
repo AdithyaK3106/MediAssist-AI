@@ -1,0 +1,169 @@
+/* 📱 WhatsApp-Style Web UI Theme for MediAssist AI */
+
+:root {
+    --wa-teal: #075E54;
+    --wa-green: #128C7E;
+    --wa-light-green: #25D366;
+    --wa-bg: #EFEAE2;
+    --wa-incoming: #FFFFFF;
+    --wa-outgoing: #D9FDD3;
+    --wa-text-primary: #111B21;
+    --wa-text-muted: #667781;
+    --wa-border: #E9EDEF;
+    --wa-danger: #EA0038;
+}
+
+/* Overall container and background */
+.stApp {
+    background-color: var(--wa-bg) !important;
+    background-image: radial-gradient(#d1d7db 0.75px, transparent 0.75px) !important;
+    background-size: 16px 16px !important;
+    color: var(--wa-text-primary) !important;
+}
+
+/* WhatsApp App Header */
+.wa-header {
+    background: linear-gradient(135deg, var(--wa-teal), var(--wa-green)) !important;
+    color: #FFFFFF !important;
+    padding: 12px 20px !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-shadow: 0 4px 12px rgba(7, 94, 84, 0.25) !important;
+    margin-bottom: 16px !important;
+}
+
+.wa-header-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wa-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.wa-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: #FFFFFF;
+    line-height: 1.2;
+}
+
+.wa-status {
+    font-size: 0.78rem;
+    color: #D1E7DD;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.wa-status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 8px #25D366;
+}
+
+/* Chat bubble containers */
+.wa-message-row {
+    display: flex;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.wa-outgoing-row {
+    justify-content: flex-end;
+}
+
+.wa-incoming-row {
+    justify-content: flex-start;
+}
+
+.wa-bubble {
+    max-width: 82%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(11, 20, 26, 0.12);
+}
+
+.wa-bubble-outgoing {
+    background-color: var(--wa-outgoing);
+    color: var(--wa-text-primary);
+    border-top-right-radius: 2px;
+}
+
+.wa-bubble-incoming {
+    background-color: var(--wa-incoming);
+    color: var(--wa-text-primary);
+    border-top-left-radius: 2px;
+}
+
+.wa-bubble-time {
+    font-size: 0.70rem;
+    color: var(--wa-text-muted);
+    text-align: right;
+    margin-top: 4px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+}
+
+.wa-ticks {
+    color: #53BDEB;
+    font-weight: bold;
+}
+
+/* Clinical Triage Card inside WhatsApp */
+.wa-triage-card {
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 8px;
+    border-left: 4px solid #128C7E;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.wa-emergency-card {
+    background: #FFF5F5;
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 8px;
+    border: 2px solid #EA0038;
+    box-shadow: 0 2px 8px rgba(234, 0, 56, 0.15);
+    animation: waPulse 2s infinite;
+}
+
+@keyframes waPulse {
+    0% { box-shadow: 0 0 0 0 rgba(234, 0, 56, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(234, 0, 56, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(234, 0, 56, 0); }
+}
+
+.wa-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.wa-badge-low { background-color: #E8F5E9; color: #2E7D32; }
+.wa-badge-moderate { background-color: #FFF3E0; color: #E65100; }
+.wa-badge-high { background-color: #FFEBEE; color: #C62828; }

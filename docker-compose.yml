@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mediassist-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mediassist-app
+    restart: unless-stopped
+    ports:
+      - "8501:8501"   # WhatsApp-style Web UI (Streamlit)
+      - "8000:8000"   # FastAPI Backend
+    volumes:
+      # Live code mounting: edits on host reflect immediately inside container
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+    extra_hosts:
+      # Allows the container to communicate with Ollama running natively on the host
+      - "host.docker.internal:host-gateway"

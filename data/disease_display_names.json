@@ -1,0 +1,110 @@
+{
+  "Acne": {
+    "friendly_name": "Acne",
+    "description": "Preliminary presentation consistent with Acne. Clinical evaluation recommended."
+  },
+  "Allergy": {
+    "friendly_name": "Allergy",
+    "description": "Preliminary presentation consistent with Allergy. Clinical evaluation recommended."
+  },
+  "Arthritis": {
+    "friendly_name": "Arthritis",
+    "description": "Preliminary presentation consistent with Arthritis. Clinical evaluation recommended."
+  },
+  "Asthma": {
+    "friendly_name": "Asthma",
+    "description": "Preliminary presentation consistent with Asthma. Clinical evaluation recommended."
+  },
+  "Cervical Spondylosis": {
+    "friendly_name": "Cervical Spondylosis",
+    "description": "Preliminary presentation consistent with Cervical Spondylosis. Clinical evaluation recommended."
+  },
+  "Chicken Pox": {
+    "friendly_name": "Chicken Pox",
+    "description": "Preliminary presentation consistent with Chicken Pox. Clinical evaluation recommended."
+  },
+  "Common Cold": {
+    "friendly_name": "Common Cold",
+    "description": "Mild viral upper respiratory tract infection marked by nasal congestion, sneezing, sore throat, and low-grade discomfort."
+  },
+  "Dengue": {
+    "friendly_name": "Dengue Fever",
+    "description": "Mosquito-borne viral infection characterized by sudden high fever, retro-orbital eye pain, and joint aches."
+  },
+  "Diabetes": {
+    "friendly_name": "Diabetes",
+    "description": "Preliminary presentation consistent with Diabetes. Clinical evaluation recommended."
+  },
+  "Drug Reaction": {
+    "friendly_name": "Drug Reaction",
+    "description": "Preliminary presentation consistent with Drug Reaction. Clinical evaluation recommended."
+  },
+  "Fungal Infection": {
+    "friendly_name": "Fungal Infection",
+    "description": "Preliminary presentation consistent with Fungal Infection. Clinical evaluation recommended."
+  },
+  "GERD (Acid Reflux)": {
+    "friendly_name": "GERD (Acid Reflux)",
+    "description": "Preliminary presentation consistent with GERD (Acid Reflux). Clinical evaluation recommended."
+  },
+  "Gastroenteritis": {
+    "friendly_name": "Gastroenteritis (Stomach Infection)",
+    "description": "Inflammation of the digestive tract commonly caused by viral or bacterial infection, resulting in diarrhea, vomiting, and cramps."
+  },
+  "Hemorrhoids": {
+    "friendly_name": "Hemorrhoids",
+    "description": "Preliminary presentation consistent with Hemorrhoids. Clinical evaluation recommended."
+  },
+  "Hypertension": {
+    "friendly_name": "Hypertension",
+    "description": "Preliminary presentation consistent with Hypertension. Clinical evaluation recommended."
+  },
+  "Impetigo": {
+    "friendly_name": "Impetigo",
+    "description": "Preliminary presentation consistent with Impetigo. Clinical evaluation recommended."
+  },
+  "Influenza (Flu)": {
+    "friendly_name": "Influenza (Flu)",
+    "description": "Contagious respiratory illness caused by influenza viruses, marked by rapid onset fever, severe body aches, and exhaustion."
+  },
+  "Jaundice": {
+    "friendly_name": "Jaundice",
+    "description": "Preliminary presentation consistent with Jaundice. Clinical evaluation recommended."
+  },
+  "Malaria": {
+    "friendly_name": "Malaria",
+    "description": "Parasitic infection transmitted by mosquitoes, typically presenting with cyclical chills, high fever, and sweating."
+  },
+  "Migraine": {
+    "friendly_name": "Migraine",
+    "description": "Preliminary presentation consistent with Migraine. Clinical evaluation recommended."
+  },
+  "Peptic Ulcer Disease": {
+    "friendly_name": "Peptic Ulcer Disease",
+    "description": "Preliminary presentation consistent with Peptic Ulcer Disease. Clinical evaluation recommended."
+  },
+  "Pneumonia": {
+    "friendly_name": "Pneumonia",
+    "description": "Acute lower respiratory infection causing lung inflammation, productive cough, fever, and difficulty breathing."
+  },
+  "Psoriasis": {
+    "friendly_name": "Psoriasis",
+    "description": "Preliminary presentation consistent with Psoriasis. Clinical evaluation recommended."
+  },
+  "Tuberculosis": {
+    "friendly_name": "Tuberculosis (TB)",
+    "description": "Chronic infectious bacterial disease mainly affecting the lungs, marked by persistent cough >3 weeks, weight loss, and night sweats."
+  },
+  "Typhoid": {
+    "friendly_name": "Typhoid",
+    "description": "Preliminary presentation consistent with Typhoid. Clinical evaluation recommended."
+  },
+  "Urinary Tract Infection (UTI)": {
+    "friendly_name": "Urinary Tract Infection (UTI)",
+    "description": "Preliminary presentation consistent with Urinary Tract Infection (UTI). Clinical evaluation recommended."
+  },
+  "Varicose Veins": {
+    "friendly_name": "Varicose Veins",
+    "description": "Preliminary presentation consistent with Varicose Veins. Clinical evaluation recommended."
+  }
+}
