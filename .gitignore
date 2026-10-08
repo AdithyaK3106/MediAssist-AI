@@ -18,6 +18,8 @@ brain/
 .vscode/
 .idea/
 .vibe-wise/
+.chronos/
+.ortho/
 
 # Runtime Logs
 logs/
@@ -32,3 +34,24 @@ vector_store/
 
 # Environment Variables
 .env
+
+# Large Raw and Processed Datasets (keep standardized training splits and JSON configs)
+data/processed/bert/conversations_cleaned.csv
+data/processed/bert/symptoms_bert_ready.csv
+data/processed/hospitals/
+data/processed/ml/*.csv
+data/raw/conversations/
+data/raw/hospitals/*.pdf
+data/raw/india_medical_dataset_expansion_balanced.csv
+data/raw/reports/
+data/raw/rural_health/
+data/raw/symptoms/data.csv
+data/raw/symptoms/final_symptoms_to_disease.csv
+
+# Local Benchmark / Redundant Pickles (reproducible via benchmark script)
+models/classical/decision_tree/
+models/classical/default/
+models/classical/logistic_regression/model.joblib
+models/classical/svm/classifier.pkl
+models/classical/xgboost/
+models/metadata/

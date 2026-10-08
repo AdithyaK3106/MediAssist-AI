@@ -167,3 +167,116 @@
 .wa-badge-low { background-color: #E8F5E9; color: #2E7D32; }
 .wa-badge-moderate { background-color: #FFF3E0; color: #E65100; }
 .wa-badge-high { background-color: #FFEBEE; color: #C62828; }
+
+/* Clinical Audit Card */
+.wa-audit-header {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+    border: 1px solid var(--wa-border);
+}
+
+.wa-audit-header h3 {
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    color: var(--wa-teal);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.wa-audit-header p {
+    font-size: 0.75rem;
+    color: var(--wa-text-muted);
+    margin: 0;
+}
+
+/* 🌙 WhatsApp Dark Mode Theme Rules */
+body.dark-theme .stApp,
+.dark-theme .stApp {
+    background-color: #0B141A !important;
+    background-image: radial-gradient(#202C33 1px, transparent 1px) !important;
+    color: #E9EDEF !important;
+}
+
+body.dark-theme .wa-header,
+.dark-theme .wa-header {
+    background: #202C33 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    border-bottom: 1px solid #2A3942 !important;
+}
+
+body.dark-theme .wa-avatar,
+.dark-theme .wa-avatar {
+    background-color: #111B21 !important;
+}
+
+body.dark-theme .wa-bubble-outgoing,
+.dark-theme .wa-bubble-outgoing {
+    background-color: #005C4B !important;
+    color: #E9EDEF !important;
+}
+
+body.dark-theme .wa-bubble-incoming,
+.dark-theme .wa-bubble-incoming {
+    background-color: #202C33 !important;
+    color: #E9EDEF !important;
+}
+
+body.dark-theme .wa-bubble-time,
+.dark-theme .wa-bubble-time {
+    color: #8696A0 !important;
+}
+
+body.dark-theme .wa-triage-card,
+.dark-theme .wa-triage-card {
+    background: #111B21 !important;
+    color: #E9EDEF !important;
+    border-left: 4px solid #00A884 !important;
+}
+
+body.dark-theme .wa-emergency-card,
+.dark-theme .wa-emergency-card {
+    background: #2D1519 !important;
+    color: #FFCDD2 !important;
+    border: 2px solid #EA0038 !important;
+}
+
+body.dark-theme .wa-audit-header,
+.dark-theme .wa-audit-header {
+    background: #202C33 !important;
+    border: 1px solid #2A3942 !important;
+}
+
+body.dark-theme .wa-audit-header h3,
+.dark-theme .wa-audit-header h3 {
+    color: #25D366 !important;
+}
+
+body.dark-theme .wa-audit-header p,
+.dark-theme .wa-audit-header p {
+    color: #8696A0 !important;
+}
+
+body.dark-theme [data-testid="stExpander"],
+.dark-theme [data-testid="stExpander"] {
+    background-color: #111B21 !important;
+    border: 1px solid #222E35 !important;
+    color: #E9EDEF !important;
+    border-radius: 10px !important;
+}
+
+body.dark-theme [data-testid="stExpander"] details summary p,
+.dark-theme [data-testid="stExpander"] details summary p {
+    color: #E9EDEF !important;
+    font-weight: 600 !important;
+}
+
+body.dark-theme [data-testid="stChatInput"] textarea,
+.dark-theme [data-testid="stChatInput"] textarea {
+    background-color: #202C33 !important;
+    color: #E9EDEF !important;
+    border-color: #2A3942 !important;
+}

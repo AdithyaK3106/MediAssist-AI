@@ -127,6 +127,7 @@ The final output is generated via Qwen 2.5 7B constrained by the structured clin
    - Stratified splits: 70% Training ($N=828$), 15% Validation ($N=177$), 15% Testing ($N=178$).
 2. **Bangalore Hospital Directory**: 30 verified hospitals across Bangalore with latitude/longitude coordinates, emergency helpline numbers, and specialized clinical departments.
 3. **Curated Clinical Taxonomies**: JSON knowledge graphs defining symptom-disease categories, evidence-based home remedies, and strict severity exclusion rules.
+4. **Synthetic Indian Disease & Tropical Augmentation Protocol**: An LLM-assisted curation pipeline leveraging pathognomonic key-phrase anchors (aligned with ICMR syndromic surveillance) and multi-persona conversational variations to synthesize colloquial patient presentations for regionally endemic conditions (*Chikungunya*, *Leptospirosis*, *Scrub Typhus*, *Kala-Azar*, *Amoebic Dysentery*, and *Snake Envenomation*).
 
 ### B. Deployment & Hardware Configuration
 - **Development & Verification Environment**: Ubuntu Linux, Python 3.11/3.13, PyTorch 2.2+, Transformers 4.38+, Streamlit 1.32+.

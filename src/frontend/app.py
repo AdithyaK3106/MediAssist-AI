@@ -33,6 +33,77 @@ if "messages" not in st.session_state:
 if "language" not in st.session_state:
     st.session_state.language = "en"
 
+if "theme" not in st.session_state:
+    st.session_state.theme = "light"
+
+if st.session_state.theme == "dark":
+    st.markdown("""
+    <style>
+    .stApp {
+        background-color: #0B141A !important;
+        background-image: radial-gradient(#202C33 1px, transparent 1px) !important;
+        color: #E9EDEF !important;
+    }
+    .wa-header {
+        background: #202C33 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+        border-bottom: 1px solid #2A3942 !important;
+    }
+    .wa-avatar {
+        background-color: #111B21 !important;
+    }
+    .wa-bubble-incoming {
+        background-color: #202C33 !important;
+        color: #E9EDEF !important;
+    }
+    .wa-bubble-outgoing {
+        background-color: #005C4B !important;
+        color: #E9EDEF !important;
+    }
+    .wa-bubble-time {
+        color: #8696A0 !important;
+    }
+    .wa-triage-card {
+        background: #111B21 !important;
+        color: #E9EDEF !important;
+        border-left: 4px solid #00A884 !important;
+    }
+    .wa-emergency-card {
+        background: #2D1519 !important;
+        color: #FFCDD2 !important;
+        border: 2px solid #EA0038 !important;
+    }
+    .wa-audit-header {
+        background: #202C33 !important;
+        border: 1px solid #2A3942 !important;
+    }
+    .wa-audit-header h3 {
+        color: #25D366 !important;
+    }
+    .wa-audit-header p {
+        color: #8696A0 !important;
+    }
+    [data-testid="stExpander"] {
+        background-color: #111B21 !important;
+        border: 1px solid #222E35 !important;
+        color: #E9EDEF !important;
+        border-radius: 10px !important;
+    }
+    [data-testid="stExpander"] details summary p {
+        color: #E9EDEF !important;
+        font-weight: 600 !important;
+    }
+    [data-testid="stChatInput"] textarea {
+        background-color: #202C33 !important;
+        color: #E9EDEF !important;
+        border-color: #2A3942 !important;
+    }
+    .stMarkdown, p, span, label {
+        color: #E9EDEF !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # ── TOP WHATSAPP HEADER ─────────────────────────────────────────────────────
 lang_label = "🇮🇳 हिंदी" if st.session_state.language == "hi" else "🇬🇧 English"
 
@@ -63,6 +134,11 @@ with chat_col:
     with tcol1:
         selected_lang = st.radio("Language / भाषा", ["English (en)", "हिंदी (hi)"], horizontal=True, label_visibility="collapsed")
         st.session_state.language = "hi" if "हिंदी" in selected_lang else "en"
+    with tcol2:
+        theme_label = "☀️ Light" if st.session_state.theme == "dark" else "🌙 Dark"
+        if st.button(f"{theme_label} Mode", use_container_width=True):
+            st.session_state.theme = "light" if st.session_state.theme == "dark" else "dark"
+            st.rerun()
     with tcol3:
         if st.button("🗑️ Clear Chat", use_container_width=True):
             st.session_state.messages = []
@@ -134,8 +210,8 @@ with chat_col:
 # ═══════════════════════════════════════════════════════════════════════════
 with audit_col:
     st.markdown("""
-    <div style="background:#FFFFFF;border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.1);margin-bottom:12px;">
-        <h3 style="margin:0 0 8px 0;font-size:1rem;color:#075E54;display:flex;align-items:center;gap:6px;">
+    <div class="wa-audit-header">
+        <h3>
             🔬 Clinical Triage &amp; Defense Inspector
         </h3>
         <p style="font-size:0.75rem;color:#667781;margin:0;">

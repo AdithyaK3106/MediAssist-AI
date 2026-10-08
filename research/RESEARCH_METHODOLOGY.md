@@ -19,3 +19,9 @@
   - Missed Emergency Rate (MER)
   - Top-1 and Top-3 Condition Accuracy
   - Calibrated Urgency Alignment
+
+## 4. Synthetic Clinical Data Expansion & Key-Phrase Anchoring (Indian & Tropical Diseases)
+To address the severe data scarcity of natural language presentations for underrepresented regional and tropical illnesses in India (such as *Chikungunya*, *Leptospirosis*, *Scrub Typhus*, *Kala-Azar*, and *Snake Envenomation*), the framework incorporates an **LLM-assisted Clinical Data Expansion Protocol**:
+1. **Clinical Key-Phrase Anchoring**: Each target condition is bounded by ICMR/CDC pathognomonic anchors (e.g., black eschar scab in Scrub Typhus; calf muscle tenderness post-flood exposure in Leptospirosis; crippling symmetric polyarthralgia in Chikungunya).
+2. **Multi-Persona Voice Variations**: Generative prompt engineering expands each clinical profile into 25–50 diverse conversational manifestations across four patient personas (anxious family member, casual/colloquial Indian vernacular with Hinglish loanwords, timeline-explicit reporting, and acute emergency escalation).
+3. **Automated Triage Triangulation**: Each generated utterance is annotated with urgency tier, emergency veto eligibility, and typical day-onset trajectories prior to integration into the fine-tuning split.

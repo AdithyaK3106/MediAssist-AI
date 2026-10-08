@@ -1,9 +1,9 @@
 # 🏥 MediAssist AI — Session Brief & Architectural Roadmap
 
-> **Document Version:** 1.2.0  
+> **Document Version:** 1.3.0  
 > **Date:** October 8, 2026  
 > **Project Role:** Senior AI Engineer & Software Manager  
-> **Target Deployment:** Laptop with NVIDIA GeForce RTX 4060 (8GB VRAM) via Docker & Ollama  
+> **Target Deployment:** Laptop with NVIDIA GeForce RTX 4060 (8GB VRAM) via Native Python / Docker & Ollama  
 > **Test Status:** 18 / 18 Tests Passing (100%)
 
 ---
@@ -20,7 +20,7 @@ $$\text{Conversation (Qwen 2.5 7B)} \longrightarrow \text{Emergency Firewall (De
 
 ```mermaid
 flowchart TD
-    User([User]) <--> UI[WhatsApp-Style Web UI\nBilingual: English / Hindi]
+    User([User]) <--> UI[WhatsApp-Style Web UI\nBilingual: English / Hindi\nDark & Light Modes]
     
     subgraph S1 [1. Conversational Understanding]
         UI --> Orch[Backend Orchestrator\nPython State Machine]
@@ -34,7 +34,7 @@ flowchart TD
     end
 
     subgraph S3 [3. Clinical Classification]
-        EmergGate -->|Safe for Routine Triage| PubMedBERT[Fine-Tuned Medical BERT\nPubMedBERT / Calibrated Pipeline]
+        EmergGate -->|Safe for Routine Triage| PubMedBERT[Fine-Tuned Medical BERT\nPubMedBERT Active Checkpoint]
         PubMedBERT --> Top3[Top-3 Conditions + Probabilities]
     end
 
@@ -59,41 +59,37 @@ flowchart TD
 
 | Module | Implementation File | Status | Description |
 | :--- | :--- | :---: | :--- |
-| **Conversational Parser** | [`src/conversational/timeline_extractor.py`](file:///data/Projects/MediAssist/src/conversational/timeline_extractor.py) | ✅ Done | Native Qwen 2.5 7B JSON extractor via Ollama (`format: "json"`). Extracts canonical symptoms, onset, duration in days, severity, progression, and language. Includes deterministic fallback for offline dev. |
+| **Conversational Parser** | [`src/conversational/timeline_extractor.py`](file:///data/Projects/MediAssist/src/conversational/timeline_extractor.py) | ✅ Done | Native Qwen 2.5 7B JSON extractor via Ollama (`format: "json"`). Extracts canonical symptoms, onset, duration in days, severity, progression, and language. |
 | **Emergency Safety Firewall** | [`src/safety/emergency_firewall.py`](file:///data/Projects/MediAssist/src/safety/emergency_firewall.py) | ✅ Done | Deterministic pre-inference veto engine. Intercepts stroke, cardiac, respiratory, hemorrhagic, and severe CNS infections in both languages with 100% EEA. |
-| **Medical BERT Classifier** | [`src/models/transformers/predict_bert.py`](file:///data/Projects/MediAssist/src/models/transformers/predict_bert.py)<br>[`src/models/transformers/train_pubmedbert.py`](file:///data/Projects/MediAssist/src/models/transformers/train_pubmedbert.py) | ✅ Done | Top-3 condition prediction with entropy and probability gap estimation. Supports fine-tuning and calibrated execution with safe CUDA kernel fallback. |
+| **Medical BERT Classifier** | [`src/models/transformers/predict_bert.py`](file:///data/Projects/MediAssist/src/models/transformers/predict_bert.py)<br>[`src/models/transformers/train_pubmedbert.py`](file:///data/Projects/MediAssist/src/models/transformers/train_pubmedbert.py) | ✅ Done | **Fine-Tuned Checkpoint Active** at `models/transformers/pubmedbert/` (84.27% Top-3 Test Accuracy). Live transformer inference connected. |
 | **Clinical Decision Layer** | [`src/safety/decision_layer.py`](file:///data/Projects/MediAssist/src/safety/decision_layer.py) | ✅ Done | Computes urgency tier (*Low*, *Moderate*, *High*), gates home care (strictly blocked for high-risk conditions), red-flag triggers, and hospital routing. |
-| **Response Generator** | [`src/models/llm/qwen_client.py`](file:///data/Projects/MediAssist/src/models/llm/qwen_client.py) | ✅ Done | Modular client for Ollama Qwen 2.5 7B (`host.docker.internal:11434`) with native bilingual generator fallback for dev machines. |
+| **Response Generator** | [`src/models/llm/qwen_client.py`](file:///data/Projects/MediAssist/src/models/llm/qwen_client.py) | ✅ Done | Modular client for Ollama Qwen 2.5 7B (`localhost:11434`) with native bilingual synthesis and fallback. |
 | **Master Orchestrator** | [`src/conversational/triage_orchestrator.py`](file:///data/Projects/MediAssist/src/conversational/triage_orchestrator.py) | ✅ Done | Coordinates all 5 layers, multi-turn session memory, 1-round follow-up limit, and emergency re-evaluation. |
-| **WhatsApp Web UI** | [`src/frontend/app.py`](file:///data/Projects/MediAssist/src/frontend/app.py)<br>[`src/frontend/styles/whatsapp.css`](file:///data/Projects/MediAssist/src/frontend/styles/whatsapp.css) | ✅ Done | WhatsApp-themed interface with chat bubbles, timestamps, blue checkmarks, language switcher, and a live clinical audit inspector. |
-| **Deployment Scripts** | [`run_laptop.sh`](file:///data/Projects/MediAssist/run_laptop.sh)<br>[`run_laptop.bat`](file:///data/Projects/MediAssist/run_laptop.bat) | ✅ Done | One-click launcher scripts for Linux/macOS and Windows that auto-pull `qwen2.5:7b` in Ollama and launch Docker containers. |
-| **Research & Presentation** | [`research/PAPER_DRAFT.md`](file:///data/Projects/MediAssist/research/PAPER_DRAFT.md)<br>[`research/LITERATURE_REVIEW.md`](file:///data/Projects/MediAssist/research/LITERATURE_REVIEW.md)<br>[`research/PRESENTATION_SLIDES_28PT.md`](file:///data/Projects/MediAssist/research/PRESENTATION_SLIDES_28PT.md) | ✅ Done | Complete IEEE-format conference paper, 10 verified peer-reviewed papers (2023–2026), and 9-section PPT slides formatted for 28 pt font. |
+| **WhatsApp Web UI** | [`src/frontend/app.py`](file:///data/Projects/MediAssist/src/frontend/app.py)<br>[`src/frontend/styles/whatsapp.css`](file:///data/Projects/MediAssist/src/frontend/styles/whatsapp.css) | ✅ Done | WhatsApp-themed interface with **Dark / Light theme switcher**, chat bubbles, timestamps, blue checkmarks, language switcher, and live clinical audit inspector. |
+| **Windows Launcher** | [`run_laptop.bat`](file:///data/Projects/MediAssist/run_laptop.bat) | ✅ Done | Robust Windows launcher with automatic background Ollama service startup, directory isolation (`cd /d "%~dp0"`), and automatic fallback to `.venv`. |
+| **Research & Methodology** | [`research/PAPER_DRAFT.md`](file:///data/Projects/MediAssist/research/PAPER_DRAFT.md)<br>[`research/RESEARCH_METHODOLOGY.md`](file:///data/Projects/MediAssist/research/RESEARCH_METHODOLOGY.md) | ✅ Done | Complete IEEE-format conference paper, literature review, and synthetic clinical data expansion protocol for Indian & geriatric diseases. |
 
 ---
 
-## 4. What Is Built & Verified
+## 4. Key Progress & Completed Milestones (Session Updates)
 
-1. **5-Layer Architecture Wiring**: Fully integrated in [`src/conversational/triage_orchestrator.py`](file:///data/Projects/MediAssist/src/conversational/triage_orchestrator.py) and verified with 18 automated tests.
-2. **Ollama Native JSON Extraction**: Fully implemented in `timeline_extractor.py` and `qwen_client.py`. On the laptop with Ollama running, Qwen 2.5 7B directly outputs structured JSON schemas without hardcoded mappings.
-3. **Bangalore Hospital Directory**: 30 verified hospitals with coordinates, 24/7 casualty status, and emergency contacts.
-4. **Standardized Clinical Dataset**: 1,183 samples across 27 conditions with train/val/test splits ready for transformer fine-tuning.
-5. **Multi-turn Clarification Flow**: Single-round follow-up logic when symptom duration or trend is omitted, with dynamic safety re-checks.
-6. **Containerization**: `Dockerfile`, `docker-compose.yml`, `.dockerignore` configured with `host.docker.internal` networking for seamless Ollama integration.
-7. **Research Documentation**: Full paper draft, literature review table with 10 verified papers, and 28pt presentation slides.
-
----
-
-## 5. What Needs to Be Done (When Moving to RTX 4060 Laptop)
-
-1. **Copy or Clone Codebase to Laptop**:
-   - Transfer repository to the RTX 4060 machine.
-2. **Launch with One-Click Script**:
-   - Windows: double-click `run_laptop.bat`
-   - Linux: execute `./run_laptop.sh`
-   - Script automatically checks Ollama, runs `ollama pull qwen2.5:7b`, and starts Docker Compose.
-3. **Optional Model Fine-Tuning on RTX 4060**:
-   - To fine-tune PubMedBERT weights natively using the RTX 4060 (takes ~3 minutes for 3 epochs with fp16):
-     ```bash
-     python -m src.models.transformers.train_pubmedbert
-     ```
-   - The system automatically detects the new checkpoint at `models/transformers/pubmedbert/` and switches from calibrated baseline to transformer weights.
+1. **PubMedBERT Fine-Tuning Completed**:
+   - Fine-tuned `microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext` across the clinical splits.
+   - Evaluated on test set: **84.27% Top-3 Accuracy**, **66.29% Top-1 Accuracy**, test loss `2.06`.
+   - Artifacts generated: model weights, configuration, tokenizer in `models/transformers/pubmedbert/`.
+   - Verified integration in `predict_bert.py`: successfully loads fine-tuned checkpoint directly on CPU/GPU.
+2. **Windows One-Click Launcher (`run_laptop.bat`) Stabilized**:
+   - Resolved batch command parser crashes caused by unescaped parentheses in echo statements.
+   - Added automatic health-check probe for Ollama (`curl -s http://localhost:11434/api/tags`); starts `ollama serve` in background if inactive.
+   - Added directory lockdown (`cd /d "%~dp0"`) to guarantee correct path resolution on Explorer double-click.
+   - Added automatic graceful fallback to local `.venv` Streamlit when Docker daemon is not running.
+3. **WhatsApp Dark Mode UI Integration**:
+   - Added dynamic `🌙 Dark Mode` / `☀️ Light Mode` toggle button in the chat header toolbar.
+   - Implemented authentic WhatsApp web dark theme tokens (`#0B141A` canvas, `#202C33` message bubbles, `#005C4B` user bubbles, high-contrast dark audit cards).
+4. **Scikit-Learn Serialization Fix**:
+   - Retrained calibrated classical baseline using `train_consolidated.py` on local scikit-learn environment (test accuracy: **94.38%**).
+5. **Comprehensive Verification**:
+   - **18 / 18 automated tests passing (100%)** across both `test_hybrid_architecture.py` and `test_safety.py`.
+6. **Synthetic Clinical Data Expansion Protocol**:
+   - Established pathognomonic key-phrase anchoring and multi-persona generation methodology for underrepresented Indian endemic conditions (Chikungunya, Leptospirosis, Scrub Typhus, Kala-Azar, Snake Bite, Amoebiasis) and geriatric musculoskeletal complaints.
+   - Fully documented in `research/RESEARCH_METHODOLOGY.md` and `research/PAPER_DRAFT.md`.
