@@ -25,7 +25,7 @@ REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 RESEARCH_DIR.mkdir(parents=True, exist_ok=True)
 
 class SymptomDataset(Dataset):
-    def __init__(self, texts, labels, tokenizer, max_length=128):
+    def __init__(self, texts, labels, tokenizer, max_length=64):
         self.texts = texts
         self.labels = labels
         self.tokenizer = tokenizer
@@ -72,9 +72,9 @@ def compute_metrics(eval_pred):
 
 def train_pubmedbert(
     model_name="microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext",
-    epochs=4,
-    batch_size=16,
-    lr=2e-5,
+    epochs=3,
+    batch_size=32,
+    lr=3e-5,
     output_dir=DEFAULT_OUTPUT_DIR
 ):
     print("=" * 60)
@@ -125,7 +125,7 @@ def train_pubmedbert(
 
     training_args = TrainingArguments(
         output_dir=str(output_dir / "checkpoints"),
-        evaluation_strategy="epoch",
+        eval_strategy="epoch",
         save_strategy="epoch",
         learning_rate=lr,
         per_device_train_batch_size=batch_size,
@@ -134,7 +134,6 @@ def train_pubmedbert(
         weight_decay=0.01,
         load_best_model_at_end=True,
         metric_for_best_model="accuracy_top3",
-        logging_dir=str(output_dir / "logs"),
         logging_steps=20,
         save_total_limit=1,
         fp16=cuda_ok,
@@ -146,7 +145,7 @@ def train_pubmedbert(
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         compute_metrics=compute_metrics,
         callbacks=[EarlyStoppingCallback(early_stopping_patience=2)]
     )
@@ -184,9 +183,9 @@ def train_pubmedbert(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--epochs", type=int, default=4)
-    parser.add_argument("--batch_size", type=int, default=16)
-    parser.add_argument("--lr", type=float, default=2e-5)
+    parser.add_argument("--epochs", type=int, default=3)
+    parser.add_argument("--batch_size", type=int, default=32)
+    parser.add_argument("--lr", type=float, default=3e-5)
     args = parser.parse_args()
     
     train_pubmedbert(epochs=args.epochs, batch_size=args.batch_size, lr=args.lr)

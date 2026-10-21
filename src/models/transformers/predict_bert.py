@@ -54,7 +54,8 @@ class MedicalBERTInferencePipeline:
         self._load_model()
 
     def _load_model(self):
-        if TORCH_AVAILABLE and self.model_path.exists() and (self.model_path / "config.json").exists():
+        weights_exist = (self.model_path / "model.safetensors").exists() or (self.model_path / "pytorch_model.bin").exists()
+        if TORCH_AVAILABLE and self.model_path.exists() and (self.model_path / "config.json").exists() and weights_exist:
             print(f"[PubMedBERT] Loading fine-tuned model from {self.model_path} on {self.device}")
             self.tokenizer = AutoTokenizer.from_pretrained(str(self.model_path))
             self.model = AutoModelForSequenceClassification.from_pretrained(str(self.model_path)).to(self.device)
