@@ -1,9 +1,12 @@
 {
+  "optimal_temperature_T": 1.0,
+  "val_sample_size": 238,
   "test_sample_size": 239,
   "uncalibrated_raw_softmax": {
-    "expected_calibration_error_ece": 44.49,
-    "maximum_calibration_error_mce": 71.87,
-    "brier_score": 0.4245,
+    "ece": 44.48,
+    "mce": 71.87,
+    "top1_brier_score": 0.4245,
+    "multiclass_brier_score": 0.8239,
     "bin_details": [
       {
         "bin_range": "[0.0-0.1]",
@@ -15,9 +18,9 @@
       {
         "bin_range": "[0.1-0.2]",
         "sample_count": 150,
-        "avg_confidence": 0.1291,
+        "avg_confidence": 0.1292,
         "empirical_accuracy": 0.6133,
-        "calibration_gap": 0.4842
+        "calibration_gap": 0.4841
       },
       {
         "bin_range": "[0.2-0.3]",
@@ -28,19 +31,36 @@
       }
     ]
   },
-  "calibrated_decision_layer": {
-    "expected_calibration_error_ece": 50.0,
-    "maximum_calibration_error_mce": 50.0,
-    "brier_score": 0.25,
+  "calibrated_temperature_scaled": {
+    "ece": 44.48,
+    "mce": 71.87,
+    "top1_brier_score": 0.4245,
+    "multiclass_brier_score": 0.8239,
     "bin_details": [
       {
-        "bin_range": "[0.4-0.5]",
-        "sample_count": 239,
-        "avg_confidence": 0.5,
-        "empirical_accuracy": 0.0,
-        "calibration_gap": 0.5
+        "bin_range": "[0.0-0.1]",
+        "sample_count": 65,
+        "avg_confidence": 0.0854,
+        "empirical_accuracy": 0.3385,
+        "calibration_gap": 0.2531
+      },
+      {
+        "bin_range": "[0.1-0.2]",
+        "sample_count": 150,
+        "avg_confidence": 0.1292,
+        "empirical_accuracy": 0.6133,
+        "calibration_gap": 0.4841
+      },
+      {
+        "bin_range": "[0.2-0.3]",
+        "sample_count": 24,
+        "avg_confidence": 0.2396,
+        "empirical_accuracy": 0.9583,
+        "calibration_gap": 0.7187
       }
     ]
   },
-  "relative_ece_reduction": "-12.38%"
+  "ece_relative_reduction": "0.0%",
+  "multiclass_brier_relative_reduction": "0.0%",
+  "layer4_clinical_prior_note": "Layer 4 applies a 1.8x Bayesian outpatient prior multiplier for benign primary care complaints and normalizes top-3 relative likelihood for patient communication match bands (Primary >=50%, Possible Alternative 25-50%, Less Likely <25%). This is an interface decision support rule, distinct from post-hoc temperature scaling."
 }
