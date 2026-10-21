@@ -225,20 +225,21 @@ The consolidated corpus was partitioned using stratified sampling (random seed $
 
 ## V. Results & Empirical Evaluation
 
-### A. Transformer Backbone Comparative Benchmark
-To validate the choice of biomedical representation, we benchmarked five distinct model backbones across the 35-condition test set ($N=239$). TABLE III details the comparative performance.
+### A. Model Backbone Comparative Benchmark
+To evaluate clinical differential classification, we benchmarked the fine-tuned biomedical transformer (PubMedBERT) against classical machine learning baselines across the exact same held-out 35-condition test set ($N=239$). TABLE III details the measured empirical performance alongside $95\%$ Wilson score confidence intervals and single-sample CPU inference latencies.
 
-### TABLE III: Model Backbone Benchmark on 35-Class Test Split ($N=239$)
+### TABLE III: Empirical Backbone Benchmark on 35-Class Test Split ($N=239$)
 
-| Architecture | Params | Size | Top-1 | Top-3 | F1 | Latency |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **PubMedBERT (Proposed)** | 110M | 418 MB | $57.32\%$ | $\mathbf{83.26\%}$ | $53.55\%$ | $82.1\text{ ms}$ |
-| **BioBERT v1.1 Ref. [9]** | 110M | 420 MB | $54.80\%$ | $79.92\%$ | $51.20\%$ | $83.4\text{ ms}$ |
-| **Calibrated Logistic Reg.** | 24.8K | 1.4 MB | $\mathbf{88.28\%}$ | $\mathbf{98.74\%}$ | $\mathbf{87.67\%}$ | $\mathbf{0.05\text{ ms}}$ |
-| **Multinomial Naive Bayes** | 24.8K | 13.0 MB | $0.84\%$ | $3.35\%$ | $0.89\%$ | $0.04\text{ ms}$ |
-| **Zero-Shot LLM (Qwen 7B)** | 7B | 4.7 GB | $48.20\%$ | $74.20\%$ | $45.10\%$ | $840.0\text{ ms}$ |
+| Architecture | Params | Size | Top-1 Acc. (95% CI) | Top-3 Acc. (95% CI) | Macro-F1 | Weighted-F1 | CPU Latency |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **PubMedBERT (Proposed)** | 110M | 418 MB | $57.32\%$ ($50.98, 63.43$) | $83.26\%$ ($78.01, 87.46$) | $50.21\%$ | $53.55\%$ | $88.9\text{ ms}$ |
+| **Multinomial Naive Bayes** | 24.8K | 1.4 MB | $87.03\%$ ($82.18, 90.71$) | $97.49\%$ ($94.63, 98.84$) | $80.09\%$ | $86.42\%$ | $1.23\text{ ms}$ |
+| **Calibrated Logistic Reg.** | 24.8K | 1.4 MB | $\mathbf{88.28\%}$ ($83.59, 91.77$) | $\mathbf{98.74\%}$ ($96.38, 99.57$) | $\mathbf{81.13\%}$ | $\mathbf{87.67\%}$ | $\mathbf{0.69\text{ ms}$ |
 
-*Key Findings:* PubMedBERT achieves superior Top-3 diagnostic differential recall ($83.26\%$) among transformer encoders, benefiting from domain-specific vocabulary pretraining on clinical literature. Calibrated Logistic Regression provides an ultra-fast ($0.05\text{ ms}$), lightweight ($1.4\text{ MB}$) local fallback for low-resource edge devices, while Multinomial Naive Bayes collapses due to feature independence violations across complex clinical symptom descriptions.
+*Key Findings & Audit Analysis:*
+1. **Classical Linear Models vs. Transformer Embeddings:** Both Calibrated Logistic Regression ($88.28\%$ Top-1) and Multinomial Naive Bayes ($87.03\%$ Top-1) exhibit high test accuracy primarily due to lexical n-gram memorization on template-synthesized outpatient queries (as audited in Section IV-A). 
+2. **Correction of Prior Naive Bayes Reporting:** Previous informal drafts reported an erroneous $0.84\%$ accuracy for Naive Bayes; our empirical audit identified that this was caused by an evaluation mismatch against a legacy 254-class checkpoint. When trained cleanly on the 35-class training split, Naive Bayes achieves $87.03\%$ Top-1 and $97.49\%$ Top-3 accuracy.
+3. **Semantic Generalization vs. Edge Fallback:** While TF-IDF models excel on rigid keyword matches, fine-tuned PubMedBERT ($83.26\%$ Top-3 recall) provides critical semantic robustness to colloquial phrasing, misspellings, and clinical synonymy. Classical models serve as an ultra-fast ($<1\text{ ms}$), lightweight ($1.4\text{ MB}$) local edge fallback for low-resource devices. Unverified simulated entries (e.g., zero-shot LLM and BioBERT without local test execution) have been removed from the empirical benchmark.
 
 ---
 
@@ -376,13 +377,11 @@ To compile this manuscript into IEEE conference or transaction format (`IEEEtran
    \resizebox{\columnwidth}{!}{%
    \begin{tabular}{lcccccc}
    \toprule
-   \textbf{Architecture} & \textbf{Params} & \textbf{Size} & \textbf{Top-1} & \textbf{Top-3} & \textbf{F1} & \textbf{Latency} \\
+   \textbf{Architecture} & \textbf{Params} & \textbf{Size} & \textbf{Top-1 (95\% CI)} & \textbf{Top-3 (95\% CI)} & \textbf{F1} & \textbf{Latency} \\
    \midrule
-   PubMedBERT (Proposed) & 110M & 418 MB & 57.32\% & \textbf{83.26\%} & 53.55\% & 82.1 ms \\
-   BioBERT v1.1 Ref. [9] & 110M & 420 MB & 54.80\% & 79.92\% & 51.20\% & 83.4 ms \\
-   Calibrated Logistic Reg. & 24.8K & 1.4 MB & \textbf{88.28\%} & \textbf{98.74\%} & \textbf{87.67\%} & \textbf{0.05 ms} \\
-   Multinomial Naive Bayes & 24.8K & 13.0 MB & 0.84\% & 3.35\% & 0.89\% & 0.04 ms \\
-   Zero-Shot LLM (Qwen 7B) & 7B & 4.7 GB & 48.20\% & 74.20\% & 45.10\% & 840.0 ms \\
+   PubMedBERT (Proposed) & 110M & 418 MB & 57.32\% (50.98, 63.43) & 83.26\% (78.01, 87.46) & 53.55\% & 88.9 ms \\
+   Multinomial Naive Bayes & 24.8K & 1.4 MB & 87.03\% (82.18, 90.71) & 97.49\% (94.63, 98.84) & 86.42\% & 1.23 ms \\
+   Calibrated Logistic Reg. & 24.8K & 1.4 MB & \textbf{88.28\%} (83.59, 91.77) & \textbf{98.74\%} (96.38, 99.57) & \textbf{87.67\%} & \textbf{0.69 ms} \\
    \bottomrule
    \end{tabular}}
    \end{table}

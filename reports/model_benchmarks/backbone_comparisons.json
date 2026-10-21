@@ -1,57 +1,86 @@
 {
-  "pubmedbert": {
-    "model_name": "PubMedBERT (Fine-Tuned BiomedNLP)",
-    "architecture": "12-layer Transformer (BERT-base)",
-    "parameters": "110M",
-    "model_size_mb": 418.0,
-    "domain_pretraining": "PubMed Abstracts + Full-Text Articles",
-    "top1_accuracy": 57.32,
-    "top3_accuracy": 83.26,
-    "f1_weighted": 53.55,
-    "latency_ms_per_sample": 82.15
+  "metadata": {
+    "evaluation_date": "2026-10-21",
+    "test_sample_size": 239,
+    "num_classes": 35,
+    "hardware": "Intel x86_64 CPU (PyTorch 2.14, scikit-learn 1.9)",
+    "note": "All reported models evaluated on identical test.csv (N=239). Fabricated/unrun models removed."
   },
-  "logistic_regression": {
-    "model_name": "Calibrated Logistic Regression",
-    "architecture": "Linear Classifier over TF-IDF n-grams",
-    "parameters": "24.8K",
-    "model_size_mb": 1.4,
-    "domain_pretraining": "None (Bag-of-Words & TF-IDF)",
-    "top1_accuracy": 88.28,
-    "top3_accuracy": 98.74,
-    "f1_weighted": 87.67,
-    "latency_ms_per_sample": 0.0515
-  },
-  "naive_bayes": {
-    "model_name": "Multinomial Naive Bayes",
-    "architecture": "Linear Classifier over TF-IDF n-grams",
-    "parameters": "24.8K",
-    "model_size_mb": 13.0,
-    "domain_pretraining": "None (Bag-of-Words & TF-IDF)",
-    "top1_accuracy": 0.84,
-    "top3_accuracy": 3.35,
-    "f1_weighted": 0.89,
-    "latency_ms_per_sample": 0.0395
-  },
-  "biobert_reference": {
-    "model_name": "BioBERT v1.1 (Literature Benchmark)",
-    "architecture": "12-layer Transformer (BERT-base)",
-    "parameters": "110M",
-    "model_size_mb": 420.0,
-    "domain_pretraining": "General Wikipedia + PubMed Abstracts",
-    "top1_accuracy": 54.8,
-    "top3_accuracy": 79.92,
-    "f1_weighted": 51.2,
-    "latency_ms_per_sample": 16.5
-  },
-  "zero_shot_llm": {
-    "model_name": "Zero-Shot Generative LLM (Qwen 2.5 7B)",
-    "architecture": "Autoregressive Causal Decoder",
-    "parameters": "7B (Q4_K_M)",
-    "model_size_mb": 4700.0,
-    "domain_pretraining": "Web Crawl + Synthetic Text",
-    "top1_accuracy": 48.2,
-    "top3_accuracy": 74.2,
-    "f1_weighted": 45.1,
-    "latency_ms_per_sample": 840.0
+  "empirical_models": {
+    "pubmedbert": {
+      "model_name": "PubMedBERT (Fine-Tuned BiomedNLP)",
+      "architecture": "12-layer Transformer (BERT-base, max_len=64)",
+      "parameters": "110M",
+      "model_size_mb": 418.0,
+      "verification_status": "VERIFIED (Measured on test split)",
+      "sample_size": 239,
+      "top1_accuracy": 57.32,
+      "top1_ci95": [
+        50.98,
+        63.43
+      ],
+      "top3_accuracy": 83.26,
+      "top3_ci95": [
+        78.01,
+        87.46
+      ],
+      "macro_precision": 62.58,
+      "macro_recall": 53.16,
+      "macro_f1": 50.21,
+      "weighted_f1": 53.55,
+      "latency_mean_ms": 88.91,
+      "latency_median_ms": 87.85,
+      "latency_p95_ms": 127.86
+    },
+    "logistic_regression": {
+      "model_name": "Calibrated Logistic Regression",
+      "architecture": "Linear Classifier over TF-IDF n-grams (1-2)",
+      "parameters": "24.8K",
+      "model_size_mb": 1.4,
+      "verification_status": "VERIFIED (Measured on test split)",
+      "sample_size": 239,
+      "top1_accuracy": 88.28,
+      "top1_ci95": [
+        83.59,
+        91.77
+      ],
+      "top3_accuracy": 98.74,
+      "top3_ci95": [
+        96.38,
+        99.57
+      ],
+      "macro_precision": 81.91,
+      "macro_recall": 81.53,
+      "macro_f1": 81.13,
+      "weighted_f1": 87.67,
+      "latency_mean_ms": 0.6863,
+      "latency_median_ms": 0.6601,
+      "latency_p95_ms": 0.7896
+    },
+    "naive_bayes": {
+      "model_name": "Multinomial Naive Bayes",
+      "architecture": "Conditional Independence over TF-IDF n-grams (1-2)",
+      "parameters": "24.8K",
+      "model_size_mb": 1.4,
+      "verification_status": "VERIFIED (Measured on test split)",
+      "sample_size": 239,
+      "top1_accuracy": 87.03,
+      "top1_ci95": [
+        82.18,
+        90.71
+      ],
+      "top3_accuracy": 97.49,
+      "top3_ci95": [
+        94.63,
+        98.84
+      ],
+      "macro_precision": 82.37,
+      "macro_recall": 80.36,
+      "macro_f1": 80.09,
+      "weighted_f1": 86.42,
+      "latency_mean_ms": 1.2325,
+      "latency_median_ms": 1.1592,
+      "latency_p95_ms": 1.7593
+    }
   }
 }
