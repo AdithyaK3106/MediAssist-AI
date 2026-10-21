@@ -70,9 +70,8 @@ class MediAssistTriageOrchestrator:
                 }
 
         # LAYER 3: Medical BERT Condition Classification
-        symptom_query = " ".join(profile.get("symptoms", []))
-        if not symptom_query:
-            symptom_query = combined_text
+        symptoms_str = " ".join(profile.get("symptoms", []))
+        symptom_query = f"{combined_text} {symptoms_str}".strip() if symptoms_str else combined_text
 
         bert_res = self.bert_pipeline.predict([symptom_query])[0]
         bert_preds = bert_res.get("predictions", [])

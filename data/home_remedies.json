@@ -1,4 +1,123 @@
 {
+  "Tension Headache": {
+    "severity": "low",
+    "home_care": [
+      "Rest in a quiet, softly-lit environment.",
+      "Stay well-hydrated with water or soothing herbal teas.",
+      "Apply a warm or cool compress to the forehead or back of the neck.",
+      "Perform gentle neck and shoulder stretching exercises.",
+      "Ensure 7 to 8 hours of restful sleep."
+    ],
+    "seek_medical_attention_if": [
+      "Headache is sudden, explosive, and unbearable ('worst headache of life').",
+      "Accompanied by high fever, stiff neck, confusion, or speech difficulty.",
+      "Headache progressively worsens daily for more than 7 days."
+    ]
+  },
+  "Eye Strain / Screen Fatigue": {
+    "severity": "low",
+    "home_care": [
+      "Follow the 20-20-20 rule: Every 20 minutes, look at an object 20 feet away for 20 seconds.",
+      "Reduce screen brightness and match ambient room lighting.",
+      "Blink frequently to keep eyes moist; gently splash cool water on face.",
+      "Take a 15-minute screen break every 2 hours of digital work.",
+      "Ensure proper viewing distance (at least an arm's length from monitor)."
+    ],
+    "seek_medical_attention_if": [
+      "Persistent eye pain, significant blurred vision, or double vision occurs.",
+      "Severe eye redness with discharge or extreme sensitivity to normal light."
+    ]
+  },
+  "Sinusitis": {
+    "severity": "low",
+    "home_care": [
+      "Inhale steam with warm water 2-3 times daily to loosen trapped mucus.",
+      "Apply a warm, moist towel across your cheeks, eyes, and forehead.",
+      "Perform gentle saline nasal rinses or saline nasal drops.",
+      "Drink plenty of warm fluids (soups, herbal teas, warm water).",
+      "Sleep with head slightly elevated on an extra pillow to aid drainage."
+    ],
+    "seek_medical_attention_if": [
+      "Symptoms persist for more than 10-12 days without improvement.",
+      "High fever above 102\u00b0F or severe facial swelling/redness around eyes develops.",
+      "Severe headache that does not respond to simple analgesics."
+    ]
+  },
+  "Acidity & Indigestion (Dyspepsia)": {
+    "severity": "low",
+    "home_care": [
+      "Sip warm water or cold milk; avoid tea, coffee, and carbonated beverages.",
+      "Eat smaller, more frequent meals rather than heavy dinners.",
+      "Avoid spicy, oily, deeply fried, and sour foods for 48 hours.",
+      "Remain upright for at least 2 to 3 hours after eating; do not lie down immediately.",
+      "Elevate the head of your bed slightly if reflux worsens at night."
+    ],
+    "seek_medical_attention_if": [
+      "Severe burning chest pain radiating to left arm, neck, or jaw (rule out cardiac causes).",
+      "Difficulty or pain while swallowing food or liquids.",
+      "Black tarry stools or vomiting with dark coffee-ground appearance."
+    ]
+  },
+  "Viral Pharyngitis (Sore Throat)": {
+    "severity": "low",
+    "home_care": [
+      "Gargle with warm salt water (1/2 teaspoon salt in a glass of warm water) 3 to 4 times a day.",
+      "Sip warm honey and ginger tea or warm broths to soothe throat lining.",
+      "Rest your voice and avoid speaking loudly or straining vocal cords.",
+      "Stay well hydrated with ambient temperature or warm liquids.",
+      "Avoid smoking, second-hand smoke, and chilled beverages."
+    ],
+    "seek_medical_attention_if": [
+      "Severe difficulty swallowing saliva, breathing difficulty, or inability to open mouth.",
+      "Persistent high fever >101.5\u00b0F or white pus patches visible on tonsils.",
+      "Sore throat lasting more than 7 days without improvement."
+    ]
+  },
+  "Dehydration & Heat Fatigue": {
+    "severity": "low",
+    "home_care": [
+      "Immediately sip Oral Rehydration Salts (ORS) solution, tender coconut water, or salted buttermilk (chaas).",
+      "Rest in a cool, shaded, or air-conditioned room.",
+      "Loosen tight clothing and sponge skin with cool water.",
+      "Avoid dehydrating beverages like alcohol, excessive coffee, and highly sugary energy drinks.",
+      "Gradually rehydrate over 2 to 4 hours rather than gulping massive amounts at once."
+    ],
+    "seek_medical_attention_if": [
+      "Inability to retain liquids due to continuous vomiting.",
+      "Absence of urination for more than 8 hours, sunken eyes, or extreme dry tongue.",
+      "Confusion, fainting spells (loss of consciousness), or core body temperature rising above 103\u00b0F (heat stroke alert)."
+    ]
+  },
+  "Mechanical Low Back Strain": {
+    "severity": "low",
+    "home_care": [
+      "Rest on a firm mattress in a comfortable position, ideally with knees supported by a pillow.",
+      "Apply an ice pack for the first 48 hours (15 mins at a time), then switch to warm heat packs.",
+      "Avoid complete bed rest beyond 24 hours; gentle short walks prevent stiffness.",
+      "Avoid forward bending, twisting, and lifting weights over 5 kg.",
+      "Practice gentle lumbar and hamstring stretching once acute spasm eases."
+    ],
+    "seek_medical_attention_if": [
+      "Pain radiates down through the leg below the knee with numbness or tingling (sciatica).",
+      "Loss of bladder or bowel control, or numbness in the groin/saddle area (emergency alert).",
+      "Back pain accompanied by unexplained fever or history of cancer."
+    ]
+  },
+  "Chikungunya": {
+    "severity": "moderate",
+    "home_care": [
+      "Strict bed rest during the acute fever and joint inflammation phase.",
+      "Drink abundant fluids: water, coconut water, lemon water, and clear broths.",
+      "Use paracetamol for pain/fever relief under medical guidance; avoid aspirin/NSAIDs until Dengue is ruled out.",
+      "Perform gentle active range-of-motion joint exercises once acute fever subsides.",
+      "Use cold ice packs wrapped in towels over swollen wrists and ankles for 10-15 minutes."
+    ],
+    "seek_medical_attention_if": [
+      "Extreme incapacitating joint swelling preventing any mobility.",
+      "Severe persistent fever lasting >5 days or emergence of dark skin discolorations.",
+      "Bleeding from gums or nose, or extreme drowsiness in elderly patients."
+    ]
+  },
   "Common Cold": {
     "severity": "low",
     "home_care": [

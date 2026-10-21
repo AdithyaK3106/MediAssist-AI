@@ -119,5 +119,36 @@
     "skin",
     "systemic",
     "fever"
+  ],
+  "Tension Headache": [
+    "neurological",
+    "musculoskeletal"
+  ],
+  "Eye Strain / Screen Fatigue": [
+    "eye",
+    "neurological"
+  ],
+  "Sinusitis": [
+    "respiratory",
+    "neurological"
+  ],
+  "Acidity & Indigestion (Dyspepsia)": [
+    "gastrointestinal"
+  ],
+  "Viral Pharyngitis (Sore Throat)": [
+    "respiratory",
+    "fever"
+  ],
+  "Dehydration & Heat Fatigue": [
+    "systemic",
+    "neurological"
+  ],
+  "Mechanical Low Back Strain": [
+    "musculoskeletal"
+  ],
+  "Chikungunya": [
+    "fever",
+    "musculoskeletal",
+    "skin"
   ]
 }

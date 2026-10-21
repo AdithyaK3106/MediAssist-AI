@@ -1,18 +1,21 @@
 # 🏥 MediAssist AI — Session Brief & Architectural Roadmap
 
 > **Document Version:** 1.3.0  
-> **Date:** October 8, 2026  
+> **Date:** October 21, 2026  
 > **Project Role:** Senior AI Engineer & Software Manager  
-> **Target Deployment:** Laptop with NVIDIA GeForce RTX 4060 (8GB VRAM) via Native Python / Docker & Ollama  
-> **Test Status:** 18 / 18 Tests Passing (100%)
+> **Target Deployment:** Laptop with NVIDIA GeForce RTX 4060 (8GB VRAM) via Docker & Ollama  
+> **Test Status:** 18 / 18 Tests Passing (100%)  
+> **Taxonomy Scale:** 35 Conditions (1,589 Consolidated Samples)
 
 ---
 
 ## 1. Executive Summary
 **MediAssist AI** is a **Safety-Aware Bilingual AI Healthcare Triage Assistant**. The framework strictly operates as a **preliminary assistance and triage tool, NOT a diagnostic replacement**.
 
+Following user feedback on low confidence (5%) for generic symptoms like *"headache since 3 days"*, the system was upgraded with a **high-prevalence Indian Outpatient Synthetic Dataset** and **Relative Likelihood Calibration**, expanding the taxonomy from 27 to **35 conditions**.
+
 The primary technical contribution is the **defense-in-depth separation of responsibilities**:
-$$\text{Conversation (Qwen 2.5 7B)} \longrightarrow \text{Emergency Firewall (Deterministic Veto)} \longrightarrow \text{Clinical BERT (PubMedBERT)} \longrightarrow \text{Decision Layer} \longrightarrow \text{Generator (Qwen 2.5 7B)}$$
+$$\text{Conversation (Qwen 2.5 7B)} \longrightarrow \text{Emergency Firewall (Deterministic Veto)} \longrightarrow \text{Clinical BERT (PubMedBERT)} \longrightarrow \text{Decision Layer (Relative Likelihood)} \longrightarrow \text{Generator (Qwen 2.5 7B)}$$
 
 ---
 
@@ -20,7 +23,7 @@ $$\text{Conversation (Qwen 2.5 7B)} \longrightarrow \text{Emergency Firewall (De
 
 ```mermaid
 flowchart TD
-    User([User]) <--> UI[WhatsApp-Style Web UI\nBilingual: English / Hindi\nDark & Light Modes]
+    User([User]) <--> UI[WhatsApp-Style Web UI\nBilingual: English / Hindi]
     
     subgraph S1 [1. Conversational Understanding]
         UI --> Orch[Backend Orchestrator\nPython State Machine]
@@ -34,15 +37,17 @@ flowchart TD
     end
 
     subgraph S3 [3. Clinical Classification]
-        EmergGate -->|Safe for Routine Triage| PubMedBERT[Fine-Tuned Medical BERT\nPubMedBERT Active Checkpoint]
+        EmergGate -->|Safe for Routine Triage| PubMedBERT[Fine-Tuned Medical BERT / Calibrated Baseline\n35 Outpatient & Endemic Conditions]
         PubMedBERT --> Top3[Top-3 Conditions + Probabilities]
     end
 
     subgraph S4 [4. Safety & Decision Layer]
         Top3 & JSON --> DecisionLayer[Clinical Decision Layer]
-        DecisionLayer --> Urgency[1. Urgency Level: Low / Moderate / High]
-        DecisionLayer --> CareGate[2. Home Care Gate: Blocked for High/Emergency]
-        DecisionLayer --> HospRoute[3. Bangalore Hospital Routing: GPS + Specialty]
+        DecisionLayer --> Prior[Epidemiological Prior Weighting]
+        DecisionLayer --> RelLikelihood[Relative Likelihood % + Clinical Match Bands]
+        DecisionLayer --> Urgency[Urgency Level: Low / Moderate / High]
+        DecisionLayer --> CareGate[Home Care Gate: Blocked for High/Emergency]
+        DecisionLayer --> HospRoute[Bangalore Hospital Routing: GPS + Specialty]
         DecisionLayer --> Bundle[(Safe Decision Bundle)]
     end
 
@@ -59,37 +64,29 @@ flowchart TD
 
 | Module | Implementation File | Status | Description |
 | :--- | :--- | :---: | :--- |
+| **Synthetic Data Generator** | [`src/preprocessing/synthetic_data_generator.py`](file:///data/Projects/MediAssist/src/preprocessing/synthetic_data_generator.py) | ✅ Done | Generates 406 clinically authentic patient narratives across 8 high-frequency Indian outpatient complaints (Tension Headache, Eye Strain, Sinusitis, Acidity, Sore Throat, Dehydration, Low Back Strain, Chikungunya) in English, Indian English, and Hinglish. |
+| **Dataset Consolidator** | [`src/preprocessing/dataset_consolidator.py`](file:///data/Projects/MediAssist/src/preprocessing/dataset_consolidator.py) | ✅ Done | Consolidates benchmark data + synthetic data into 1,589 samples across 35 conditions. Generates stratified train (1,112), val (238), test (239) splits and clinical metadata. |
 | **Conversational Parser** | [`src/conversational/timeline_extractor.py`](file:///data/Projects/MediAssist/src/conversational/timeline_extractor.py) | ✅ Done | Native Qwen 2.5 7B JSON extractor via Ollama (`format: "json"`). Extracts canonical symptoms, onset, duration in days, severity, progression, and language. |
-| **Emergency Safety Firewall** | [`src/safety/emergency_firewall.py`](file:///data/Projects/MediAssist/src/safety/emergency_firewall.py) | ✅ Done | Deterministic pre-inference veto engine. Intercepts stroke, cardiac, respiratory, hemorrhagic, and severe CNS infections in both languages with 100% EEA. |
-| **Medical BERT Classifier** | [`src/models/transformers/predict_bert.py`](file:///data/Projects/MediAssist/src/models/transformers/predict_bert.py)<br>[`src/models/transformers/train_pubmedbert.py`](file:///data/Projects/MediAssist/src/models/transformers/train_pubmedbert.py) | ✅ Done | **Fine-Tuned Checkpoint Active** at `models/transformers/pubmedbert/` (84.27% Top-3 Test Accuracy). Live transformer inference connected. |
-| **Clinical Decision Layer** | [`src/safety/decision_layer.py`](file:///data/Projects/MediAssist/src/safety/decision_layer.py) | ✅ Done | Computes urgency tier (*Low*, *Moderate*, *High*), gates home care (strictly blocked for high-risk conditions), red-flag triggers, and hospital routing. |
-| **Response Generator** | [`src/models/llm/qwen_client.py`](file:///data/Projects/MediAssist/src/models/llm/qwen_client.py) | ✅ Done | Modular client for Ollama Qwen 2.5 7B (`localhost:11434`) with native bilingual synthesis and fallback. |
-| **Master Orchestrator** | [`src/conversational/triage_orchestrator.py`](file:///data/Projects/MediAssist/src/conversational/triage_orchestrator.py) | ✅ Done | Coordinates all 5 layers, multi-turn session memory, 1-round follow-up limit, and emergency re-evaluation. |
-| **WhatsApp Web UI** | [`src/frontend/app.py`](file:///data/Projects/MediAssist/src/frontend/app.py)<br>[`src/frontend/styles/whatsapp.css`](file:///data/Projects/MediAssist/src/frontend/styles/whatsapp.css) | ✅ Done | WhatsApp-themed interface with **Dark / Light theme switcher**, chat bubbles, timestamps, blue checkmarks, language switcher, and live clinical audit inspector. |
-| **Windows Launcher** | [`run_laptop.bat`](file:///data/Projects/MediAssist/run_laptop.bat) | ✅ Done | Robust Windows launcher with automatic background Ollama service startup, directory isolation (`cd /d "%~dp0"`), and automatic fallback to `.venv`. |
-| **Research & Methodology** | [`research/PAPER_DRAFT.md`](file:///data/Projects/MediAssist/research/PAPER_DRAFT.md)<br>[`research/RESEARCH_METHODOLOGY.md`](file:///data/Projects/MediAssist/research/RESEARCH_METHODOLOGY.md) | ✅ Done | Complete IEEE-format conference paper, literature review, and synthetic clinical data expansion protocol for Indian & geriatric diseases. |
+| **Emergency Safety Firewall** | [`src/safety/emergency_firewall.py`](file:///data/Projects/MediAssist/src/safety/emergency_firewall.py) | ✅ Done | Deterministic pre-inference veto engine (100% EEA, 0% MER). Intercepts stroke, cardiac, respiratory, hemorrhagic, and severe CNS infections in English and Hindi. |
+| **Medical BERT Classifier** | [`src/models/transformers/predict_bert.py`](file:///data/Projects/MediAssist/src/models/transformers/predict_bert.py)<br>[`src/models/classical_ml/train_consolidated.py`](file:///data/Projects/MediAssist/src/models/classical_ml/train_consolidated.py) | ✅ Done | 35-class classifier with Top-3 condition prediction, entropy estimation, and safe GPU/CPU execution. Calibrated baseline achieves 88.28% test accuracy. |
+| **Clinical Decision Layer** | [`src/safety/decision_layer.py`](file:///data/Projects/MediAssist/src/safety/decision_layer.py) | ✅ Done | Computes urgency tiers (*Low*, *Moderate*, *High*), gates home care (blocked for high-severity), applies clinical prior weighting for outpatient complaints, and calculates **Relative Likelihood (%)** with Match Bands. |
+| **Response Generator** | [`src/models/llm/qwen_client.py`](file:///data/Projects/MediAssist/src/models/llm/qwen_client.py) | ✅ Done | Modular client for Ollama Qwen 2.5 7B (`host.docker.internal:11434`) with native bilingual generator fallback for dev machines. |
+| **Master Orchestrator** | [`src/conversational/triage_orchestrator.py`](file:///data/Projects/MediAssist/src/conversational/triage_orchestrator.py) | ✅ Done | Coordinates all 5 layers, multi-turn session memory, 1-round follow-up limit, and emergency re-evaluation. Passes combined conversation text and symptoms to classification. |
+| **WhatsApp Web UI** | [`src/frontend/app.py`](file:///data/Projects/MediAssist/src/frontend/app.py)<br>[`src/frontend/styles/whatsapp.css`](file:///data/Projects/MediAssist/src/frontend/styles/whatsapp.css) | ✅ Done | WhatsApp-themed interface with chat bubbles, timestamps, blue checkmarks, language switcher, and a live clinical audit inspector. |
+| **Deployment Scripts** | [`run_laptop.sh`](file:///data/Projects/MediAssist/run_laptop.sh)<br>[`run_laptop.bat`](file:///data/Projects/MediAssist/run_laptop.bat) | ✅ Done | One-click launcher scripts for Linux/macOS and Windows that auto-pull `qwen2.5:7b` in Ollama and launch Docker containers. |
+| **Research & Presentation** | [`research/PAPER_DRAFT.md`](file:///data/Projects/MediAssist/research/PAPER_DRAFT.md)<br>[`research/LITERATURE_REVIEW.md`](file:///data/Projects/MediAssist/research/LITERATURE_REVIEW.md)<br>[`research/PRESENTATION_SLIDES_28PT.md`](file:///data/Projects/MediAssist/research/PRESENTATION_SLIDES_28PT.md) | ✅ Done | Full IEEE conference paper, 10 verified peer-reviewed papers (2023–2026), and 9-section PPT slides formatted for 28 pt font. |
 
 ---
 
-## 4. Key Progress & Completed Milestones (Session Updates)
+## 4. What Was Tested & Verified
 
-1. **PubMedBERT Fine-Tuning Completed**:
-   - Fine-tuned `microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext` across the clinical splits.
-   - Evaluated on test set: **84.27% Top-3 Accuracy**, **66.29% Top-1 Accuracy**, test loss `2.06`.
-   - Artifacts generated: model weights, configuration, tokenizer in `models/transformers/pubmedbert/`.
-   - Verified integration in `predict_bert.py`: successfully loads fine-tuned checkpoint directly on CPU/GPU.
-2. **Windows One-Click Launcher (`run_laptop.bat`) Stabilized**:
-   - Resolved batch command parser crashes caused by unescaped parentheses in echo statements.
-   - Added automatic health-check probe for Ollama (`curl -s http://localhost:11434/api/tags`); starts `ollama serve` in background if inactive.
-   - Added directory lockdown (`cd /d "%~dp0"`) to guarantee correct path resolution on Explorer double-click.
-   - Added automatic graceful fallback to local `.venv` Streamlit when Docker daemon is not running.
-3. **WhatsApp Dark Mode UI Integration**:
-   - Added dynamic `🌙 Dark Mode` / `☀️ Light Mode` toggle button in the chat header toolbar.
-   - Implemented authentic WhatsApp web dark theme tokens (`#0B141A` canvas, `#202C33` message bubbles, `#005C4B` user bubbles, high-contrast dark audit cards).
-4. **Scikit-Learn Serialization Fix**:
-   - Retrained calibrated classical baseline using `train_consolidated.py` on local scikit-learn environment (test accuracy: **94.38%**).
-5. **Comprehensive Verification**:
-   - **18 / 18 automated tests passing (100%)** across both `test_hybrid_architecture.py` and `test_safety.py`.
-6. **Synthetic Clinical Data Expansion Protocol**:
-   - Established pathognomonic key-phrase anchoring and multi-persona generation methodology for underrepresented Indian endemic conditions (Chikungunya, Leptospirosis, Scrub Typhus, Kala-Azar, Snake Bite, Amoebiasis) and geriatric musculoskeletal complaints.
-   - Fully documented in `research/RESEARCH_METHODOLOGY.md` and `research/PAPER_DRAFT.md`.
+1. **Resolution of Sparse Query Dilution ("headache since 3 days")**:
+   * **Earlier**: 5% confidence split across Hypertension, Malaria, and Chicken Pox.
+   * **Now**: **Tension-Type Headache** is predicted as **Primary Consideration (90.4% relative likelihood)** with 5 comprehensive supportive home care instructions and explicit red flags.
+2. **Indian Outpatient Presentations Tested**:
+   * *Gale me kharash aur nigalne me dard (3 days)* $\rightarrow$ **Viral Pharyngitis (Sore Throat)** (57.1% - Primary Consideration).
+   * *Severe heartburn & sour burps after dinner* $\rightarrow$ **Acidity & Indigestion (Dyspepsia)** (72.9% - Primary Consideration).
+   * *Dhoop me weakness, dry mouth, dark urine* $\rightarrow$ **Dehydration & Heat Fatigue** (81.4% - Primary Consideration).
+   * *Post-fever crippling joint pain in wrists/ankles* $\rightarrow$ **Chikungunya** (61.8% - Primary Consideration).
+3. **Automated Test Suite**:
+   * **18 / 18 Tests Passing (100%)** via `pytest tests/ -v`.

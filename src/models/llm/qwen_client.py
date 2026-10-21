@@ -91,8 +91,9 @@ Strictly follow these clinical triage facts:
 
 Guidelines:
 1. Do NOT claim this is a definitive diagnosis.
-2. Emphasize that professional confirmation is required.
-3. Be respectful, clear, and easy to understand on WhatsApp.
+2. Communicate the top conditions clearly using their clinical relative likelihood percentages and match bands.
+3. Emphasize that professional confirmation is required.
+4. Be respectful, clear, reassuring, and easy to read in WhatsApp format.
 """
         payload = json.dumps({
             "model": self.model,
@@ -123,7 +124,7 @@ Guidelines:
             out = f"नमस्ते। आपके बताए गए लक्षणों और समय-सीमा के आधार पर यह प्रारंभिक स्वास्थ्य विश्लेषण है:\n\n"
             out += f"📊 **प्राथमिक संभावित स्थितियां:**\n"
             for i, c in enumerate(top_conditions[:3]):
-                out += f"{i+1}. **{c['condition']}** — अनुमानित समानता: {c['confidence']}%\n"
+                out += f"{i+1}. **{c['condition']}** — {c.get('match_band_hi', 'संभावना')}: {c['confidence']}% सापेक्ष संभावना\n"
             
             out += f"\n⏱️ **आवश्यकता स्तर (Urgency):** {urgency_hi}\n"
             out += f"👉 **सलाह:** {action_timeframe}\n"
@@ -151,7 +152,7 @@ Guidelines:
             out = f"Hello. Based on your symptoms and timeline, here is your preliminary triage assessment:\n\n"
             out += f"📊 **Top Possible Conditions:**\n"
             for i, c in enumerate(top_conditions[:3]):
-                out += f"{i+1}. **{c['condition']}** — Match: {c['confidence']}%\n"
+                out += f"{i+1}. **{c['condition']}** — {c.get('match_band', 'Match')}: {c['confidence']}% relative likelihood\n"
             
             out += f"\n⏱️ **Urgency Level:** {urgency}\n"
             out += f"👉 **Recommended Action:** {action_timeframe}\n"

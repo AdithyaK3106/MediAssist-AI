@@ -5,10 +5,23 @@ from src.recommendation.recommender import HospitalRecommender
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = PROJECT_ROOT / "data"
 
+BENIGN_OUTPATIENT_CONDITIONS = {
+    "Tension Headache",
+    "Eye Strain / Screen Fatigue",
+    "Sinusitis",
+    "Acidity & Indigestion (Dyspepsia)",
+    "Viral Pharyngitis (Sore Throat)",
+    "Dehydration & Heat Fatigue",
+    "Mechanical Low Back Strain",
+    "Common Cold",
+    "Allergy"
+}
+
 class ClinicalDecisionLayer:
     """
-    Evaluates BERT predictions alongside the symptom timeline.
-    Determines urgency level, gates home care, and attaches hospital routing.
+    Evaluates condition predictions alongside symptom timeline.
+    Determines urgency level, gates home care, calculates calibrated relative likelihood,
+    and attaches Bangalore hospital routing.
     """
     def __init__(self):
         self.hospital_recommender = HospitalRecommender()
@@ -31,57 +44,84 @@ class ClinicalDecisionLayer:
 
     def evaluate(self, bert_predictions: list, timeline: dict, user_lat=12.9716, user_lon=77.5946) -> dict:
         """
-        Produce a safe, comprehensive Decision Bundle.
+        Produce a safe, comprehensive Decision Bundle with calibrated relative likelihood.
         """
         if not bert_predictions:
             return {
+                "top_conditions": [],
+                "primary_condition": "Unknown",
                 "urgency_level": "Low",
                 "action_timeframe": "No clinical conditions detected. Monitor well-being.",
                 "allow_home_care": True,
                 "home_care": ["Maintain adequate hydration and rest."],
                 "red_flags": ["Visit a doctor if new or severe symptoms emerge."],
-                "recommended_hospitals": []
+                "hospitals": []
             }
 
-        top_pred = bert_predictions[0]
-        top_disease = top_pred.get("disease", "Unknown")
-        remedy_info = self.home_remedies.get(top_disease, {})
-        base_severity = remedy_info.get("severity", "moderate")
-
-        # 1. Compute Urgency Level based on condition risk and timeline
         duration_days = timeline.get("duration_days") or 1
         progression = timeline.get("progression", "stable")
         patient_severity = timeline.get("severity", "moderate")
 
+        # 1. Apply Clinical Epidemiological Prior Weighting for Outpatient Presentations
+        # If symptoms are non-severe and lack acute red flags, common primary conditions
+        # (Tension Headache, Sinusitis, Eye Strain, Acidity, etc.) receive a prevalence prior boost.
+        reweighted_preds = []
+        for p in bert_predictions:
+            d_name = p.get("disease", "")
+            raw_prob = float(p.get("probability", 0.0))
+            
+            prior_factor = 1.0
+            if patient_severity != "severe" and duration_days <= 5 and d_name in BENIGN_OUTPATIENT_CONDITIONS:
+                prior_factor = 1.8
+                
+            reweighted_preds.append({
+                "disease": d_name,
+                "weighted_score": raw_prob * prior_factor,
+                "raw_probability": raw_prob
+            })
+
+        # Sort by reweighted score
+        reweighted_preds.sort(key=lambda x: x["weighted_score"], reverse=True)
+        top_k = reweighted_preds[:3]
+
+        # 2. Determine Primary Condition & Base Severity
+        top_disease = top_k[0]["disease"]
+        remedy_info = self.home_remedies.get(top_disease, {})
+        base_severity = remedy_info.get("severity", "moderate")
+
+        # 3. Compute Urgency Level based on condition risk and timeline
         if base_severity == "high" or patient_severity == "severe" or (duration_days >= 7 and progression == "worsening"):
             urgency_level = "High"
             action_timeframe = "Consult a physician promptly today for clinical evaluation and diagnostics."
-        elif duration_days >= 3 or patient_severity == "moderate" or progression == "worsening":
+        elif duration_days >= 3 and base_severity != "low":
+            urgency_level = "Moderate"
+            action_timeframe = "Medical consultation advised within 24 to 48 hours if symptoms persist."
+        elif duration_days >= 5 or patient_severity == "moderate" or progression == "worsening":
             urgency_level = "Moderate"
             action_timeframe = "Medical consultation advised within 24 to 48 hours if symptoms persist."
         else:
             urgency_level = "Low"
-            action_timeframe = "Monitor symptoms closely for 48 hours; seek care if symptoms worsen."
+            action_timeframe = "Monitor symptoms closely for 48 hours; follow supportive home care."
 
-        # 2. Home Care Safety Gating (Strictly suppressed for High Urgency)
+        # 4. Home Care Safety Gating (Strictly suppressed for High Urgency)
         allow_home_care = (urgency_level != "High")
         if allow_home_care:
             home_care_points = remedy_info.get("home_care", [
                 "Drink plenty of fluids (water, electrolytes, broths).",
-                "Ensure sufficient bed rest.",
+                "Ensure sufficient rest in a calm environment.",
                 "Avoid strenuous physical exertion."
             ])
         else:
-            home_care_points = []  # Strictly gated
+            home_care_points = []  # Strictly gated for high severity
 
-        # 3. Red-flag triggers ("When to seek immediate emergency care")
+        # 5. Red-flag triggers ("When to seek immediate emergency care")
         red_flags = remedy_info.get("seek_medical_attention_if", [
             "Temperature rises above 102°F or persists >3 days.",
             "Difficulty breathing, chest tightness, or extreme dizziness develops.",
             "Inability to keep liquids down for more than 12 hours."
         ])
 
-        # 4. Bangalore Hospital Proximity Routing
+        # 6. Bangalore Hospital Proximity Routing
         hospitals = self.hospital_recommender.get_recommendations(
             user_lat=user_lat,
             user_lon=user_lon,
@@ -89,14 +129,33 @@ class ClinicalDecisionLayer:
             top_k=3
         )
 
-        # 5. Format Top-3 conditions with display names
+        # 7. Calculate Normalized Relative Likelihood (%) and Clinical Match Bands
+        total_score = sum(item["weighted_score"] for item in top_k)
+        if total_score <= 0:
+            total_score = 1.0
+
         enriched_predictions = []
-        for p in bert_predictions[:3]:
-            d_name = p["disease"]
+        for item in top_k:
+            d_name = item["disease"]
+            rel_conf = round((item["weighted_score"] / total_score) * 100, 1)
+
+            if rel_conf >= 48.0:
+                band_en = "Primary Consideration"
+                band_hi = "प्राथमिक संभावना"
+            elif rel_conf >= 25.0:
+                band_en = "Possible Alternative"
+                band_hi = "संभावित विकल्प"
+            else:
+                band_en = "Less Likely"
+                band_hi = "कम संभावना"
+
             meta = self.display_names.get(d_name, {"friendly_name": d_name, "description": ""})
             enriched_predictions.append({
                 "condition": meta.get("friendly_name", d_name),
-                "confidence": round(p.get("probability", 0.0) * 100, 1),
+                "confidence": rel_conf,
+                "raw_confidence": round(item["raw_probability"] * 100, 1),
+                "match_band": band_en,
+                "match_band_hi": band_hi,
                 "description": meta.get("description", "")
             })
 

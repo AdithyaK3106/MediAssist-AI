@@ -1,31 +1,43 @@
 {
+  "Acidity & Indigestion (Dyspepsia)": {
+    "friendly_name": "Acidity & Indigestion (Dyspepsia)",
+    "description": "Common upper gastrointestinal irritation causing heartburn, sour burping, bloating, and stomach discomfort after spicy or oily food."
+  },
   "Acne": {
     "friendly_name": "Acne",
-    "description": "Preliminary presentation consistent with Acne. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Acne. Clinical evaluation recommended if symptoms persist."
   },
   "Allergy": {
     "friendly_name": "Allergy",
-    "description": "Preliminary presentation consistent with Allergy. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Allergy. Clinical evaluation recommended if symptoms persist."
   },
   "Arthritis": {
     "friendly_name": "Arthritis",
-    "description": "Preliminary presentation consistent with Arthritis. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Arthritis. Clinical evaluation recommended if symptoms persist."
   },
   "Asthma": {
     "friendly_name": "Asthma",
-    "description": "Preliminary presentation consistent with Asthma. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Asthma. Clinical evaluation recommended if symptoms persist."
   },
   "Cervical Spondylosis": {
     "friendly_name": "Cervical Spondylosis",
-    "description": "Preliminary presentation consistent with Cervical Spondylosis. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Cervical Spondylosis. Clinical evaluation recommended if symptoms persist."
   },
   "Chicken Pox": {
     "friendly_name": "Chicken Pox",
-    "description": "Preliminary presentation consistent with Chicken Pox. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Chicken Pox. Clinical evaluation recommended if symptoms persist."
+  },
+  "Chikungunya": {
+    "friendly_name": "Chikungunya",
+    "description": "Mosquito-borne viral infection marked by acute high fever followed by severe, debilitating symmetrical joint pain and morning stiffness."
   },
   "Common Cold": {
     "friendly_name": "Common Cold",
     "description": "Mild viral upper respiratory tract infection marked by nasal congestion, sneezing, sore throat, and low-grade discomfort."
+  },
+  "Dehydration & Heat Fatigue": {
+    "friendly_name": "Dehydration & Heat Fatigue",
+    "description": "Fluid and electrolyte deficit presenting with extreme thirst, dry mouth, dizziness when standing, and fatigue after sun or heat exposure."
   },
   "Dengue": {
     "friendly_name": "Dengue Fever",
@@ -33,19 +45,23 @@
   },
   "Diabetes": {
     "friendly_name": "Diabetes",
-    "description": "Preliminary presentation consistent with Diabetes. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Diabetes. Clinical evaluation recommended if symptoms persist."
   },
   "Drug Reaction": {
     "friendly_name": "Drug Reaction",
-    "description": "Preliminary presentation consistent with Drug Reaction. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Drug Reaction. Clinical evaluation recommended if symptoms persist."
+  },
+  "Eye Strain / Screen Fatigue": {
+    "friendly_name": "Eye Strain / Screen Fatigue",
+    "description": "Digital eye strain (asthenopia) characterized by tired, burning eyes, frontal headache, and mild blurriness after prolonged screen use."
   },
   "Fungal Infection": {
     "friendly_name": "Fungal Infection",
-    "description": "Preliminary presentation consistent with Fungal Infection. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Fungal Infection. Clinical evaluation recommended if symptoms persist."
   },
   "GERD (Acid Reflux)": {
     "friendly_name": "GERD (Acid Reflux)",
-    "description": "Preliminary presentation consistent with GERD (Acid Reflux). Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with GERD (Acid Reflux). Clinical evaluation recommended if symptoms persist."
   },
   "Gastroenteritis": {
     "friendly_name": "Gastroenteritis (Stomach Infection)",
@@ -53,15 +69,15 @@
   },
   "Hemorrhoids": {
     "friendly_name": "Hemorrhoids",
-    "description": "Preliminary presentation consistent with Hemorrhoids. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Hemorrhoids. Clinical evaluation recommended if symptoms persist."
   },
   "Hypertension": {
     "friendly_name": "Hypertension",
-    "description": "Preliminary presentation consistent with Hypertension. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Hypertension. Clinical evaluation recommended if symptoms persist."
   },
   "Impetigo": {
     "friendly_name": "Impetigo",
-    "description": "Preliminary presentation consistent with Impetigo. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Impetigo. Clinical evaluation recommended if symptoms persist."
   },
   "Influenza (Flu)": {
     "friendly_name": "Influenza (Flu)",
@@ -69,19 +85,23 @@
   },
   "Jaundice": {
     "friendly_name": "Jaundice",
-    "description": "Preliminary presentation consistent with Jaundice. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Jaundice. Clinical evaluation recommended if symptoms persist."
   },
   "Malaria": {
     "friendly_name": "Malaria",
     "description": "Parasitic infection transmitted by mosquitoes, typically presenting with cyclical chills, high fever, and sweating."
   },
+  "Mechanical Low Back Strain": {
+    "friendly_name": "Mechanical Low Back Strain",
+    "description": "Muscular stiffness and aching in lower back following lifting, prolonged sitting, or bumpy commutes, without nerve radiation."
+  },
   "Migraine": {
-    "friendly_name": "Migraine",
-    "description": "Preliminary presentation consistent with Migraine. Clinical evaluation recommended."
+    "friendly_name": "Migraine Headache",
+    "description": "Recurrent, pulsating moderate-to-severe headache, often unilateral, accompanied by nausea or sensitivity to light and sound."
   },
   "Peptic Ulcer Disease": {
     "friendly_name": "Peptic Ulcer Disease",
-    "description": "Preliminary presentation consistent with Peptic Ulcer Disease. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Peptic Ulcer Disease. Clinical evaluation recommended if symptoms persist."
   },
   "Pneumonia": {
     "friendly_name": "Pneumonia",
@@ -89,7 +109,15 @@
   },
   "Psoriasis": {
     "friendly_name": "Psoriasis",
-    "description": "Preliminary presentation consistent with Psoriasis. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Psoriasis. Clinical evaluation recommended if symptoms persist."
+  },
+  "Sinusitis": {
+    "friendly_name": "Sinusitis (Sinus Pressure)",
+    "description": "Inflammation of nasal and sinus passages causing facial fullness, pressure over cheeks and forehead, nasal congestion, and head heaviness."
+  },
+  "Tension Headache": {
+    "friendly_name": "Tension-Type Headache",
+    "description": "Common non-severe headache presenting with dull, band-like aching across forehead or back of head. Often triggered by stress, posture, or lack of sleep."
   },
   "Tuberculosis": {
     "friendly_name": "Tuberculosis (TB)",
@@ -97,14 +125,18 @@
   },
   "Typhoid": {
     "friendly_name": "Typhoid",
-    "description": "Preliminary presentation consistent with Typhoid. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Typhoid. Clinical evaluation recommended if symptoms persist."
   },
   "Urinary Tract Infection (UTI)": {
     "friendly_name": "Urinary Tract Infection (UTI)",
-    "description": "Preliminary presentation consistent with Urinary Tract Infection (UTI). Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Urinary Tract Infection (UTI). Clinical evaluation recommended if symptoms persist."
   },
   "Varicose Veins": {
     "friendly_name": "Varicose Veins",
-    "description": "Preliminary presentation consistent with Varicose Veins. Clinical evaluation recommended."
+    "description": "Preliminary presentation consistent with Varicose Veins. Clinical evaluation recommended if symptoms persist."
+  },
+  "Viral Pharyngitis (Sore Throat)": {
+    "friendly_name": "Viral Pharyngitis (Sore Throat)",
+    "description": "Mild upper respiratory viral irritation marked by scratchy, painful throat, difficulty swallowing, and mild malaise."
   }
 }
