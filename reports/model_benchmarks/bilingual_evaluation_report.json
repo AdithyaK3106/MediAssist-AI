@@ -1,0 +1,23 @@
+{
+  "sample_size_per_language": 10,
+  "tokenizer_unk_rate": {
+    "en": 0.0,
+    "hi": 93.7,
+    "hinglish": 0.0
+  },
+  "direct_pubmedbert_top3_acc": {
+    "en": 70.0,
+    "hi": 40.0,
+    "hinglish": 30.0
+  },
+  "decoupled_pipeline_top3_acc": {
+    "en": 70.0,
+    "hi": 20.0,
+    "hinglish": 30.0
+  },
+  "decoupled_pipeline_top1_acc": {
+    "en": 30.0,
+    "hi": 10.0,
+    "hinglish": 20.0
+  }
+}
