@@ -1,0 +1,48 @@
+{
+  "directory_audit": {
+    "total_verified_hospitals": 30,
+    "unique_hospital_names": 30,
+    "centers_with_24x7_emergency": 30,
+    "emergency_coverage_percentage": 100.0,
+    "geographical_scope": {
+      "districts": [
+        "Bangalore Urban"
+      ],
+      "states": [
+        "Karnataka"
+      ]
+    }
+  },
+  "haversine_verification": {
+    "test_route": "Majestic Railway Station -> Manipal Hospital Old Airport Rd",
+    "measured_distance_km": 8.9277,
+    "reference_distance_km": 8.9277,
+    "numerical_error_km": 0.0,
+    "formula_valid": true
+  },
+  "routing_edge_cases": {
+    "cardiology_capability_boost_test": {
+      "passed": true,
+      "top_recommendations": [
+        "St. Johns Medical College Hospital",
+        "Jayadeva Institute of Cardiovascular Sciences",
+        "Manipal Hospital Old Airport Road"
+      ]
+    },
+    "distant_user_mumbai_test": {
+      "passed": true,
+      "measured_distance_km": 837.1
+    },
+    "missing_coordinates_fallback_test": {
+      "passed": true,
+      "fallback_center_distance_km": 1.69
+    },
+    "out_of_bounds_coordinates_test": {
+      "passed": true
+    },
+    "unavailable_specialty_fallback_test": {
+      "passed": true,
+      "nearest_fallback_hospital": "Fortis Hospital Cunningham Road"
+    }
+  }
+}
