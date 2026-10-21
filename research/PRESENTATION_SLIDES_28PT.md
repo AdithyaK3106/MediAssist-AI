@@ -99,7 +99,8 @@ $$\text{Qwen 2.5 7B (Generator)} \longrightarrow \text{Empathetic English / Hind
 
 ## Slide 9: 8. Conclusion
 * **Defense-in-Depth Validated:** Decoupled architecture achieves high safety and transparency.
-* **Zero Compromise on Emergencies:** Deterministic firewall ensures life-threatening inputs bypass ML.
+* **Zero Compromise on Emergencies:** Deterministic firewall ensures life-threatening inputs bypass ML (100% EEA, 0% MER).
+* **Outpatient & Endemic Grounding:** Expanded 35-condition taxonomy achieves 83.3% Top-3 accuracy on PubMedBERT, resolving sparse-query dilution.
 * **Context-Driven Triage:** Timeline awareness successfully prevents both under-triage and panic.
 * **Responsible AI:** Serves strictly as a safety-first assistant to support, not replace, medical doctors.
 
