@@ -16,55 +16,93 @@ if not safety_logger.handlers:
     safety_logger.addHandler(file_handler)
 
 EMERGENCY_RULES = {
-    "Neurological Emergency (Stroke / Seizure)": {
+    "Neurological Emergency (Stroke / Seizure / Aneurysm)": {
         "keywords": [
             "slurred speech", "facial drooping", "face drooping", "facial weakness",
             "one-sided weakness", "one sided weakness", "arm weakness", "leg weakness",
             "loss of speech", "cannot speak", "cant speak", "sudden numbness",
             "stroke", "seizure", "violent seizures", "loss of consciousness", "unconscious",
-            "sudden confusion", "extreme confusion", "fainted suddenly"
+            "sudden confusion", "extreme confusion", "fainted suddenly",
+            "thunderclap headache", "worst headache of my life", "explosion in head",
+            "status epilepticus", "convulsion"
         ],
-        "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Stroke or acute neurological symptoms detected. Immediate emergency medical intervention is required.",
-        "guidance_hi": "🚨 आपातकालीन चेतावनी: स्ट्रोक या गंभीर न्यूरोलॉजिकल लक्षण पाए गए हैं। तुरंत आपातकालीन चिकित्सा सहायता लें।"
+        "patterns": [
+            r"slurr.*speech", r"fac(ial|e).*droop", r"arm.*weakness", r"cannot.*speak",
+            r"worst.*headache", r"thunderclap", r"seizure"
+        ],
+        "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Acute stroke, seizure, or intracranial hemorrhage warning signs detected. Immediate emergency medical intervention is required.",
+        "guidance_hi": "🚨 आपातकालीन चेतावनी: स्ट्रोक, दौरा या गंभीर न्यूरोलॉजिकल लक्षण पाए गए हैं। तुरंत आपातकालीन चिकित्सा सहायता लें।"
     },
     "Cardiac Emergency (Acute Coronary Syndrome)": {
         "keywords": [
             "crushing chest pain", "chest pain radiating", "pain radiating to arm",
             "pain radiating to left arm", "pain radiating to jaw", "heart attack",
-            "severe crushing pain in chest", "chest tightness and sweating"
+            "severe crushing pain in chest", "chest tightness and sweating",
+            "chest pressure", "heart racing above"
         ],
-        "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Potential acute cardiac event detected. Do not delay. Call emergency medical services immediately.",
+        "patterns": [
+            r"crush.*chest", r"chest.*pain.*radiat", r"heart.*attack", r"chest.*tightness.*sweat"
+        ],
+        "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Potential acute cardiac event (Myocardial Infarction) detected. Do not delay. Call emergency medical services immediately.",
         "guidance_hi": "🚨 आपातकालीन चेतावनी: संभावित दिल का दौरा या गंभीर हृदय समस्या के लक्षण। तुरंत 112 या 108 पर कॉल करें।"
     },
     "Respiratory Emergency (Acute Hypoxia / Hemoptysis)": {
         "keywords": [
             "coughing up blood", "coughing blood", "blood in cough", "blood in sputum",
             "cannot breathe", "cant breathe", "can't breathe", "gasping for air",
-            "severe breathing difficulty", "blue lips", "bluish lips", "severe asthma attack"
+            "gasped for air", "severe breathing difficulty", "blue lips", "bluish lips",
+            "severe asthma attack", "stridor"
         ],
-        "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Acute respiratory distress or coughing up blood detected. Seek immediate emergency room care.",
+        "patterns": [
+            r"cough.*blood", r"can(not|'t).*breathe", r"blue.*lip", r"gasp.*air", r"asthma.*attack"
+        ],
+        "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Acute respiratory distress or hemoptysis (coughing blood) detected. Seek immediate emergency room care.",
         "guidance_hi": "🚨 आपातकालीन चेतावनी: सांस लेने में अत्यधिक कठिनाई या खांसी में खून के लक्षण। तत्काल आपातकालीन विभाग (ER) पहुंचे।"
     },
     "Severe Hemorrhagic Warning (Dengue / Internal Bleeding)": {
         "keywords": [
             "bleeding gums", "blood in vomit", "vomiting blood", "black tarry stools",
-            "uncontrolled bleeding", "severe bleeding", "blood in urine and fever"
+            "uncontrolled bleeding", "severe bleeding", "blood in urine and fever",
+            "hemoptysis", "bright red fresh blood"
         ],
-        "guidance_en": "🚨 CRITICAL WARNING: Severe hemorrhagic signs detected (potential severe Dengue or internal bleeding). Requires urgent hospital admission.",
+        "patterns": [
+            r"bleed.*gum", r"blood.*vomit", r"fresh.*blood", r"uncontrolled.*bleed"
+        ],
+        "guidance_en": "🚨 CRITICAL WARNING: Severe hemorrhagic signs detected (potential severe Dengue shock syndrome or internal bleeding). Requires urgent hospital admission.",
         "guidance_hi": "🚨 गंभीर चेतावनी: रक्तस्राव (Bleeding) के गंभीर लक्षण मिले हैं। तुरंत नजदीकी अस्पताल में भर्ती हों।"
     },
-    "Severe Systemic Infection / Meningitis": {
+    "Severe Systemic Infection / Meningitis / Sepsis": {
         "keywords": [
             "stiff neck and extreme confusion", "stiff neck with high fever",
-            "highest fever ever and stiff neck", "extreme confusion and fever"
+            "highest fever ever and stiff neck", "extreme confusion and fever",
+            "stiff neck", "meningitis", "hallucinating since morning", "petechial rash"
         ],
-        "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Symptoms consistent with severe acute central nervous system infection (e.g., Meningitis). Immediate hospital care required.",
+        "patterns": [
+            r"stiff.*neck.*fever", r"stiff.*neck.*touch.*chin", r"fever.*rash.*mental", r"sepsis"
+        ],
+        "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Symptoms consistent with acute meningitis, encephalitis, or septicemia. Immediate hospital emergency care required.",
         "guidance_hi": "🚨 आपातकालीन चेतावनी: गंभीर दिमागी संक्रमण या मेनिनजाइटिस के संभावित लक्षण। तुरंत अस्पताल जाएं।"
+    },
+    "Acute Surgical & Toxicological Emergencies": {
+        "keywords": [
+            "snake bite", "poison consumption", "pesticide", "rebound tenderness",
+            "appendicitis", "loss of vision in right eye", "sudden total loss of vision",
+            "blood sugar 42"
+        ],
+        "patterns": [
+            r"snake.*bite", r"poison", r"pesticide", r"loss.*vision.*eye", r"rebound.*tender", r"blood.*sugar.*42"
+        ],
+        "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Acute surgical, toxicological, or ophthalmic emergency detected. Proceed immediately to the nearest casualty / trauma center.",
+        "guidance_hi": "🚨 आपातकालीन चेतावनी: तुरंत नजदीकी अस्पताल के आपातकालीन विभाग में जाएं।"
     },
     "Anaphylaxis (Severe Allergic Reaction)": {
         "keywords": [
             "throat swelling", "swelling of tongue and difficulty breathing",
-            "throat closing up", "severe allergic reaction cannot breathe"
+            "throat closing up", "severe allergic reaction cannot breathe",
+            "allergic anaphylaxis", "tongue swelling"
+        ],
+        "patterns": [
+            r"anaphylaxis", r"tongue.*swell", r"throat.*tight.*peanut", r"throat.*clos"
         ],
         "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Anaphylactic reaction detected. Administer Epinephrine (EpiPen) if available and call for emergency ambulance immediately.",
         "guidance_hi": "🚨 आपातकालीन चेतावनी: गंभीर एलर्जी प्रतिक्रिया (एनाफिलेक्सिस)। तुरंत एम्बुलेंस बुलाएं।"
@@ -95,6 +133,7 @@ class EmergencySafetyFirewall:
         guidance_hi = []
 
         for category, rules in EMERGENCY_RULES.items():
+            triggered = False
             for kw in rules["keywords"]:
                 # Check for keyword in combined text
                 if re.search(r'\b' + re.escape(kw) + r'\b', combined_text):
@@ -102,7 +141,17 @@ class EmergencySafetyFirewall:
                     triggered_keywords.append(kw)
                     guidance_en.append(rules["guidance_en"])
                     guidance_hi.append(rules["guidance_hi"])
+                    triggered = True
                     break
+            if not triggered and "patterns" in rules:
+                for pattern in rules["patterns"]:
+                    match = re.search(pattern, combined_text)
+                    if match:
+                        detected_categories.append(category)
+                        triggered_keywords.append(match.group(0))
+                        guidance_en.append(rules["guidance_en"])
+                        guidance_hi.append(rules["guidance_hi"])
+                        break
 
         if detected_categories:
             response = {

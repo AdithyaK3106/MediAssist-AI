@@ -1,0 +1,537 @@
+[
+  {
+    "input_text": "headache since three days with tight band pressure around forehead and scalp stiffness from work stress",
+    "predicted_condition": "Tension Headache",
+    "confidence": 16.37,
+    "tokens": [
+      {
+        "token": "headache",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "since",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "three",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "days",
+        "attribution_score": 0.1206
+      },
+      {
+        "token": "with",
+        "attribution_score": 0.0428
+      },
+      {
+        "token": "tight",
+        "attribution_score": 0.272
+      },
+      {
+        "token": "band",
+        "attribution_score": 0.184
+      },
+      {
+        "token": "pressure",
+        "attribution_score": 0.1019
+      },
+      {
+        "token": "around",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "fore",
+        "attribution_score": 0.0293
+      },
+      {
+        "token": "##head",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "and",
+        "attribution_score": 0.2478
+      },
+      {
+        "token": "scalp",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "stiffness",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "from",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "work",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "stress",
+        "attribution_score": 0.1973
+      }
+    ],
+    "top_salient_tokens": [
+      {
+        "token": "tight",
+        "attribution_score": 0.272
+      },
+      {
+        "token": "and",
+        "attribution_score": 0.2478
+      },
+      {
+        "token": "stress",
+        "attribution_score": 0.1973
+      },
+      {
+        "token": "band",
+        "attribution_score": 0.184
+      },
+      {
+        "token": "days",
+        "attribution_score": 0.1206
+      },
+      {
+        "token": "pressure",
+        "attribution_score": 0.1019
+      }
+    ],
+    "case_id": "Case 1: Outpatient Primary Care",
+    "expected_condition": "Tension-Type Headache"
+  },
+  {
+    "input_text": "burning sensation in eyes and tired blurry vision after working on computer monitor for ten hours",
+    "predicted_condition": "Tension Headache",
+    "confidence": 16.98,
+    "tokens": [
+      {
+        "token": "burning",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "sensation",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "in",
+        "attribution_score": 0.7627
+      },
+      {
+        "token": "eyes",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "and",
+        "attribution_score": 0.492
+      },
+      {
+        "token": "tir",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "##ed",
+        "attribution_score": 0.6025
+      },
+      {
+        "token": "bl",
+        "attribution_score": 0.4944
+      },
+      {
+        "token": "##urry",
+        "attribution_score": 0.978
+      },
+      {
+        "token": "vision",
+        "attribution_score": 0.5856
+      },
+      {
+        "token": "after",
+        "attribution_score": 0.1043
+      },
+      {
+        "token": "working",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "on",
+        "attribution_score": 0.2065
+      },
+      {
+        "token": "computer",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "monitor",
+        "attribution_score": 0.1064
+      },
+      {
+        "token": "for",
+        "attribution_score": 0.1983
+      },
+      {
+        "token": "ten",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "hours",
+        "attribution_score": 1.0
+      }
+    ],
+    "top_salient_tokens": [
+      {
+        "token": "hours",
+        "attribution_score": 1.0
+      },
+      {
+        "token": "##urry",
+        "attribution_score": 0.978
+      },
+      {
+        "token": "in",
+        "attribution_score": 0.7627
+      },
+      {
+        "token": "##ed",
+        "attribution_score": 0.6025
+      },
+      {
+        "token": "vision",
+        "attribution_score": 0.5856
+      },
+      {
+        "token": "bl",
+        "attribution_score": 0.4944
+      }
+    ],
+    "case_id": "Case 2: Digital Eye Strain / CVS",
+    "expected_condition": "Eye Strain / Screen Fatigue (CVS)"
+  },
+  {
+    "input_text": "facial heaviness and severe sinus pressure behind cheekbones worse when bending forward with nasal congestion",
+    "predicted_condition": "Tension Headache",
+    "confidence": 10.93,
+    "tokens": [
+      {
+        "token": "facial",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "heavi",
+        "attribution_score": 0.1711
+      },
+      {
+        "token": "##ness",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "and",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "severe",
+        "attribution_score": 0.0443
+      },
+      {
+        "token": "sinus",
+        "attribution_score": 0.1523
+      },
+      {
+        "token": "pressure",
+        "attribution_score": 0.3653
+      },
+      {
+        "token": "behind",
+        "attribution_score": 0.7888
+      },
+      {
+        "token": "che",
+        "attribution_score": 0.3553
+      },
+      {
+        "token": "##ek",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "##bon",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "##es",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "worse",
+        "attribution_score": 0.4087
+      },
+      {
+        "token": "when",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "bending",
+        "attribution_score": 0.1172
+      },
+      {
+        "token": "forward",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "with",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "nasal",
+        "attribution_score": 0.3619
+      },
+      {
+        "token": "congestion",
+        "attribution_score": 1.0
+      }
+    ],
+    "top_salient_tokens": [
+      {
+        "token": "congestion",
+        "attribution_score": 1.0
+      },
+      {
+        "token": "behind",
+        "attribution_score": 0.7888
+      },
+      {
+        "token": "worse",
+        "attribution_score": 0.4087
+      },
+      {
+        "token": "pressure",
+        "attribution_score": 0.3653
+      },
+      {
+        "token": "nasal",
+        "attribution_score": 0.3619
+      },
+      {
+        "token": "che",
+        "attribution_score": 0.3553
+      }
+    ],
+    "case_id": "Case 3: Acute Rhinosinusitis",
+    "expected_condition": "Acute Sinusitis / Sinus Pressure"
+  },
+  {
+    "input_text": "heartburn and sour acidic fluid rising into throat with burning sensation behind breastbone after meals",
+    "predicted_condition": "Acidity & Indigestion (Dyspepsia)",
+    "confidence": 11.93,
+    "tokens": [
+      {
+        "token": "heart",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "##burn",
+        "attribution_score": 0.452
+      },
+      {
+        "token": "and",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "sour",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "acidic",
+        "attribution_score": 0.3183
+      },
+      {
+        "token": "fluid",
+        "attribution_score": 0.2906
+      },
+      {
+        "token": "rising",
+        "attribution_score": 0.3008
+      },
+      {
+        "token": "into",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "throat",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "with",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "burning",
+        "attribution_score": 0.0767
+      },
+      {
+        "token": "sensation",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "behind",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "breast",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "##bon",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "##e",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "after",
+        "attribution_score": 0.4654
+      },
+      {
+        "token": "meals",
+        "attribution_score": 0.46
+      }
+    ],
+    "top_salient_tokens": [
+      {
+        "token": "after",
+        "attribution_score": 0.4654
+      },
+      {
+        "token": "meals",
+        "attribution_score": 0.46
+      },
+      {
+        "token": "##burn",
+        "attribution_score": 0.452
+      },
+      {
+        "token": "acidic",
+        "attribution_score": 0.3183
+      },
+      {
+        "token": "rising",
+        "attribution_score": 0.3008
+      },
+      {
+        "token": "fluid",
+        "attribution_score": 0.2906
+      }
+    ],
+    "case_id": "Case 4: Functional Dyspepsia / GERD",
+    "expected_condition": "Acidity & Indigestion (Functional Dyspepsia)"
+  },
+  {
+    "input_text": "severe crippling joint pain and swelling in wrists and ankles following viral fever episodes",
+    "predicted_condition": "Chikungunya",
+    "confidence": 11.48,
+    "tokens": [
+      {
+        "token": "severe",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "cri",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "##pp",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "##ling",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "joint",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "pain",
+        "attribution_score": 0.0512
+      },
+      {
+        "token": "and",
+        "attribution_score": 0.4569
+      },
+      {
+        "token": "swelling",
+        "attribution_score": 0.2062
+      },
+      {
+        "token": "in",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "wrist",
+        "attribution_score": 0.4617
+      },
+      {
+        "token": "##s",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "and",
+        "attribution_score": 0.3426
+      },
+      {
+        "token": "ankle",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "##s",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "following",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "viral",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "fever",
+        "attribution_score": 0.0
+      },
+      {
+        "token": "episodes",
+        "attribution_score": 0.0
+      }
+    ],
+    "top_salient_tokens": [
+      {
+        "token": "wrist",
+        "attribution_score": 0.4617
+      },
+      {
+        "token": "and",
+        "attribution_score": 0.4569
+      },
+      {
+        "token": "and",
+        "attribution_score": 0.3426
+      },
+      {
+        "token": "swelling",
+        "attribution_score": 0.2062
+      },
+      {
+        "token": "pain",
+        "attribution_score": 0.0512
+      },
+      {
+        "token": "severe",
+        "attribution_score": 0.0
+      }
+    ],
+    "case_id": "Case 5: Endemic Tropical Polyarthralgia",
+    "expected_condition": "Chikungunya"
+  }
+]

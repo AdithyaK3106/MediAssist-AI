@@ -1,0 +1,57 @@
+{
+  "full_hybrid_system": {
+    "configuration": "full_hybrid_system",
+    "emergency_escalation_accuracy_eea": 100.0,
+    "missed_emergency_rate_mer": 0.0,
+    "home_care_safety_compliance_hsc": 100.0,
+    "home_care_leakage_rate": 0.0,
+    "outpatient_top1_accuracy": 100.0,
+    "outpatient_top3_accuracy": 100.0,
+    "overall_test_top3_accuracy": 83.26,
+    "description": "Full MediAssist AI (5-Layer Hybrid Pipeline)"
+  },
+  "no_firewall": {
+    "configuration": "no_firewall",
+    "emergency_escalation_accuracy_eea": 0.0,
+    "missed_emergency_rate_mer": 100.0,
+    "home_care_safety_compliance_hsc": 100.0,
+    "home_care_leakage_rate": 0.0,
+    "outpatient_top1_accuracy": 100.0,
+    "outpatient_top3_accuracy": 100.0,
+    "overall_test_top3_accuracy": 83.26,
+    "description": "Ablation 1: w/o Layer 2 (Emergency Safety Firewall disabled)"
+  },
+  "no_decision_gating": {
+    "configuration": "no_decision_gating",
+    "emergency_escalation_accuracy_eea": 100.0,
+    "missed_emergency_rate_mer": 0.0,
+    "home_care_safety_compliance_hsc": 0.0,
+    "home_care_leakage_rate": 100.0,
+    "outpatient_top1_accuracy": 100.0,
+    "outpatient_top3_accuracy": 100.0,
+    "overall_test_top3_accuracy": 83.26,
+    "description": "Ablation 2: w/o Layer 4 (Home-Care Severity Gating disabled)"
+  },
+  "no_prior_calibration": {
+    "configuration": "no_prior_calibration",
+    "emergency_escalation_accuracy_eea": 100.0,
+    "missed_emergency_rate_mer": 0.0,
+    "home_care_safety_compliance_hsc": 100.0,
+    "home_care_leakage_rate": 0.0,
+    "outpatient_top1_accuracy": 20.0,
+    "outpatient_top3_accuracy": 46.67,
+    "overall_test_top3_accuracy": 83.26,
+    "description": "Ablation 3: w/o Bayesian Prior & Relative Likelihood Calibration"
+  },
+  "no_synthetic_expansion": {
+    "configuration": "no_synthetic_expansion",
+    "emergency_escalation_accuracy_eea": 100.0,
+    "missed_emergency_rate_mer": 0.0,
+    "home_care_safety_compliance_hsc": 100.0,
+    "home_care_leakage_rate": 0.0,
+    "outpatient_top1_accuracy": 0.0,
+    "outpatient_top3_accuracy": 0.0,
+    "overall_test_top3_accuracy": 62.01,
+    "description": "Ablation 4: w/o Outpatient Synthetic Augmentation (27-Class Baseline)"
+  }
+}

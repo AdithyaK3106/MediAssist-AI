@@ -1,0 +1,46 @@
+{
+  "test_sample_size": 239,
+  "uncalibrated_raw_softmax": {
+    "expected_calibration_error_ece": 44.49,
+    "maximum_calibration_error_mce": 71.87,
+    "brier_score": 0.4245,
+    "bin_details": [
+      {
+        "bin_range": "[0.0-0.1]",
+        "sample_count": 65,
+        "avg_confidence": 0.0854,
+        "empirical_accuracy": 0.3385,
+        "calibration_gap": 0.2531
+      },
+      {
+        "bin_range": "[0.1-0.2]",
+        "sample_count": 150,
+        "avg_confidence": 0.1291,
+        "empirical_accuracy": 0.6133,
+        "calibration_gap": 0.4842
+      },
+      {
+        "bin_range": "[0.2-0.3]",
+        "sample_count": 24,
+        "avg_confidence": 0.2396,
+        "empirical_accuracy": 0.9583,
+        "calibration_gap": 0.7187
+      }
+    ]
+  },
+  "calibrated_decision_layer": {
+    "expected_calibration_error_ece": 50.0,
+    "maximum_calibration_error_mce": 50.0,
+    "brier_score": 0.25,
+    "bin_details": [
+      {
+        "bin_range": "[0.4-0.5]",
+        "sample_count": 239,
+        "avg_confidence": 0.5,
+        "empirical_accuracy": 0.0,
+        "calibration_gap": 0.5
+      }
+    ]
+  },
+  "relative_ece_reduction": "-12.38%"
+}

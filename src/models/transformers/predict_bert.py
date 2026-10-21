@@ -69,12 +69,15 @@ class MedicalBERTInferencePipeline:
         Predict Top-K diseases and calibrated confidence.
         
         Args:
-            texts (list[str]): List of symptom strings.
+            texts (list[str] or str): Symptom string or list of symptom strings.
             top_k (int): Number of top predictions to return.
             
         Returns:
             list[dict]: Output predictions per text sample.
         """
+        if isinstance(texts, str):
+            texts = [texts]
+            
         results = []
         
         if self.model is not None and self.tokenizer is not None:
