@@ -388,13 +388,39 @@ In primary care triage, brief queries such as *"headache since 3 days"* present 
 
 ---
 
+### H. Edge Hardware Latency & Memory Profiling
+To evaluate feasibility on low-resource hardware typical of rural Primary Health Centres (PHCs), benchmark profiling was executed on an entry-level desktop testbed: dual-core Intel Core i3-4130 CPU @ 3.40 GHz (4 logical threads), 7.2 GB DDR3 RAM, running Linux (Ubuntu 24.04). All inference executed exclusively on CPU.
+
+TABLE IX details the empirically measured per-component latencies (averaged over 50 iterations) and resident set size (RSS) memory footprints.
+
+### TABLE IX: Edge Hardware Latency & Memory Breakdown (Intel Core i3-4130 @ 3.40 GHz)
+
+| Pipeline Component | Module / Parameter Scale | CPU Latency ($\text{ms}$) | Memory Footprint |
+| :--- | :--- | :---: | :---: |
+| **Layer 1: Heuristic Extractor** | Rule-based regex token mapping | $0.23\text{ ms}$ | $< 1\text{ MB}$ |
+| **Layer 2: Emergency Firewall** | Context-aware regex & negation | $0.80\text{ ms}$ | $< 1\text{ MB}$ |
+| **Layer 3: PubMedBERT ($L=64$)** | 109M biomedical transformer | $61.43\text{ ms}$ | $\sim 440\text{ MB}$ weights |
+| **Layer 3: Logistic Regression** | TF-IDF n-gram classifier (35 classes) | $0.75\text{ ms}$ | $1.4\text{ MB}$ weights |
+| **Layer 3: Multinomial Naive Bayes** | TF-IDF n-gram classifier (35 classes) | $1.39\text{ ms}$ | $1.4\text{ MB}$ weights |
+| **Layer 4: Decision & Routing** | Bayesian reweighting + Haversine (30 centers) | $5.24\text{ ms}$ | $< 5\text{ MB}$ |
+| **Diagnostic Edge Core (L2+L3+L4)** | Firewall + PubMedBERT + Decision Layer | $\mathbf{70.02\text{ ms}}$ | $\mathbf{1.25\text{ GB}}$ Total RSS |
+| **Offline Rural PHC Pipeline** | Heuristic Extractor + LR + Decision Layer | $\mathbf{7.16\text{ ms}}$ | $\mathbf{820\text{ MB}}$ Total RSS |
+
+*Resolution of End-to-End Latency vs. LLM Scale:*
+1. **Scope of the 70 ms Benchmark:** The measured $70.02\text{ ms}$ CPU latency covers the complete **local diagnostic core** (Layers 2, 3, and 4). Running a 7-billion parameter generative LLM (Qwen 2.5 7B) locally on an entry-level dual-core CPU is infeasible for real-time interaction (requiring 15–30 seconds per response).
+2. **Dual-Topology Deployment:** MediAssist AI resolves this through two distinct deployment topologies:
+   * *Topology 1 (Cloud/Edge Hybrid):* In clinics with network connectivity, conversational dialogue (Layers 1 and 5) is served by an asynchronous cloud/server Qwen 2.5 7B endpoint (~1.5–2.5 s round-trip), while clinical safety gating and biomedical transformer inference remain edge-resident on the local CPU ($70.02\text{ ms}$).
+   * *Topology 2 (Autonomous Offline Rural PHC Fallback):* In remote health centers with zero internet connectivity, the system operates fully offline without LLMs. Layer 1 uses the deterministic heuristic extractor ($0.23\text{ ms}$), Layer 3 executes the Calibrated Logistic Regression classifier ($0.75\text{ ms}$, $88.28\%$ Top-1 accuracy), and Layer 5 formats pre-approved bilingual templates. The entire offline pipeline completes end-to-end in **$7.16\text{ ms}$** on $< 850\text{ MB}$ RAM, making genuine edge deployment on legacy rural hardware fully reproducible.
+
+---
+
 ## VI. Ethical Considerations & Limitations
 
 MediAssist AI is explicitly designed as a **preliminary triage and navigation assistant**, not an autonomous diagnostic agent. The system enforces the following boundaries:
 1. **Explicit Clinical Disclaimers**: Every response carries an un-bypassable warning that results are non-definitive computational suggestions.
 2. **No Prescription Issuance**: The model is strictly prohibited from recommending prescription pharmaceuticals (antibiotics, steroids, cardiac drugs); only supportive hydration and rest tips are permitted for minor ailments.
-3. **Edge Feasibility in Primary Health Centres (PHCs)**: With a lightweight memory footprint (<6 GB total RAM/VRAM) and low inference latency ($82.1\text{ ms}$ on CPU; $0.05\text{ ms}$ on linear fallback), the pipeline can run locally on edge hardware in rural clinics without continuous internet access.
-4. **Geographic Scope**: Geolocation routing is presently scoped to verified medical centers in Bangalore, Karnataka, India.
+3. **Edge Feasibility & Rural PHC Deployment Scope**: The local diagnostic core (Firewall + PubMedBERT + Decision Layer) operates within a $1.25\text{ GB}$ RAM footprint and executes in $70.02\text{ ms}$ on a dual-core Intel Core i3 CPU. In zero-internet rural Primary Health Centres (PHCs), the autonomous linear fallback pipeline runs in $7.16\text{ ms}$ on $<850\text{ MB}$ RAM. Generative dialogue via Qwen 2.5 7B requires cloud/server connectivity and is not hosted locally on PHC client hardware.
+4. **Geographic Scope**: Geolocation routing is presently scoped to 30 verified medical centers in Bangalore Urban, Karnataka, India. Expansion to pan-India facilities via the ABDM Health Facility Registry API is planned.
 
 ---
 

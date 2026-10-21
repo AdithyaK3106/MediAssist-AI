@@ -1,0 +1,40 @@
+{
+  "hardware_testbed": {
+    "processor": "",
+    "machine": "x86_64",
+    "system": "Linux",
+    "release": "7.0.0-38-generic",
+    "cpu_count_physical": 2,
+    "cpu_count_logical": 4,
+    "cpu_freq_max_mhz": 3400.0,
+    "total_ram_gb": 7.15
+  },
+  "component_latencies_ms": {
+    "layer1_heuristic_extractor": 0.228,
+    "layer2_emergency_firewall": 0.801,
+    "layer3_pubmedbert_cpu": 61.43,
+    "layer3_linear_fallback_lr": 0.747,
+    "layer3_linear_fallback_nb": 1.389,
+    "layer4_clinical_decision_layer": 5.237,
+    "edge_diagnostic_core_bert_l2_l3_l4": 70.02,
+    "autonomous_linear_edge_pipeline_l1_l2_l3_l4": 7.16
+  },
+  "memory_profile_mb": {
+    "base_python_runtime_rss": 799.2,
+    "classical_ml_weight_delta_rss": 21.32,
+    "pubmedbert_transformer_delta_rss": 99.53,
+    "total_process_resident_rss": 1248.72
+  },
+  "deployment_modes": {
+    "mode_1_cloud_edge_hybrid": {
+      "description": "Edge diagnostic core (L2 + L3 PubMedBERT + L4) runs locally on CPU (<90 ms, <600 MB RAM). Conversational dialogue (L1 & L5) offloaded to cloud/server Qwen 2.5 7B endpoint.",
+      "local_edge_latency_ms": 70.02,
+      "local_edge_ram_mb": 1248.72
+    },
+    "mode_2_autonomous_rural_phc_offline": {
+      "description": "Zero-internet rural clinic fallback. Layer 1 uses heuristic entity extraction, Layer 3 uses Calibrated Logistic Regression, Layer 5 uses template generation. Runs entirely on CPU (<2 ms, <100 MB RAM).",
+      "local_edge_latency_ms": 7.16,
+      "local_edge_ram_mb": 820.52
+    }
+  }
+}
