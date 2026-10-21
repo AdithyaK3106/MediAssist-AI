@@ -327,19 +327,24 @@ TABLE VI reports tokenizer Out-of-Vocabulary (OOV) rates alongside Top-1 and Top
 ---
 
 ### E. Model Explainability & Token Saliency (XAI)
-Using Input $\times$ Gradient attribution, TABLE VII illustrates the top pathognomonic keywords identified by PubMedBERT across five diverse clinical presentations.
+Using Input $\times$ Gradient attribution on the WordPiece embedding layer (`bert.embeddings.word_embeddings`), TABLE VII illustrates the empirically measured token saliency across five clinical presentations.
 
 ### TABLE VII: Token Attribution via Input $\times$ Gradient on Clinical Vignettes
 
-| Target Clinical Presentation | Pred. Condition | Top Attributed Pathognomonic Tokens ($S \in [0, 1]$) |
+| Target Clinical Presentation | Pred. Condition (Conf.) | Measured Salient Tokens ($S_{\text{norm}} \in [0, 1]$) |
 | :--- | :--- | :--- |
-| Band-like headache, scalp/forehead tightness | Tension Headache | `tight` ($0.272$), `stress` ($0.197$), `band` ($0.184$), `pressure` ($0.162$) |
-| Burning eyes, digital blurriness post-screen work | Eye Strain / CVS | `blurry` ($0.978$), `burning` ($0.762$), `monitor` ($0.602$), `eyes` ($0.541$) |
-| Facial heaviness, sinus pressure behind cheeks | Acute Sinusitis | `congestion` ($1.000$), `behind` ($0.788$), `worse` ($0.408$), `pressure` ($0.365$) |
-| Post-meal heartburn, retrosternal acid waterbrash | Acidity & Dyspepsia | `after meals` ($0.465$), `heartburn` ($0.452$), `acidic` ($0.318$), `throat` ($0.241$) |
-| Post-febrile severe wrist/ankle joint swelling | Chikungunya | `wrist` ($0.461$), `swelling` ($0.342$), `joint pain` ($0.206$), `viral fever` ($0.185$) |
+| Band-like headache, scalp/forehead tightness | Tension Headache ($16.4\%$) | `tight` ($0.272$), `and` ($0.248$), `stress` ($0.197$), `band` ($0.184$), `days` ($0.121$) |
+| Burning eyes, digital blurriness post-screen work | Tension Headache ($17.0\%$) | `hours` ($1.000$), `##urry` ($0.978$), `in` ($0.763$), `##ed` ($0.603$), `ten` ($0.541$) |
+| Facial heaviness, sinus pressure behind cheeks | Tension Headache ($10.9\%$) | `congestion` ($1.000$), `behind` ($0.789$), `worse` ($0.409$), `pressure` ($0.365$) |
+| Post-meal heartburn, retrosternal acid waterbrash | Acidity & Dyspepsia ($11.9\%$) | `after` ($0.465$), `meals` ($0.460$), `##burn` ($0.452$), `acidic` ($0.318$), `rising` ($0.241$) |
+| Post-febrile severe wrist/ankle joint swelling | Chikungunya ($11.5\%$) | `wrist` ($0.462$), `and` ($0.457$), `and` ($0.343$), `swelling` ($0.206$), `ankles` ($0.185$) |
 
-The attribution maps confirm that PubMedBERT focuses exclusively on clinically relevant signs (e.g., *tight*, *band*, *blurry*, *congestion*, *wrist swelling*) rather than auxiliary stopwords.
+*Methodological & Interpretability Findings:*
+1. **Mathematical Formulation & Embedding Target:** Gradient attribution is computed directly on the token embedding space:
+   $$S(w_i) = \max \left( 0, \sum_{d=1}^{D} e_{i,d} \cdot \frac{\partial z_{c^*}}{\partial e_{i,d}} \right)$$
+   where $e_{i} \in \mathbb{R}^D$ is the WordPiece embedding vector and $z_{c^*}$ is the pre-softmax logit for the predicted class $c^*$. The ReLU operator suppresses negative gradients to isolate positive evidence.
+2. **Per-Instance Normalization Constraint:** Attributions are normalized relative to each sentence's maximum score ($\frac{S(w_i)}{\max_k S(w_k)}$). While this facilitates intra-sentence heatmap visualization, it precludes cross-sample magnitude comparisons: an attribution of $0.5$ in a diffuse distribution does not imply equivalent absolute logit sensitivity as $0.5$ in a sharp distribution.
+3. **Clinical Saliency vs. Prior Dominance:** The attribution maps confirm that the model sensitizes to pathognomonic clinical features (`tight`, `band`, `congestion`, `##burn`, `wrist`, `swelling`). However, they also reveal substantial gradient mass assigned to contextual adjectives and temporal tokens (`hours`, `after meals`, `behind`, subwords `##urry`, conjunction `and`). Furthermore, due to dataset class imbalance (62 Tension Headache samples vs. 10 for rare conditions), raw unweighted PubMedBERT predicts Tension Headache as the Top-1 label across non-specific cranial complaints (Cases 2 and 3). Token attribution thus functions as an essential diagnostic debugging tool for model bias rather than proof of autonomous clinical cognition.
 
 ---
 
