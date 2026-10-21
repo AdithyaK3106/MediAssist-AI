@@ -1,22 +1,30 @@
-# 🩺 MediAssist AI — 50-Vignette Clinician Audit Protocol & Scoring Matrix
+# 🩺 MediAssist AI — Proposed Clinician Audit Protocol & Standardized Vignette Benchmark
 
-> **Document Type:** Clinical Evaluation Protocol & Inter-Rater Reliability Benchmark  
-> **Study Design:** Double-Blind Physician-in-the-Loop Triage Review  
-> **Evaluator Cohort:** Two Independent Board-Certified Clinicians (MD Internal Medicine & Emergency Medicine)  
-> **Target Metric:** Clinical Concordance & Cohen's Kappa Inter-Rater Reliability ($\kappa$)  
+> **Document Type:** Clinical Evaluation Protocol & Benchmark Suite for Future Institutional Trials  
+> **Status:** PROPOSED EXPERIMENT / PRELIMINARY SIMULATION BENCHMARK  
+> **Target Reviewer Cohort:** Two Independent Licensed Physicians (Internal Medicine & Emergency Medicine)  
+> **Evaluation Metric:** Clinical Urgency Concordance & Cohen's Kappa Inter-Rater Reliability ($\kappa$)  
+
+---
+
+> [!IMPORTANT]
+> **Scientific Integrity & Ethics Notice:**  
+> This protocol specifies the standardized benchmark, evaluation rubric, and statistical methodology designed for future institutional review board (IRB) approved clinical validation. The scores tabulated below represent an automated simulation reference benchmark constructed during system engineering. They do not represent completed external clinical validation by independent board-certified physicians. Formal human clinician trials are designated as future institutional work.
 
 ---
 
 ## 1. Study Design & Evaluation Framework
 
-To establish clinical credibility and safety compliance for peer-reviewed dissemination (e.g., IEEE BHI / ACM CHIL), MediAssist AI was evaluated across a standardized benchmark of **50 clinical vignettes** representing three core operational distributions:
+To evaluate clinical safety and triage appropriateness prior to clinical deployment, we design a standardized protocol across **50 clinical vignettes** representing three core operational distributions:
 * **Cohort A (15 Cases): Acute Life-Threatening Emergencies** (Cardiac, Stroke, Hypoxia, Meningitis, Hemorrhagic Dengue, Anaphylaxis, Poisoning).
 * **Cohort B (20 Cases): High-Frequency Primary Care OPD Ailments** (Tension Headache, Screen Fatigue, Sinusitis, Functional Dyspepsia, Pharyngitis, Dehydration, Low Back Strain).
 * **Cohort C (15 Cases): Ambiguous, Multi-Symptom & Bilingual Presentations** (Devanagari Hindi, Hinglish, atypical durations, overlapping presentations).
 
-Each model response was independently audited by two clinicians blinded to model architecture:
-* **Reviewer 1 (R1):** MD Internal Medicine, Consultant Physician.
-* **Reviewer 2 (R2):** Emergency Medicine Resident, Casualty Medical Officer.
+### Proposed Blinding & Scoring Workflow:
+For future human clinical trials:
+1. Two independent medical practitioners (e.g., an Internal Medicine Consultant and an Emergency Medicine Specialist) will receive anonymized system outputs alongside standardized patient vignettes without information about model architecture.
+2. Evaluators will independently score each vignette response on a 1-to-5 Likert scale across four pre-defined clinical dimensions.
+3. Pairwise inter-rater concordance will be evaluated using Cohen's unweighted and quadratic weighted Kappa ($\kappa$).
 
 ---
 
@@ -32,7 +40,7 @@ Each model response was independently audited by two clinicians blinded to model
 
 ---
 
-## 3. Clinical Vignettes & Double-Blind Audit Scores (50 Cases)
+## 3. Standardized Clinical Benchmark Vignettes & Target Responses (50 Cases)
 
 ### Cohort A: Acute Emergencies (15 Cases)
 
