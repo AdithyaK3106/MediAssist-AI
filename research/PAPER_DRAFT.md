@@ -171,7 +171,7 @@ For non-emergency presentations, the composite symptom query is passed to a fine
 To optimize CPU and edge inference latency without truncating clinical context, the tokenization sequence length is tuned to $L_{\max} = 64$ tokens. Empirical token-length analysis across the entire 1,589-sample corpus demonstrates a median length of 38 tokens and a 95th percentile of 60 tokens. Constraining sequence length to 64 tokens fully encapsulates $98.11\%$ of patient narratives (1,559/1,589) without any truncation, while bounding CPU inference latency to $88.9\text{ ms}$ per sample. Only 30 samples ($1.89\%$, maximum sequence length 81 tokens) undergo minor tail truncation.
 
 #### Explainable AI (XAI) Attribution:
-To ensure interpretability and guarantee that the transformer bases predictions on pathognomonic clinical features rather than spurious linguistic artifacts, we implement **Input $\times$ Gradient token attribution** on the embedding layer:
+To ensure interpretability and inspect whether the transformer bases predictions on pathognomonic clinical features rather than spurious linguistic artifacts, we implement **Input $\times$ Gradient token attribution** on the embedding layer:
 $$S(w_i) = \max \left( 0, \sum_{d=1}^{D} \left( \frac{\partial z_{c^*}}{\partial e_{i,d}} \cdot e_{i,d} \right) \right)$$
 where $e_{i}$ is the input token embedding vector for token $w_i$, and $z_{c^*}$ is the unnormalized logit for the predicted class $c^*$. The resulting saliency vector is normalized to $[0, 1]$ to produce human-interpretable clinical attention heatmaps.
 
@@ -464,7 +464,7 @@ To compile this manuscript into IEEE conference or transaction format (`IEEEtran
 
 1. **Document Class**: `\documentclass[10pt,journal,compsoc]{IEEEtran}` or `\documentclass[conference]{IEEEtran}`.
 2. **Column Width Budget**: Standard IEEE columns are constrained to $3.5\text{ in}$ ($88.9\text{ mm}$ / $21\text{ picas}$) with a $0.2\text{ in}$ ($5.1\text{ mm}$) inter-column separation.
-3. **Single-Column Table Environment**: All empirical tables (TABLE I through TABLE VII) have been specifically budgeted to fit within a single column ($\le 3.5\text{ in}$) using standard `booktabs` and `\resizebox{\columnwidth}{!}{...}`:
+3. **Single-Column Table Environment**: All empirical tables (TABLE I through TABLE IX) have been specifically budgeted to fit within a single column ($\le 3.5\text{ in}$) using standard `booktabs` and `\resizebox{\columnwidth}{!}{...}`:
    ```latex
    \begin{table}[htbp]
    \centering
