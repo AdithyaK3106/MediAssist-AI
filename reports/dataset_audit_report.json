@@ -1,0 +1,339 @@
+{
+  "total_samples": 1589,
+  "total_classes": 35,
+  "s2d_samples": 1153,
+  "s2d_classes": 24,
+  "synthetic_samples": 406,
+  "synthetic_classes": 8,
+  "supplementary_samples": 30,
+  "supplementary_classes": 3,
+  "splits": {
+    "train": 1112,
+    "val": 238,
+    "test": 239
+  },
+  "exact_overlap_train_test": 0,
+  "near_duplicate_pairs_ge_0_6": 72,
+  "class_imbalance": {
+    "max": 62,
+    "min": 10,
+    "ratio": 6.2
+  },
+  "per_class_counts": [
+    {
+      "Disease": "Acidity & Indigestion (Dyspepsia)",
+      "Origin": "Synthetic Outpatient",
+      "Total": 51,
+      "Train": 36,
+      "Val": 8,
+      "Test": 7,
+      "Share (%)": 3.21
+    },
+    {
+      "Disease": "Acne",
+      "Origin": "Symptom2Disease",
+      "Total": 46,
+      "Train": 32,
+      "Val": 7,
+      "Test": 7,
+      "Share (%)": 2.89
+    },
+    {
+      "Disease": "Allergy",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Arthritis",
+      "Origin": "Symptom2Disease",
+      "Total": 46,
+      "Train": 32,
+      "Val": 7,
+      "Test": 7,
+      "Share (%)": 2.89
+    },
+    {
+      "Disease": "Asthma",
+      "Origin": "Symptom2Disease",
+      "Total": 49,
+      "Train": 34,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.08
+    },
+    {
+      "Disease": "Cervical Spondylosis",
+      "Origin": "Symptom2Disease",
+      "Total": 49,
+      "Train": 34,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.08
+    },
+    {
+      "Disease": "Chicken Pox",
+      "Origin": "Symptom2Disease",
+      "Total": 49,
+      "Train": 34,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.08
+    },
+    {
+      "Disease": "Chikungunya",
+      "Origin": "Synthetic Outpatient",
+      "Total": 47,
+      "Train": 33,
+      "Val": 7,
+      "Test": 7,
+      "Share (%)": 2.96
+    },
+    {
+      "Disease": "Common Cold",
+      "Origin": "Symptom2Disease",
+      "Total": 49,
+      "Train": 34,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.08
+    },
+    {
+      "Disease": "Dehydration & Heat Fatigue",
+      "Origin": "Synthetic Outpatient",
+      "Total": 48,
+      "Train": 34,
+      "Val": 7,
+      "Test": 7,
+      "Share (%)": 3.02
+    },
+    {
+      "Disease": "Dengue",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Diabetes",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Drug Reaction",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 8,
+      "Test": 7,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Eye Strain / Screen Fatigue",
+      "Origin": "Synthetic Outpatient",
+      "Total": 51,
+      "Train": 36,
+      "Val": 8,
+      "Test": 7,
+      "Share (%)": 3.21
+    },
+    {
+      "Disease": "Fungal Infection",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "GERD (Acid Reflux)",
+      "Origin": "Symptom2Disease",
+      "Total": 48,
+      "Train": 33,
+      "Val": 8,
+      "Test": 7,
+      "Share (%)": 3.02
+    },
+    {
+      "Disease": "Gastroenteritis",
+      "Origin": "Supplementary (Code Injection)",
+      "Total": 10,
+      "Train": 7,
+      "Val": 2,
+      "Test": 1,
+      "Share (%)": 0.63
+    },
+    {
+      "Disease": "Hemorrhoids",
+      "Origin": "Symptom2Disease",
+      "Total": 41,
+      "Train": 29,
+      "Val": 6,
+      "Test": 6,
+      "Share (%)": 2.58
+    },
+    {
+      "Disease": "Hypertension",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Impetigo",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 8,
+      "Test": 7,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Influenza (Flu)",
+      "Origin": "Supplementary (Code Injection)",
+      "Total": 10,
+      "Train": 7,
+      "Val": 2,
+      "Test": 1,
+      "Share (%)": 0.63
+    },
+    {
+      "Disease": "Jaundice",
+      "Origin": "Symptom2Disease",
+      "Total": 38,
+      "Train": 27,
+      "Val": 6,
+      "Test": 5,
+      "Share (%)": 2.39
+    },
+    {
+      "Disease": "Malaria",
+      "Origin": "Symptom2Disease",
+      "Total": 44,
+      "Train": 31,
+      "Val": 7,
+      "Test": 6,
+      "Share (%)": 2.77
+    },
+    {
+      "Disease": "Mechanical Low Back Strain",
+      "Origin": "Synthetic Outpatient",
+      "Total": 48,
+      "Train": 34,
+      "Val": 7,
+      "Test": 7,
+      "Share (%)": 3.02
+    },
+    {
+      "Disease": "Migraine",
+      "Origin": "Symptom2Disease",
+      "Total": 47,
+      "Train": 33,
+      "Val": 7,
+      "Test": 7,
+      "Share (%)": 2.96
+    },
+    {
+      "Disease": "Peptic Ulcer Disease",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Pneumonia",
+      "Origin": "Symptom2Disease",
+      "Total": 47,
+      "Train": 33,
+      "Val": 7,
+      "Test": 7,
+      "Share (%)": 2.96
+    },
+    {
+      "Disease": "Psoriasis",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Sinusitis",
+      "Origin": "Synthetic Outpatient",
+      "Total": 50,
+      "Train": 35,
+      "Val": 8,
+      "Test": 7,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Tension Headache",
+      "Origin": "Synthetic Outpatient",
+      "Total": 62,
+      "Train": 43,
+      "Val": 9,
+      "Test": 10,
+      "Share (%)": 3.9
+    },
+    {
+      "Disease": "Tuberculosis",
+      "Origin": "Supplementary (Code Injection)",
+      "Total": 10,
+      "Train": 7,
+      "Val": 2,
+      "Test": 1,
+      "Share (%)": 0.63
+    },
+    {
+      "Disease": "Typhoid",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 8,
+      "Test": 7,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Urinary Tract Infection (UTI)",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Varicose Veins",
+      "Origin": "Symptom2Disease",
+      "Total": 50,
+      "Train": 35,
+      "Val": 7,
+      "Test": 8,
+      "Share (%)": 3.15
+    },
+    {
+      "Disease": "Viral Pharyngitis (Sore Throat)",
+      "Origin": "Synthetic Outpatient",
+      "Total": 49,
+      "Train": 34,
+      "Val": 8,
+      "Test": 7,
+      "Share (%)": 3.08
+    }
+  ]
+}

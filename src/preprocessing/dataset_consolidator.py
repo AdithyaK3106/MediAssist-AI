@@ -78,18 +78,17 @@ def consolidate_dataset():
     df = df.rename(columns={"label": "disease", "text": "symptom_text"})
     df["disease"] = df["disease"].apply(lambda x: LABEL_CLEANING_MAP.get(x, x.strip().title()))
     
-    # 2. Add supplementary samples
+    # 2. Add supplementary clinical samples (Influenza, Tuberculosis, Gastroenteritis: 10 each = 30 samples)
     supp_df = pd.DataFrame(SUPPLEMENTARY_DATA)
-    supp_expanded = pd.concat([supp_df] * 4, ignore_index=True)
     
-    # 3. Add synthetic outpatient and Indian-prevalent condition samples
+    # 3. Add synthetic outpatient and Indian-prevalent condition samples (8 classes, 406 samples)
     if SYNTHETIC_DATA_PATH.exists():
         print(f"Loading synthetic outpatient dataset from {SYNTHETIC_DATA_PATH}...")
         synth_df = pd.read_csv(SYNTHETIC_DATA_PATH)
-        full_df = pd.concat([df, supp_expanded, synth_df], ignore_index=True)
+        full_df = pd.concat([df, supp_df, synth_df], ignore_index=True)
     else:
         print("Warning: Synthetic dataset not found at", SYNTHETIC_DATA_PATH)
-        full_df = pd.concat([df, supp_expanded], ignore_index=True)
+        full_df = pd.concat([df, supp_df], ignore_index=True)
         
     full_df = full_df.drop_duplicates(subset=["symptom_text"]).reset_index(drop=True)
     

@@ -180,34 +180,40 @@ The final output is generated via Qwen 2.5 7B constrained by the structured clin
 ## IV. Experimental Setup & Datasets
 
 ### A. Clinical Datasets & 35-Condition Taxonomy Expansion
-Standard public triage datasets (e.g., Symptom2Disease) focus heavily on acute, severe, or tropical diseases (Malaria, Dengue, Typhoid, Psoriasis), while omitting routine primary care presentations that constitute over 85% of outpatient consultations in India. To overcome this limitation, we developed an expanded 35-condition clinical taxonomy totaling **1,589 consolidated samples**:
+Standard public triage datasets (e.g., Symptom2Disease) focus heavily on acute, severe, or tropical diseases (Malaria, Dengue, Typhoid, Psoriasis), while omitting routine primary care presentations that constitute over 85% of outpatient consultations in India. To establish an epidemiologically grounded triage space, we constructed a consolidated 35-condition clinical taxonomy totaling **1,589 unique samples** sourced from three distinct clinical corpora:
 
-1. **Symptom2Disease Benchmark**: 1,183 standardized natural language symptom descriptions across 27 conditions.
-2. **Synthetic Outpatient & Indian Endemic Expansion Corpus**: 406 clinically authentic patient narratives across 8 high-prevalence conditions, synthesized using structured clinical templates grounded in the **Indian Council of Medical Research (ICMR) Standard Treatment Workflows** and National Health Mission (NHM) primary care epidemiology:
-   * *Tension-Type Headache* (band-like bilateral headache, neck stiffness, stress, work fatigue)
-   * *Eye Strain / Screen Fatigue / CVS* (burning eyes, digital fatigue, blurriness, brow ache)
-   * *Acute Sinusitis / Sinus Pressure* (facial fullness, frontal headache, nasal congestion, pain on bending)
-   * *Acidity & Indigestion / Functional Dyspepsia* (heartburn, sour waterbrash, retrosternal burning post-meals)
-   * *Viral Pharyngitis / Acute Sore Throat* (scratchy throat, painful swallowing, mild low fever, cough)
-   * *Dehydration & Heat Fatigue / Loo Exhaustion* (intense thirst, dry mouth, dark urine, lethargy post-sun exposure)
-   * *Mechanical Low Back Strain* (lumbar ache, muscle spasm after lifting or prolonged sitting, negative straight-leg raise)
-   * *Chikungunya* (post-febrile severe polyarthralgia, wrist and ankle swelling, morning stiffness)
-
-Narratives were synthesized in three linguistic registers: standard English, Indian English (incorporating local idioms such as "giddiness", "motions", "body heat"), and Hinglish transliterations.
+1. **Symptom2Disease Benchmark (Deduplicated)**: 1,153 unique natural language symptom descriptions across 24 conditions. The raw public repository originally contains 1,200 records (50 samples per condition); programmatic deduplication identified and removed 47 exact internal duplicate texts, yielding 1,153 verified distinct cases.
+2. **Synthetic Outpatient & Indian Endemic Corpus**: 406 clinically authentic patient narratives across 8 high-prevalence conditions, synthesized using structured clinical templates grounded in the **Indian Council of Medical Research (ICMR) Standard Treatment Workflows** and National Health Mission (NHM) primary care epidemiology:
+   * *Tension-Type Headache* ($N=62$; band-like bilateral headache, neck stiffness, stress, work fatigue)
+   * *Eye Strain / Screen Fatigue / CVS* ($N=51$; burning eyes, digital fatigue, blurriness, brow ache)
+   * *Acidity & Indigestion / Functional Dyspepsia* ($N=51$; heartburn, sour waterbrash, retrosternal burning post-meals)
+   * *Acute Sinusitis / Sinus Pressure* ($N=50$; facial fullness, frontal headache, nasal congestion, pain on bending)
+   * *Viral Pharyngitis / Acute Sore Throat* ($N=49$; scratchy throat, painful swallowing, mild low fever, cough)
+   * *Dehydration & Heat Fatigue / Loo Exhaustion* ($N=48$; intense thirst, dry mouth, dark urine, lethargy post-sun exposure)
+   * *Mechanical Low Back Strain* ($N=48$; lumbar ache, muscle spasm after lifting or prolonged sitting, negative straight-leg raise)
+   * *Chikungunya* ($N=47$; post-febrile severe polyarthralgia, wrist and ankle swelling, morning stiffness)
+   Narratives were authored across three linguistic registers: standard English, Indian English (incorporating local idioms such as "giddiness", "motions", "body heat"), and Hinglish transliterations.
+3. **Supplementary High-Priority Infectious Conditions**: 30 clinically authenticated narratives across 3 high-consequence conditions (10 samples each): *Influenza (Flu)*, *Pulmonary Tuberculosis*, and *Acute Gastroenteritis*, bridging critical clinical triage gaps omitted by the base benchmark.
 
 ### TABLE II: Consolidated 35-Class Triage Taxonomy & Dataset Composition
 
-| Corpus Component | Target Conditions | Samples ($N$) | Proportion (%) |
+| Corpus Component | Condition Focus | Samples ($N$) | Proportion (%) |
 | :--- | :--- | :---: | :---: |
-| **Symptom2Disease Benchmark** | 27 Classical Conditions | 1,183 | $74.4\%$ |
-| **Primary Care OPD Corpus** | 7 High-Frequency Ailments | 356 | $22.4\%$ |
-| **Regional Tropical Extension** | Endemic (Chikungunya) | 50 | $3.2\%$ |
+| **Symptom2Disease Benchmark** | 24 Classical Conditions | 1,153 | $72.56\%$ |
+| **Primary Care Outpatient Corpus** | 7 High-Frequency OPD Ailments | 359 | $22.59\%$ |
+| **Regional Tropical Extension** | Endemic (Chikungunya) | 47 | $2.96\%$ |
+| **Supplementary Infectious Conditions**| Influenza, TB, Gastroenteritis (3) | 30 | $1.89\%$ |
 | **Total Consolidated Dataset** | **35 Clinical Conditions** | **1,589** | **$100.0\%$** |
 
-The consolidated corpus was partitioned using stratified sampling into:
+The consolidated corpus was partitioned using stratified sampling (random seed $42$) into:
 * **Training Set**: 1,112 samples (70.0%)
 * **Validation Set**: 238 samples (15.0%)
 * **Test Set**: 239 samples (15.0%)
+
+#### Class Imbalance & Data Leakage Audit:
+- **Class Imbalance**: Per-class sample counts range from a maximum of $N=62$ (Tension Headache, $3.90\%$) to a minimum of $N=10$ (Influenza, Tuberculosis, Gastroenteritis, $0.63\%$ each), establishing an overall imbalance ratio of $6.20:1$.
+- **Exact vs. Template Overlap**: Programmatic auditing confirms $0\%$ exact string duplicate overlap between train, validation, and test splits.
+- **Template Leakage Limitation**: A pairwise lexical similarity audit reveals 72 near-duplicate pairs (Jaccard similarity $\ge 0.60$) between training and test sets. This overlap arises both from paraphrased syntactic templates within the public Symptom2Disease benchmark and combinatorial templates in the synthetic outpatient corpus. As analyzed in Section V-A, this lexical repetition enables surface n-gram classifiers (e.g., TF-IDF Logistic Regression) to achieve artificially inflated test accuracies by memorizing recurring phrasing, whereas transformer encoders generalize from contextual biomedical semantics.
 
 ### B. Model Fine-Tuning & Implementation Details
 - **Architecture**: `microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext` [9] (110M parameters).
@@ -315,7 +321,7 @@ Under the Landis & Koch standard, a score of **$\kappa = 0.896$** denotes **almo
 ### F. Case Study: Resolution of Sparse-Query Probability Dilution
 In primary care triage, brief queries such as *"headache since 3 days"* present a severe challenge for ungrounded machine learning models. Standard multi-class classifiers uniformly dilute confidence across dozens of severe systemic diagnoses listing cephalalgia as a secondary indicator. In two-column layouts, formatting comparative narrative evaluations within dense tables introduces unwieldy vertical whitespace. We instead present the structured clinical assessment below:
 
-* **Uncalibrated Baseline (27-Class Taxonomy)**:
+* **Uncalibrated Baseline (24-Class Taxonomy)**:
   - *Differential Output*: Hypertension ($5.4\%$), Malaria ($5.1\%$), Chicken Pox ($4.8\%$).
   - *Clinical Assessment*: Hazardous dilution. Flat probability distribution across rare or chronic systemic conditions triggers acute patient panic over a routine self-limiting tension headache, while offering no actionable outpatient guidance.
 * **Calibrated MediAssist AI (35-Class Taxonomy + Layer 4 Decision Layer)**:
