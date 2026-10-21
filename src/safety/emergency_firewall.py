@@ -24,7 +24,8 @@ EMERGENCY_RULES = {
             "stroke", "seizure", "violent seizures", "loss of consciousness", "unconscious",
             "sudden confusion", "extreme confusion", "fainted suddenly",
             "thunderclap headache", "worst headache of my life", "explosion in head",
-            "status epilepticus", "convulsion"
+            "status epilepticus", "convulsion",
+            "स्ट्रोक", "लकवा", "दौरा", "दौरे", "चेहरा टेढ़ा", "बोल नहीं पा रहा", "बेहोश", "होश खोना"
         ],
         "patterns": [
             r"slurr.*speech", r"fac(ial|e).*droop", r"arm.*weakness", r"cannot.*speak",
@@ -38,10 +39,12 @@ EMERGENCY_RULES = {
             "crushing chest pain", "chest pain radiating", "pain radiating to arm",
             "pain radiating to left arm", "pain radiating to jaw", "heart attack",
             "severe crushing pain in chest", "chest tightness and sweating",
-            "chest pressure", "heart racing above"
+            "chest pressure", "heart racing above",
+            "सीने में तेज दर्द", "सीने में दर्द", "छाती में दर्द", "दिल का दौरा", "हार्ट अटैक", "छाती में भारीपन"
         ],
         "patterns": [
-            r"crush.*chest", r"chest.*pain.*radiat", r"heart.*attack", r"chest.*tightness.*sweat"
+            r"crush.*chest", r"chest.*pain.*radiat", r"heart.*attack", r"chest.*tightness.*sweat",
+            r"सीने.*दर्द", r"छाती.*दर्द"
         ],
         "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Potential acute cardiac event (Myocardial Infarction) detected. Do not delay. Call emergency medical services immediately.",
         "guidance_hi": "🚨 आपातकालीन चेतावनी: संभावित दिल का दौरा या गंभीर हृदय समस्या के लक्षण। तुरंत 112 या 108 पर कॉल करें।"
@@ -51,10 +54,12 @@ EMERGENCY_RULES = {
             "coughing up blood", "coughing blood", "blood in cough", "blood in sputum",
             "cannot breathe", "cant breathe", "can't breathe", "gasping for air",
             "gasped for air", "severe breathing difficulty", "blue lips", "bluish lips",
-            "severe asthma attack", "stridor"
+            "severe asthma attack", "stridor",
+            "सांस लेने में तकलीफ", "सांस नहीं आ रही", "खांसी में खून", "दम घुटना"
         ],
         "patterns": [
-            r"cough.*blood", r"can(not|'t).*breathe", r"blue.*lip", r"gasp.*air", r"asthma.*attack"
+            r"cough.*blood", r"can(not|'t).*breathe", r"blue.*lip", r"gasp.*air", r"asthma.*attack",
+            r"सांस.*तकलीफ", r"खांसी.*खून"
         ],
         "guidance_en": "🚨 CRITICAL MEDICAL EMERGENCY: Acute respiratory distress or hemoptysis (coughing blood) detected. Seek immediate emergency room care.",
         "guidance_hi": "🚨 आपातकालीन चेतावनी: सांस लेने में अत्यधिक कठिनाई या खांसी में खून के लक्षण। तत्काल आपातकालीन विभाग (ER) पहुंचे।"
@@ -63,10 +68,12 @@ EMERGENCY_RULES = {
         "keywords": [
             "bleeding gums", "blood in vomit", "vomiting blood", "black tarry stools",
             "uncontrolled bleeding", "severe bleeding", "blood in urine and fever",
-            "hemoptysis", "bright red fresh blood"
+            "hemoptysis", "bright red fresh blood",
+            "खून की उल्टी", "मसूड़ों से खून", "पेशाब में खून"
         ],
         "patterns": [
-            r"bleed.*gum", r"blood.*vomit", r"fresh.*blood", r"uncontrolled.*bleed"
+            r"bleed.*gum", r"blood.*vomit", r"fresh.*blood", r"uncontrolled.*bleed",
+            r"खून.*उल्टी"
         ],
         "guidance_en": "🚨 CRITICAL WARNING: Severe hemorrhagic signs detected (potential severe Dengue shock syndrome or internal bleeding). Requires urgent hospital admission.",
         "guidance_hi": "🚨 गंभीर चेतावनी: रक्तस्राव (Bleeding) के गंभीर लक्षण मिले हैं। तुरंत नजदीकी अस्पताल में भर्ती हों।"
