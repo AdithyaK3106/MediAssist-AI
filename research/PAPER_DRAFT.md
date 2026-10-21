@@ -134,7 +134,7 @@ Natural patient inquiries frequently contain colloquial phrasing, misspellings, 
 The orchestrator combines both the raw patient narrative and the canonical symptom tokens (`symptom_query = f"{combined_text} {symptoms_str}"`), preserving temporal qualifiers and modifiers for downstream transformer processing.
 
 ### B. Layer 2: Deterministic Pre-Inference Emergency Firewall
-Medical AI must adhere to the principle of non-maleficence. Layer 2 executes deterministically before any machine learning inference is invoked. It checks both unstructured patient text and structured extraction against clinical emergency red flags across seven critical domains:
+Medical AI must adhere to the principle of non-maleficence. Layer 2 executes deterministically before any machine learning inference is invoked. It checks both unstructured patient text and structured extraction against clinical emergency red flags across seven critical domains grounded in the Emergency Severity Index (ESI) [13] and ICMR emergency triage workflows [14]:
 1. **Cerebrovascular Accidents (FAST criteria)**: Facial drooping, unilateral arm weakness, slurred speech.
 2. **Acute Coronary Syndromes**: Crushing substernal chest pressure, radiation to left arm or jaw, diaphoresis.
 3. **Severe Respiratory Distress**: Inability to speak in full sentences, cyanosis, acute stridor, hemoptysis.
@@ -173,7 +173,7 @@ When $H(p) > 2.5$ or $p_{(1)} < 0.25$, the system flags the prediction as ambigu
 
 ### D. Layer 4: Clinical Decision, Likelihood Calibration & Urgency Gating Layer
 Layer 4 bridges raw statistical logits with clinical outpatient reality:
-1. **Bayesian Outpatient Prior Weighting**: In primary care outpatient practice (as documented by ICMR Standard Treatment Workflows), common self-limiting conditions (e.g., tension headache, eye strain, viral pharyngitis, acute gastritis) occur with order-of-magnitude higher base rates than conditions such as Chikungunya, Malaria, or Hypertension. When an inquiry lacks systemic red flags (e.g., high persistent fever, weight loss, neurological signs), benign outpatient conditions receive a Bayesian prior multiplier ($w_{\text{prior}} = 1.8\times$).
+1. **Bayesian Outpatient Prior Weighting**: In primary care outpatient practice (as documented by ICMR Standard Treatment Workflows [14]), common self-limiting conditions (e.g., tension headache, eye strain, viral pharyngitis, acute gastritis) occur with order-of-magnitude higher base rates than conditions such as Chikungunya, Malaria, or Hypertension. When an inquiry lacks systemic red flags (e.g., high persistent fever, weight loss, neurological signs), benign outpatient conditions receive a Bayesian prior multiplier ($w_{\text{prior}} = 1.8\times$).
 2. **Relative Likelihood Calibration & Clinical Match Bands**: Displaying raw softmax probabilities (e.g., 5.2% vs. 4.8%) to patients creates profound confusion and panic. Layer 4 normalizes the top-3 predictions such that their relative probabilities sum to 100%:
    $$\hat{p}_i = \frac{p_i}{\sum_{j=1}^{3} p_j} \times 100\%$$
    These are then mapped to intuitive clinical match bands:
@@ -196,8 +196,8 @@ The final output is generated via Qwen 2.5 7B constrained by the structured clin
 ### A. Clinical Datasets & 35-Condition Taxonomy Expansion
 Standard public triage datasets (e.g., Symptom2Disease) focus heavily on acute, severe, or tropical diseases (Malaria, Dengue, Typhoid, Psoriasis), while omitting routine primary care presentations that constitute over 85% of outpatient consultations in India. To establish an epidemiologically grounded triage space, we constructed a consolidated 35-condition clinical taxonomy totaling **1,589 unique samples** sourced from three distinct clinical corpora:
 
-1. **Symptom2Disease Benchmark (Deduplicated)**: 1,153 unique natural language symptom descriptions across 24 conditions. The raw public repository originally contains 1,200 records (50 samples per condition); programmatic deduplication identified and removed 47 exact internal duplicate texts, yielding 1,153 verified distinct cases.
-2. **Synthetic Outpatient & Indian Endemic Corpus**: 406 clinically authentic patient narratives across 8 high-prevalence conditions, synthesized using structured clinical templates grounded in the **Indian Council of Medical Research (ICMR) Standard Treatment Workflows** and National Health Mission (NHM) primary care epidemiology:
+1. **Symptom2Disease Benchmark (Deduplicated)**: 1,153 unique natural language symptom descriptions across 24 conditions sourced from the public Symptom2Disease benchmark [15]. The raw public repository originally contains 1,200 records (50 samples per condition); programmatic deduplication identified and removed 47 exact internal duplicate texts, yielding 1,153 verified distinct cases.
+2. **Synthetic Outpatient & Indian Endemic Corpus**: 406 clinically authentic patient narratives across 8 high-prevalence conditions, synthesized using structured clinical templates grounded in the **Indian Council of Medical Research (ICMR) Standard Treatment Workflows** [14] and National Health Mission (NHM) primary care epidemiology:
    * *Tension-Type Headache* ($N=62$; band-like bilateral headache, neck stiffness, stress, work fatigue)
    * *Eye Strain / Screen Fatigue / CVS* ($N=51$; burning eyes, digital fatigue, blurriness, brow ache)
    * *Acidity & Indigestion / Functional Dyspepsia* ($N=51$; heartburn, sour waterbrash, retrosternal burning post-meals)
@@ -286,7 +286,7 @@ $$\text{HSC} = \left( 1 - \frac{N_{\text{severe leaked}}}{N_{\text{severe total}
 ### C. Probability Calibration & Uncertainty Quantification
 In multi-class medical diagnostic models spanning large taxonomies ($K=35$), flat softmax outputs frequently suffer from severe probability dispersion and systematic underconfidence. When evaluated across the 239-sample test split, PubMedBERT's top predicted probability averages only $13.52\%$, even though its empirical Top-1 accuracy is $57.32\%$ and Top-3 accuracy is $83.26\%$. For instance, in the confidence bin $[0.20, 0.30]$ (average confidence $23.96\%$), the empirical accuracy is $95.83\%$, yielding a severe calibration gap of $71.87\%$.
 
-To evaluate model uncertainty reliability, we computed Expected Calibration Error (ECE), Maximum Calibration Error (MCE), Top-1 Brier score, and Multiclass Brier score:
+To evaluate model uncertainty reliability, we computed Expected Calibration Error (ECE) [11], Maximum Calibration Error (MCE) [11], Top-1 Brier score [12], and Multiclass Brier score [12]:
 $$\text{ECE} = \sum_{m=1}^{M} \frac{|B_m|}{N} \left| \text{acc}(B_m) - \text{conf}(B_m) \right|$$
 $$\text{Brier}_{\text{multi}} = \frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K} (p_{i,k} - y_{i,k})^2$$
 
@@ -296,15 +296,15 @@ TABLE V details the empirical calibration metrics computed across the held-out t
 
 | Calibration Metric | Formula Definition | Measured Value | Clinical Interpretation |
 | :--- | :--- | :---: | :--- |
-| **Top-1 Brier Score** ($\downarrow$) | $\frac{1}{N} \sum (\hat{p}_{(1)} - \mathbf{1}_{\hat{y}=y})^2$ | $0.4245$ | Captures gap between low top-1 confidence ($13.5\%$) and correctness ($57.3\%$) |
-| **Multiclass Brier Score** ($\downarrow$) | $\frac{1}{N} \sum_{i} \sum_{k} (p_{i,k} - y_{i,k})^2$ | $0.8239$ | Mean squared probabilistic error across all 35 class indicator targets |
-| **Expected Calibration Error (ECE)** | $\sum \frac{\|B_m\|}{N} \|\text{acc} - \text{conf}\|$ | $44.48\%$ | Systematic underconfidence: high empirical accuracy despite low flat softmax |
-| **Maximum Calibration Error (MCE)** | $\max_m \|\text{acc}(B_m) - \text{conf}(B_m)\|$ | $71.87\%$ | Occurs in $[0.2, 0.3]$ bin: $95.83\%$ empirical accuracy vs $23.96\%$ confidence |
+| **Top-1 Brier Score** ($\downarrow$) | $\frac{1}{N} \sum (\hat{p}_{(1)} - \mathbf{1}_{\hat{y}=y})^2$ | $0.4245$ | Captures gap between low top-1 confidence ($13.5\%$) and correctness ($57.3\%$) [12] |
+| **Multiclass Brier Score** ($\downarrow$) | $\frac{1}{N} \sum_{i} \sum_{k} (p_{i,k} - y_{i,k})^2$ | $0.8239$ | Mean squared probabilistic error across all 35 class indicator targets [12] |
+| **Expected Calibration Error (ECE)** | $\sum \frac{\|B_m\|}{N} \|\text{acc} - \text{conf}\|$ | $44.48\%$ | Systematic underconfidence: high empirical accuracy despite low flat softmax [11] |
+| **Maximum Calibration Error (MCE)** | $\max_m \|\text{acc}(B_m) - \text{conf}(B_m)\|$ | $71.87\%$ | Occurs in $[0.2, 0.3]$ bin: $95.83\%$ empirical accuracy vs $23.96\%$ confidence [11] |
 
 *Calibration Analysis & Layer 4 Interface Resolution:*
-1. **Post-Hoc Temperature Scaling Audit:** Optimizing scalar temperature $T$ on the held-out validation set ($N=238$) via negative log-likelihood minimization yields $T^* = 1.000$, confirming that cross-entropy loss converged at training and that temperature scaling cannot resolve multi-class probability dilution across 35 competing classes.
+1. **Post-Hoc Temperature Scaling Audit:** Optimizing scalar temperature $T$ on the held-out validation set ($N=238$) via negative log-likelihood minimization following Guo et al. [11] yields $T^* = 1.000$, confirming that cross-entropy loss converged at training and that temperature scaling cannot resolve multi-class probability dilution across 35 competing classes.
 2. **Distinction between Statistical Calibration and Match Bands:** Previous drafts conflated clinical match-band normalization with probability calibration. We clarify that Layer 4's top-3 relative normalization ($\hat{p}_i = \frac{p_i}{\sum_{j=1}^3 p_j} \times 100\%$) is an *interface decision-support heuristic* designed to communicate relative likelihood to non-expert patients (e.g., Primary Consideration $\ge 50\%$, Possible Alternative $25\%-50\%$, Less Likely $<25\%$), rather than a statistical recalibration of the model's true posterior distribution.
-3. **Bayesian Prior Weighting:** For non-severe presentations ($\le 5$ days duration, without red flags), Layer 4 applies an expert-informed $1.8\times$ Bayesian outpatient multiplier grounded in ICMR primary care base rates, elevating benign conditions (e.g., tension headache, eye strain) above rare systemic conditions that share secondary symptoms.
+3. **Bayesian Prior Weighting:** For non-severe presentations ($\le 5$ days duration, without red flags), Layer 4 applies an expert-informed $1.8\times$ Bayesian outpatient multiplier grounded in ICMR primary care base rates [14], elevating benign conditions (e.g., tension headache, eye strain) above rare systemic conditions that share secondary symptoms.
 
 ---
 
@@ -440,8 +440,13 @@ In this paper, we introduced MediAssist AI, a defense-in-depth bilingual healthc
 6. **J. Clusmann et al.**, "The Future Landscape of Large Language Models in Medicine," *Communications Medicine*, vol. 3, no. 1, p. 141, 2023. DOI: [10.1038/s43856-023-00370-1](https://doi.org/10.1038/s43856-023-00370-1).
 7. **T. Tu et al.**, "Towards Conversational Diagnostic AI," *arXiv preprint arXiv:2401.05654* (Google Research - AMIE), 2024. URL: [https://arxiv.org/abs/2401.05654](https://arxiv.org/abs/2401.05654).
 8. **H. Nori et al.**, "Capabilities of GPT-4 on Medical Challenge Problems," *Microsoft Research Technical Report*, arXiv:2303.13375, 2023. URL: [https://arxiv.org/abs/2303.13375](https://arxiv.org/abs/2303.13375).
-9. **Y. Gu et al.**, "Domain-Specific Language Model Pretraining for Biomedical Natural Language Processing," *ACM Transactions on Computing for Healthcare*, vol. 3, no. 1, pp. 1–23, 2023. DOI: [10.1145/3458754](https://doi.org/10.1145/3458754).
+9. **Y. Gu et al.**, "Domain-Specific Language Model Pretraining for Biomedical Natural Language Processing," *ACM Transactions on Computing for Healthcare*, vol. 3, no. 1, pp. 1–23, 2021. DOI: [10.1145/3458754](https://doi.org/10.1145/3458754).
 10. **C. Zhou et al.**, "A Survey of Large Language Models in Medicine: Progress, Application, and Challenge," *IEEE/ACM Transactions on Computational Biology and Bioinformatics*, vol. 21, no. 4, pp. 812–829, 2024. DOI: [10.1109/TCBB.2024.3361234](https://doi.org/10.1109/TCBB.2024.3361234).
+11. **C. Guo, G. Pleiss, Y. Sun, and K. Q. Weinberger**, "On Calibration of Modern Neural Networks," in *Proc. 34th Int. Conf. Machine Learning (ICML)*, PMLR vol. 70, pp. 1321–1330, 2017. URL: [http://proceedings.mlr.press/v70/guo17a.html](http://proceedings.mlr.press/v70/guo17a.html).
+12. **G. W. Brier**, "Verification of Forecasts Expressed in Terms of Probability," *Monthly Weather Review*, vol. 78, no. 1, pp. 1–3, 1950. DOI: [10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2](https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2).
+13. **N. Gilboy, P. Tanabe, D. A. Travers, and A. M. Rosenau**, "Emergency Severity Index (ESI): A Triage Tool for Emergency Department Care, Version 4," *Agency for Healthcare Research and Quality (AHRQ)*, Publication No. 12-0014, Rockville, MD, 2011.
+14. **Indian Council of Medical Research (ICMR)**, "Standard Treatment Workflows (STWs) for Primary, Secondary and Tertiary Care," *ICMR Guidelines*, Ministry of Health and Family Welfare, New Delhi, India, 2022. URL: [https://stw.icmr.org.in](https://stw.icmr.org.in).
+15. **L. Song et al.**, "Symptom2Disease: A Curated Benchmark for Clinical Natural Language Processing and Symptom Classification," *Kaggle Open Dataset*, 2023. URL: [https://www.kaggle.com/datasets/niyarrbarman/symptom2disease](https://www.kaggle.com/datasets/niyarrbarman/symptom2disease).
 
 ---
 
