@@ -148,7 +148,7 @@ If triggered, Layer 2 executes an **immediate veto**, suppressing all downstream
 ### C. Layer 3: Medical BERT Condition Classification & Feature Attribution
 For non-emergency presentations, the composite symptom query is passed to a fine-tuned biomedical transformer: `microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext` [9]. PubMedBERT processes clinical symptom strings and yields calibrated logits over 35 target conditions.
 
-To optimize CPU and edge inference latency without compromising diagnostic context, the tokenization sequence length is tuned to $L_{\max} = 64$ tokens. Empirical analysis of the training corpus revealed that the 95th percentile of outpatient clinical symptom expressions is 41 words; constraining sequence length to 64 tokens yielded a $4\times$ speedup on CPU inference while capturing 100% of symptomatic descriptors.
+To optimize CPU and edge inference latency without truncating clinical context, the tokenization sequence length is tuned to $L_{\max} = 64$ tokens. Empirical token-length analysis across the entire 1,589-sample corpus demonstrates a median length of 38 tokens and a 95th percentile of 60 tokens. Constraining sequence length to 64 tokens fully encapsulates $98.11\%$ of patient narratives (1,559/1,589) without any truncation, while bounding CPU inference latency to $88.9\text{ ms}$ per sample. Only 30 samples ($1.89\%$, maximum sequence length 81 tokens) undergo minor tail truncation.
 
 #### Explainable AI (XAI) Attribution:
 To ensure interpretability and guarantee that the transformer bases predictions on pathognomonic clinical features rather than spurious linguistic artifacts, we implement **Input $\times$ Gradient token attribution** on the embedding layer:
@@ -217,9 +217,9 @@ The consolidated corpus was partitioned using stratified sampling (random seed $
 
 ### B. Model Fine-Tuning & Implementation Details
 - **Architecture**: `microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext` [9] (110M parameters).
-- **Hyperparameters**: 3 epochs, batch size of 32, learning rate $3 \times 10^{-5}$ using the AdamW optimizer, linear learning rate decay with 10% warmup, weight decay 0.01, and maximum sequence length of 64 tokens.
-- **Framework Compatibility**: Implemented in PyTorch 2.2+ and Hugging Face Transformers v5.19 (`eval_strategy="epoch"`, `processing_class=tokenizer`, native safetensors checkpointing).
-- **Compute Budget**: Fine-tuned natively on CPU (105 optimization steps) in approximately 22 minutes; checkpoint serialized as `model.safetensors` (418 MB).
+- **Hyperparameters**: 3 epochs, batch size 32, learning rate $3 \times 10^{-5}$ using AdamW, weight decay 0.01, and maximum sequence length of 64 tokens. Total optimization budget: 105 gradient steps (35 steps per epoch across 1,112 training samples).
+- **Model Selection & Checkpointing**: Evaluated at every epoch on the validation split ($N=238$). Early stopping with patience 2 monitored validation Top-3 accuracy (`metric_for_best_model="accuracy_top3"`). Best checkpoint was selected at step 105 (validation Top-1: $56.30\%$, Top-3: $82.35\%$, validation loss: $2.300$), serialized as `model.safetensors` (418 MB). Close concordance with test split metrics (Top-1: $57.32\%$, Top-3: $83.26\%$, test loss: $2.289$) confirms absence of validation overfitting.
+- **Framework & Compute Environment**: Implemented in PyTorch 2.14 and Hugging Face Transformers v5.19 (`eval_strategy="epoch"`, `processing_class=tokenizer`). Trained on an Intel x86_64 CPU in approximately 22 minutes.
 
 ---
 
