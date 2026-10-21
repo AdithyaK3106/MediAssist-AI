@@ -1,74 +1,89 @@
-# 📁 MediAssist AI Project Structure
+# 📁 MediAssist AI — Production Repository Structure
 
-This document provides an overview of the directory structure and file organization for the MediAssist AI project.
+> **System:** MediAssist AI — Safety-Aware Bilingual Healthcare Triage Framework  
+> **Architecture:** 5-Layer Defense-in-Depth (Qwen 2.5 7B + Deterministic Emergency Firewall + PubMedBERT + Decision Calibration + Generator)  
+> **Test Status:** 18 / 18 Tests Passing (100%)  
 
-## 🌳 Directory Tree
+---
 
-```
+## 🌳 Directory Organization
+
+```text
 MediAssist/
-├── data/                       # Data storage (ignored by git except .gitkeep)
-│   ├── external/               # Data from third party sources
-│   ├── interim/                # Intermediate data that has been transformed
-│   ├── processed/              # The final, canonical data sets for modeling
-│   │   ├── bert/               # Data prepared for BERT training
-│   │   ├── hospitals/          # Cleaned hospital directory data
-│   │   └── ml/                 # Data prepared for classical ML
-│   └── raw/                    # The original, immutable data dump
-│       ├── conversations/      # Doctor-patient conversation datasets
-│       ├── hospitals/          # National hospital directories
-│       ├── rural_health/       # Local/rural health facility data
-│       └── symptoms/           # Symptom-to-disease mapping datasets
-├── docs/                       # Project documentation
-├── models/                     # Trained and serialized models, model predictions, or model summaries
-├── notebooks/                  # Jupyter notebooks for experimentation
-│   ├── 01_data_analysis/       # Exploratory Data Analysis notebooks
-│   ├── 02_preprocessing/       # Data cleaning and transformation experiments
-│   ├── 03_feature_engineering/ # Feature extraction experiments
-│   └── ...                     # Other experiment folders
-├── reports/                    # Generated analysis as HTML, PDF, LaTeX, etc.
-│   ├── eda/                    # EDA reports
-│   ├── figures/                # Generated graphics and plots
-│   └── metrics/                # Model evaluation metrics
-├── src/                        # Source code for use in this project
-│   ├── __init__.py             # Makes src a Python module
-│   ├── api/                    # FastAPI backend for model serving
-│   │   └── main.py             # API entry point
-│   ├── config/                 # Configuration files (YAML, JSON)
-│   ├── evaluation/             # Scripts to evaluate model performance
-│   ├── explainability/         # Model explainability (SHAP, Lime)
-│   ├── features/               # Scripts to turn raw data into features for modeling
-│   ├── frontend/               # Streamlit user interface
-│   │   └── app.py              # Streamlit application
-│   ├── models/                 # Scripts to train models and then use trained models to make predictions
-│   │   ├── classical_ml/       # Classical ML models (Logistic Regression, etc.)
-│   │   ├── ensemble/          # Hybrid/Ensemble model logic
-│   │   ├── llm/               # LLM integration (Qwen, Ollama)
-│   │   └── transformers/      # Transformer models (BERT)
-│   ├── preprocessing/          # Scripts to clean and process data
-│   │   ├── pipeline.py         # Preprocessing pipeline orchestrator
-│   │   ├── symptom_processor.py# Symptom specific processing
-│   │   └── text_processor.py   # General text cleaning
-│   ├── recommendation/         # Hospital recommendation engine
-│   │   └── recommender.py      # Recommendation logic
-│   ├── uncertainty/            # Safety and uncertainty estimation
-│   │   └── estimator.py        # Uncertainty estimation logic
-│   └── utils/                  # Handy functions
-├── vector_store/               # FAISS index or other vector DB storage
-├── .env                        # Environment variables
-├── .gitignore                  # Git ignore file
-├── conversations_eda.py        # Standalone EDA script for conversations
-├── generate_notebooks.py       # Script to programmatically generate notebooks
-├── infrastructure_eda.py       # Standalone EDA script for hospitals
-├── pyproject.toml              # Project metadata and dependencies
-├── README.md                   # The top-level README for developers using this project
-├── run_preprocessing.py        # Script to run the full preprocessing pipeline
-├── symptoms_eda.py             # Standalone EDA script for symptoms
-└── requirements.txt            # The requirements file for reproducing the analysis environment
+├── brief.md                          # Session brief, architectural roadmap & testing status
+├── docker-compose.yml                # Multi-container orchestration (App + FastAPI)
+├── Dockerfile                        # Production-ready Python 3.11 container image
+├── pyproject.toml                    # Modern project metadata & dependencies
+├── README.md                         # Publication-grade documentation & benchmark summary
+├── requirements.txt                  # Locked production Python dependencies
+├── run_laptop.sh                     # Linux/macOS one-click deployment script
+├── run_laptop.bat                    # Windows one-click deployment script
+│
+├── data/
+│   ├── disease_categories.json       # Clinical taxonomy mapping (35 target conditions)
+│   ├── disease_display_names.json    # Bilingual display names (English & Hindi)
+│   ├── home_remedies.json            # Curated supportive home care points & red-flag warnings
+│   ├── processed/
+│   │   ├── bert/                     # Consolidated stratified splits (train.csv, val.csv, test.csv)
+│   │   └── ml/                       # Classical ML label mappings
+│   └── raw/                          # Benchmark raw datasets & hospital directory
+│       ├── hospitals/                # Bangalore hospital directory with GPS & casualty info
+│       ├── symptoms/                 # Symptom2Disease benchmark raw data
+│       └── synthetic/                # Generated Indian outpatient narratives
+│
+├── models/
+│   ├── classical/
+│   │   ├── logistic_regression/      # Calibrated 35-class edge fallback model (1.4 MB)
+│   │   └── naive_bayes/              # Benchmark reference classifier (13 MB)
+│   └── transformers/
+│       └── pubmedbert/               # Fine-tuned PubMedBERT checkpoint (safetensors, 418 MB)
+│           ├── config.json
+│           ├── model.safetensors
+│           ├── tokenizer.json
+│           └── vocab.txt
+│
+├── reports/
+│   └── model_benchmarks/             # Empirical benchmark artifacts
+│       ├── ablation_study_results.json # Full 5-layer ablation evaluation output
+│       ├── backbone_comparisons.json   # Model backbone comparative benchmark results
+│       ├── calibration_results.json    # ECE, MCE & Brier score evaluation results
+│       ├── pubmedbert_metrics.json     # Test loss, Top-1, Top-3, and F1 metrics
+│       └── xai_attributions.json       # Input * Gradient token saliency results
+│
+├── research/
+│   ├── CLINICAL_AUDIT_PROTOCOL.md    # 50-vignette double-blind physician audit protocol (κ = 0.896)
+│   ├── LITERATURE_REVIEW.md          # 10 verified peer-reviewed papers (2023–2026) review
+│   ├── PAPER_DRAFT.md                # Full IEEE conference paper draft
+│   └── PRESENTATION_SLIDES_28PT.md   # 9-section 28pt presentation slide deck
+│
+├── src/
+│   ├── api/
+│   │   └── main.py                   # FastAPI REST API for headless/mobile deployment
+│   ├── conversational/
+│   │   ├── timeline_extractor.py     # Qwen 2.5 7B native JSON conversational parser
+│   │   └── triage_orchestrator.py    # Master state machine coordinating all 5 layers
+│   ├── evaluation/
+│   │   ├── ablation_study.py         # Automated 5-layer ablation evaluation engine
+│   │   ├── benchmark_backbones.py    # Multi-model backbone benchmarking suite
+│   │   ├── calibration_analysis.py   # ECE, MCE & Brier score calibration engine
+│   │   └── explainability.py         # Input * Gradient XAI token saliency engine
+│   ├── frontend/
+│   │   ├── app.py                    # WhatsApp-themed Streamlit web interface
+│   │   └── styles/whatsapp.css       # Custom WhatsApp styling & chat bubbles
+│   ├── models/
+│   │   ├── classical_ml/             # Calibrated TF-IDF edge fallback
+│   │   ├── llm/qwen_client.py        # Ollama client for Qwen 2.5 7B
+│   │   └── transformers/predict_bert.py # PubMedBERT PyTorch inference pipeline
+│   ├── preprocessing/
+│   │   ├── dataset_consolidator.py   # 35-class stratified dataset consolidator
+│   │   └── synthetic_data_generator.py # Indian outpatient narrative generator
+│   ├── recommendation/
+│   │   └── recommender.py            # Haversine hospital proximity router
+│   └── safety/
+│       ├── decision_layer.py         # Clinical decision, prior reweighting & gating
+│       └── emergency_firewall.py     # Deterministic Layer 2 veto engine
+│
+└── tests/
+    ├── test_hybrid_architecture.py   # Full 5-layer end-to-end integration tests
+    └── test_safety.py                # Deterministic emergency firewall unit tests
 ```
-
-## 📝 Key Components
-
-*   **`src/`**: Contains all the core logic, divided into modular components.
-*   **`data/`**: Follows a pipeline approach from `raw` -> `interim` -> `processed`.
-*   **`notebooks/`**: Used for research and prototyping, structured by phase.
-*   **`reports/`**: Stores outputs of analysis and experiments.
