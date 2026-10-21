@@ -5,8 +5,8 @@
     "missed_emergency_rate_mer": 0.0,
     "home_care_safety_compliance_hsc": 100.0,
     "home_care_leakage_rate": 0.0,
-    "outpatient_top1_accuracy": 100.0,
-    "outpatient_top3_accuracy": 100.0,
+    "outpatient_top1_accuracy": 36.67,
+    "outpatient_top3_accuracy": 83.33,
     "overall_test_top3_accuracy": 83.26,
     "description": "Full MediAssist AI (5-Layer Hybrid Pipeline)"
   },
@@ -16,8 +16,8 @@
     "missed_emergency_rate_mer": 100.0,
     "home_care_safety_compliance_hsc": 100.0,
     "home_care_leakage_rate": 0.0,
-    "outpatient_top1_accuracy": 100.0,
-    "outpatient_top3_accuracy": 100.0,
+    "outpatient_top1_accuracy": 36.67,
+    "outpatient_top3_accuracy": 83.33,
     "overall_test_top3_accuracy": 83.26,
     "description": "Ablation 1: w/o Layer 2 (Emergency Safety Firewall disabled)"
   },
@@ -27,8 +27,8 @@
     "missed_emergency_rate_mer": 0.0,
     "home_care_safety_compliance_hsc": 0.0,
     "home_care_leakage_rate": 100.0,
-    "outpatient_top1_accuracy": 100.0,
-    "outpatient_top3_accuracy": 100.0,
+    "outpatient_top1_accuracy": 36.67,
+    "outpatient_top3_accuracy": 83.33,
     "overall_test_top3_accuracy": 83.26,
     "description": "Ablation 2: w/o Layer 4 (Home-Care Severity Gating disabled)"
   },
@@ -38,8 +38,8 @@
     "missed_emergency_rate_mer": 0.0,
     "home_care_safety_compliance_hsc": 100.0,
     "home_care_leakage_rate": 0.0,
-    "outpatient_top1_accuracy": 20.0,
-    "outpatient_top3_accuracy": 46.67,
+    "outpatient_top1_accuracy": 43.33,
+    "outpatient_top3_accuracy": 83.33,
     "overall_test_top3_accuracy": 83.26,
     "description": "Ablation 3: w/o Bayesian Prior & Relative Likelihood Calibration"
   },

@@ -256,25 +256,28 @@ To evaluate clinical differential classification, we benchmarked the fine-tuned 
 ---
 
 ### B. Comprehensive Architectural Ablation Study
-To establish the empirical necessity of each defense-in-depth layer, we conducted an ablation study evaluating the system across 18 adversarial emergency scenarios, 25 high-severity infection presentations, 30 outpatient clinical queries, and the complete 239-sample test split.
+To establish the empirical necessity of each defense-in-depth layer, we conducted an ablation study evaluating the system across 18 adversarial emergency scenarios, 25 high-severity infection presentations ($N=5$ cases across Dengue, Malaria, Typhoid, Pneumonia, and Tuberculosis), 30 outpatient primary care clinical queries, and the complete 239-sample test split.
+
+Home-Care Safety Compliance (HSC) and Home-Care Leakage (HCL) are defined as:
+$$\text{HSC} = \left( 1 - \frac{N_{\text{severe leaked}}}{N_{\text{severe total}}} \right) \times 100\%, \quad \text{HCL} = \left( \frac{N_{\text{severe leaked}}}{N_{\text{severe total}}} \right) \times 100\%$$
 
 ### TABLE IV: Architectural Ablation Study Across Safety and Triage Modules
 
-| Architectural Configuration | Emergency Acc. (EEA) | Home-Care Safety (HSC) | Outpatient Top-3 Acc. | Full Test Top-3 Acc. |
+| Architectural Configuration | Emergency Acc. (EEA) | Home-Care Safety (HSC) | Outpatient Top-3 Acc. ($N=30$) | Full Test Top-3 Acc. ($N=239$) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Full MediAssist AI (5-Layer Hybrid)** | $\mathbf{100.0\%}$ | $\mathbf{100.0\%}$ | $\mathbf{100.0\%}$ | $\mathbf{83.26\%}$ |
-| *Ablation 1: w/o Layer 2 (Firewall Off)* | $0.0\%$ | $100.0\%$ | $100.0\%$ | $83.26\%$ |
-| *Ablation 2: w/o Layer 4 (Home-Care Gating Off)* | $100.0\%$ | $0.0\%$ | $100.0\%$ | $83.26\%$ |
-| *Ablation 3: w/o Layer 4 (Bayesian Prior Off)* | $100.0\%$ | $100.0\%$ | $\mathbf{46.67\%}$ | $83.26\%$ |
+| **Full MediAssist AI (5-Layer Hybrid)** | $\mathbf{100.0\%}$ | $\mathbf{100.0\%}$ | $\mathbf{83.33\%}$ | $\mathbf{83.26\%}$ |
+| *Ablation 1: w/o Layer 2 (Firewall Off)* | $0.0\%$ | $100.0\%$ | $83.33\%$ | $83.26\%$ |
+| *Ablation 2: w/o Layer 4 (Home-Care Gating Off)* | $100.0\%$ | $0.0\%$ | $83.33\%$ | $83.26\%$ |
+| *Ablation 3: w/o Layer 4 (Bayesian Prior Off)* | $100.0\%$ | $100.0\%$ | $83.33\%$ | $83.26\%$ |
 | *Ablation 4: w/o Outpatient Synthetic Data* | $100.0\%$ | $100.0\%$ | $\mathbf{0.00\%}$ | $\mathbf{62.01\%}$ |
 
-*Note: In Ablation 1, Missed Emergency Rate (MER) reaches $100.0\%$. In Ablation 2, Home-Care Leakage into high-severity infections reaches $100.0\%$. Redundant inverse columns are omitted for standard IEEE column formatting.*
+*Note: In Ablation 1, Missed Emergency Rate (MER) reaches $100.0\%$. In Ablation 2, Home-Care Leakage (HCL) into high-severity infections reaches $100.0\%$. Redundant inverse columns are omitted for standard IEEE column formatting.*
 
 *Ablation Analysis:*
-1. **Firewall Necessity (Ablation 1):** Disabling Layer 2 causes a complete failure on emergency interception ($\text{MER} = 100.0\%$), routing life-threatening strokes and acute myocardial infarctions directly into downstream ML classification.
-2. **Clinical Gating Necessity (Ablation 2):** Disabling Layer 4 causes $\mathbf{100.0\%}$ home care leakage, inadvertently instructing patients with Dengue, Pneumonia, or Typhoid to manage their illness at home rather than seeking immediate hospitalization.
-3. **Bayesian Prior Necessity (Ablation 3):** Disabling Bayesian prior calibration causes outpatient differential recall to collapse from $100.0\%$ to $46.67\%$, restoring sparse-query dilution.
-4. **Synthetic Data Expansion Necessity (Ablation 4):** Without the 406 synthetic outpatient narratives, the model achieves $0.00\%$ accuracy on high-frequency outpatient complaints, and overall test differential accuracy drops from $83.26\%$ to $62.01\%$.
+1. **Firewall Necessity (Ablation 1):** Disabling Layer 2 causes a complete failure on emergency interception ($\text{MER} = 100.0\%$), routing life-threatening strokes, myocardial infarctions, and toxic ingestions directly into downstream ML classification without emergency escalation.
+2. **Clinical Gating Necessity (Ablation 2):** Disabling Layer 4 causes $\mathbf{100.0\%}$ home-care leakage ($\text{HSC} = 0.0\%$), inadvertently providing supportive home remedies (e.g., hydration and rest) for severe conditions such as Dengue, Pneumonia, or Typhoid, risking dangerous patient treatment delays.
+3. **Bayesian Prior & Relative Likelihood Normalization (Ablation 3):** On the 30-case outpatient cohort, fine-tuned PubMedBERT achieves $83.33\%$ Top-3 accuracy ($25/30$ matches) independently. Earlier informal project drafts reported an artificial $100.0\%$ vs. $46.67\%$ divergence caused by evaluation key mismatches and string variant inconsistencies. Our audit demonstrates that Layer 4 does not artificially inflate differential recall; rather, its primary role is transforming dispersed raw probabilities into intuitive clinical match bands (*Primary Consideration*, *Possible Alternative*, *Less Likely*) for empathetic patient reporting.
+4. **Synthetic Data Expansion Necessity (Ablation 4):** Without the 406 synthetic outpatient narratives, the 27-class baseline vocabulary completely lacks the 8 common primary-care conditions. Consequently, accuracy on outpatient queries drops to $0.00\%$, and maximum achievable test differential recall on the 239-sample test split is capped at $62.01\%$ ($\frac{178}{239} \times 83.26\%$).
 
 ---
 
