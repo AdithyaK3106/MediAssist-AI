@@ -134,16 +134,28 @@ Natural patient inquiries frequently contain colloquial phrasing, misspellings, 
 The orchestrator combines both the raw patient narrative and the canonical symptom tokens (`symptom_query = f"{combined_text} {symptoms_str}"`), preserving temporal qualifiers and modifiers for downstream transformer processing.
 
 ### B. Layer 2: Deterministic Pre-Inference Emergency Firewall
-Medical AI must adhere to the principle of non-maleficence. Layer 2 executes before any machine learning inference is invoked. It checks both the unstructured text and the structured extraction against clinical emergency red flags across seven critical domains:
+Medical AI must adhere to the principle of non-maleficence. Layer 2 executes deterministically before any machine learning inference is invoked. It checks both unstructured patient text and structured extraction against clinical emergency red flags across seven critical domains:
 1. **Cerebrovascular Accidents (FAST criteria)**: Facial drooping, unilateral arm weakness, slurred speech.
 2. **Acute Coronary Syndromes**: Crushing substernal chest pressure, radiation to left arm or jaw, diaphoresis.
 3. **Severe Respiratory Distress**: Inability to speak in full sentences, cyanosis, acute stridor, hemoptysis.
 4. **Hemorrhagic Fevers**: High fever accompanied by spontaneous petechiae, epistaxis, or hematemesis (Dengue hemorrhagic warning signs).
 5. **Meningeal Irritation & CNS Sepsis**: Severe photophobia with neck rigidity, thunderclap headache, altered sensorium.
-6. **Acute Surgical & Toxicological Emergencies**: Severe right lower quadrant rebound tenderness, organophosphate pesticide ingestion, snake envenomation.
+6. **Acute Surgical & Toxicological Emergencies**: Severe right lower quadrant rebound tenderness, organophosphate pesticide ingestion, acid ingestion, snake envenomation.
 7. **Severe Anaphylaxis**: Rapid airway edema, stridor, tongue swelling.
 
-If triggered, Layer 2 executes an **immediate veto**, suppressing all downstream ML condition predictions. It issues an emergency guidance directive in the user's language, supplying direct escalation hotlines (112 National Emergency, 108 Ambulance).
+#### Contextual Negation & Historical Disqualification:
+Naive keyword matching suffers from severe false-positive inflation when encountering clinical negation (e.g., *"dizzy, but no chest pressure"*) or family/historical background (e.g., *"father suffered a heart attack 3 years ago"*). Layer 2 implements clause-bounded lookback analysis:
+* **Negation Filtering**: Candidate emergency matches preceded within their clause by negation markers (e.g., *no, not, denies, negative for, bina, nahi, na, नहीं*) are disqualified from triggering emergency vetoes.
+* **Familial/Historical Exclusion**: Matches qualified by third-party familial subjects (*father, mother, brother, grandfather, bhai, dada*) or past temporal indicators (*years ago, pehle*) are excluded from acute triage halts.
+* **Bilingual & Colloquial Expansion**: The pattern matcher integrates colloquial emergency descriptions (*"elephant on chest"*, *"windpipe clamped"*) and phonetically Romanized Hinglish idioms (*"seene me tez dard"*, *"saans nahi aa rahi"*, *"keetnashak"*) alongside Devanagari Hindi.
+
+#### Safety Veto Integrity:
+If triggered, Layer 2 executes an **immediate pipeline halt**, suppressing all downstream ML condition predictions and LLM generation. It returns an authoritative escalation directive in the patient's language supplying direct escalation hotlines (112 National Emergency, 108 Ambulance). Downstream generation cannot override or soften this directive.
+
+#### Independent Adversarial Evaluation:
+To establish empirical safety, the firewall was evaluated against an independent, held-out cohort of $N = 60$ adversarial vignettes ($N = 30$ true emergencies spanning acute myocardial infarction, ischemic stroke, status asthmaticus, anaphylaxis, and pesticide ingestion across formal English, colloquialisms, misspellings, Devanagari Hindi, and Hinglish; and $N = 30$ non-emergency edge cases containing deceptive red-flag words, familial histories, and explicit negations).
+
+A baseline literal regex matcher achieved only $60.00\%$ Sensitivity (95% CI: $42.32\text{--}75.41\%$) and an unacceptably high Missed Emergency Rate (MER) of $40.00\%$, while registering a $20.00\%$ False Positive Rate (FPR) on negated cases. In contrast, the context-aware firewall achieved $100.00\%$ Emergency Escalation Accuracy (EEA) / Sensitivity (95% CI: $88.65\text{--}100.0\%$), $0.00\%$ MER, and $100.00\%$ Specificity (95% CI: $88.65\text{--}100.0\%$, $0.00\%$ FPR). While empirical results on this cohort demonstrate complete separation, the Wilson $95\%$ lower confidence bound ($88.65\%$) highlights the inherent statistical limit of finite sample sizes, reinforcing the necessity of physician oversight.
 
 ### C. Layer 3: Medical BERT Condition Classification & Feature Attribution
 For non-emergency presentations, the composite symptom query is passed to a fine-tuned biomedical transformer: `microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext` [9]. PubMedBERT processes clinical symptom strings and yields calibrated logits over 35 target conditions.

@@ -1,0 +1,572 @@
+{
+  "evaluation_cohort_size": 60,
+  "true_emergencies_n": 30,
+  "non_emergencies_n": 30,
+  "confusion_matrix": {
+    "tp": 30,
+    "fn": 0,
+    "tn": 30,
+    "fp": 0
+  },
+  "metrics": {
+    "emergency_sensitivity_eea": 100.0,
+    "emergency_sensitivity_ci95": [
+      88.65,
+      100.0
+    ],
+    "missed_emergency_rate_mer": 0.0,
+    "specificity": 100.0,
+    "specificity_ci95": [
+      88.65,
+      100.0
+    ],
+    "false_positive_rate_fpr": 0.0,
+    "overall_accuracy": 100.0,
+    "overall_accuracy_ci95": [
+      93.98,
+      100.0
+    ]
+  },
+  "cases": [
+    {
+      "id": "E01",
+      "category": "Cardiac",
+      "text": "Crushing retrosternal chest pain radiating to left arm and jaw with profuse cold sweating",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E02",
+      "category": "Stroke (FAST)",
+      "text": "Sudden onset right facial drooping and right arm weakness unable to lift arm",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E03",
+      "category": "Stroke (FAST)",
+      "text": "Slurred speech and confusion since 30 minutes, cannot form words evenly",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E04",
+      "category": "Hypoxia / Respiratory",
+      "text": "Gasped for air, lips turning blue, cannot speak full sentence",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E05",
+      "category": "Status Asthmaticus",
+      "text": "Severe asthma attack inhaler not working, stridor and chest retractions",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E06",
+      "category": "Hemorrhagic Dengue",
+      "text": "High fever since 4 days now bleeding from gums and red spots on skin",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E07",
+      "category": "Massive Hemoptysis",
+      "text": "Coughing up large amounts of bright red fresh blood",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E08",
+      "category": "Subarachnoid Hemorrhage",
+      "text": "Worst thunderclap headache of my life, sudden onset like explosion in head",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E09",
+      "category": "Acute Meningitis",
+      "text": "Stiff neck cannot touch chin to chest, high fever, extreme light sensitivity, drowsy",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E10",
+      "category": "Acute Appendicitis",
+      "text": "Severe right lower quadrant abdominal pain, rebound tenderness, high fever, vomiting",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E11",
+      "category": "Severe Hypoglycemia",
+      "text": "Diabetic patient feeling confused, sweating heavily, trembling, blood sugar 42 mg/dL",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E12",
+      "category": "Toxicology / Poisoning",
+      "text": "Poison consumption, swallowed unknown pesticide 20 minutes ago, vomiting foam",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E13",
+      "category": "Ophthalmic Emergency",
+      "text": "Sudden total loss of vision in right eye with severe ocular agony",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E14",
+      "category": "Status Epilepticus",
+      "text": "Violent continuous seizure lasting over 5 minutes without waking up",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E15",
+      "category": "Snake Envenomation",
+      "text": "Snake bite on right foot 15 minutes ago, severe swelling, fang marks bleeding",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E16",
+      "category": "Anaphylaxis",
+      "text": "Severe allergic anaphylaxis, tongue swelling, throat tightness after eating peanuts",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E17",
+      "category": "Cardiac (Colloquial)",
+      "text": "Heavy elephant sitting on my breastbone, sweating through clothes, lightheaded",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E18",
+      "category": "Respiratory (Paraphrase)",
+      "text": "My windpipe feels completely clamped shut, struggling to suck in any oxygen",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E19",
+      "category": "Stroke (Colloquial)",
+      "text": "One side of my body went completely numb and dead, unable to smile",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E20",
+      "category": "Toxicology",
+      "text": "Child accidentally drank concentrated bathroom acid 10 mins ago, throat burning violently",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E21",
+      "category": "Cardiac (Typo)",
+      "text": "sevear cheest pane rediating to left arm with suden cold swet",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E22",
+      "category": "Stroke (Typo)",
+      "text": "facial droop right side and slured speach since 20 minuts",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E23",
+      "category": "Anaphylaxis (Typo)",
+      "text": "tongue sweling, cannot breath after wasp stng",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E24",
+      "category": "Cardiac (Hindi)",
+      "text": "छाती में बहुत तेज असहनीय दर्द है और बाएं हाथ में खिंचाव हो रहा है पसीना आ रहा है",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E25",
+      "category": "Stroke (Hindi)",
+      "text": "अचानक चेहरे का दायां हिस्सा लटक गया है और हाथ सुन्न हो गया है",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E26",
+      "category": "Hypoxia (Hindi)",
+      "text": "सांस बिल्कुल नहीं आ रही, होंठ नीले पड़ रहे हैं और दम घुट रहा है",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E27",
+      "category": "Anaphylaxis (Hindi)",
+      "text": "गले में तेज सूजन, जीभ सूज गई है और सांस नली बंद हो रही है मूंगफली खाने के बाद",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E28",
+      "category": "Cardiac (Hinglish)",
+      "text": "Seene me bohot tez dard hai jo bayen haath me ja raha hai aur paseena nikal raha hai",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E29",
+      "category": "Stroke (Hinglish)",
+      "text": "Chehre ka ek taraf ka hissa latak gaya hai aur bolte waqt aawaz ladkhada rahi hai",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "E30",
+      "category": "Toxicology (Hinglish)",
+      "text": "Kisan ne khet me keetnashak spray pee liya hai, muh se jhaag nikal raha hai",
+      "ground_truth_emergency": true,
+      "predicted_emergency": true,
+      "matched_category": "None",
+      "status": "TP (True Positive - Correct Escalation)"
+    },
+    {
+      "id": "N01",
+      "category": "Family History",
+      "text": "My father had a severe heart attack 3 years ago. I currently have a mild runny nose and cough.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N02",
+      "category": "Family History",
+      "text": "My grandfather suffered a stroke last winter. I just have a slight headache from eye strain.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N03",
+      "category": "Historical",
+      "text": "I had chest pain 6 months ago that turned out to be gas. Today my ankle is sore after jogging.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N04",
+      "category": "Negation",
+      "text": "I have mild fever and sore throat, but NO chest pain and NO breathing trouble.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N05",
+      "category": "Negation",
+      "text": "Doctor, I do NOT have facial drooping or weakness, just a band-like headache.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N06",
+      "category": "Negation",
+      "text": "Feeling dizzy after fasting, but no chest pressure, no arm numbness, no fainting.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N07",
+      "category": "Musculoskeletal",
+      "text": "Pectoral muscle soreness when I press on it with my fingers after heavy bench press workout.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N08",
+      "category": "Dermatology",
+      "text": "Mild chest skin rash with itchy pimples across sternum for 2 weeks.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N09",
+      "category": "Benign Pleuritic",
+      "text": "Sharp rib twinge for 2 seconds when taking a very deep yawn, completely fine otherwise.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N10",
+      "category": "Dyspepsia",
+      "text": "Heartburn and sour waterbrash in throat after eating spicy fried chicken 2 hours ago.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N11",
+      "category": "Metaphorical",
+      "text": "My head is exploding with tension because of tight work deadlines, need a break.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N12",
+      "category": "Emotional",
+      "text": "I'm heartbroken after breaking up, feeling down and cannot sleep.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N13",
+      "category": "Metaphorical",
+      "text": "I feel breathless with excitement about my upcoming wedding, but have minor acid reflux.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N14",
+      "category": "Tension Headache",
+      "text": "Continuous dull tension headache since 3 days across forehead, no fever or vomiting.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N15",
+      "category": "Eye Strain",
+      "text": "Burning dry eyes and mild brow ache after 12 hours coding on monitor.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N16",
+      "category": "Sinusitis",
+      "text": "Sinus pressure over cheekbones and yellow nasal mucus, worse when bending forward.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N17",
+      "category": "Low Back Strain",
+      "text": "Dull lower back stiffness after lifting heavy suitcase, no leg weakness or numbness.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N18",
+      "category": "Pharyngitis",
+      "text": "Scratchy throat, painful swallowing, low fever 99F since yesterday.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N19",
+      "category": "Dehydration",
+      "text": "Extreme thirst, dry mouth, dark urine after 4 hours outside in hot summer sun.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N20",
+      "category": "Chikungunya",
+      "text": "Joint pain and swelling in wrists and ankles 4 days after viral fever subsided.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N21",
+      "category": "Minor Trauma",
+      "text": "Superficial knee scrape from falling off bicycle, minor bleeding stopped with band-aid.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N22",
+      "category": "Acne",
+      "text": "Painless red rash on cheeks with whiteheads for past two weeks.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N23",
+      "category": "Hindi OPD",
+      "text": "कल रात से हल्का सर दर्द है और काम का तनाव है, कोई उल्टी या चक्कर नहीं है।",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N24",
+      "category": "Hindi OPD",
+      "text": "कंप्यूटर पर ज्यादा काम करने से आंखों में जलन और भारीपन लग रहा है।",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N25",
+      "category": "Hindi OPD",
+      "text": "मसालेदार खाना खाने के बाद सीने में हल्की जलन हो रही है और खट्टी डकार आ रही है।",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N26",
+      "category": "Hindi OPD",
+      "text": "गले में खराश है और हल्का जुकाम है, सांस लेने में कोई परेशानी नहीं है।",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N27",
+      "category": "Hinglish OPD",
+      "text": "Sar me halka dard hai 2 din se, office me screen dekhne ki wajah se, bukhar nahi hai.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N28",
+      "category": "Hinglish OPD",
+      "text": "Gym me chest workout ke baad muscle me halka soreness hai, dabane pe dard hota hai.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N29",
+      "category": "Hinglish OPD",
+      "text": "Bhai ko pehle stroke hua tha, mujhe bas thoda sardi zukaam hai aaj se.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    },
+    {
+      "id": "N30",
+      "category": "Hinglish OPD",
+      "text": "Kamar me halka spasm hai bhari saman uthane ke baad, pair me koi dard nahi ja raha.",
+      "ground_truth_emergency": false,
+      "predicted_emergency": false,
+      "matched_category": "None",
+      "status": "TN (True Negative - Correct Pass-Through)"
+    }
+  ]
+}
