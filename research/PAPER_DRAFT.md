@@ -53,43 +53,77 @@ The architecture enforces the principle of **Defense-in-Depth**, operating as a 
 $$\text{Patient Inquiry} \xrightarrow{} \text{Layer 1: Parser} \xrightarrow{} \text{Layer 2: Firewall} \xrightarrow{} \text{Layer 3: PubMedBERT} \xrightarrow{} \text{Layer 4: Decision} \xrightarrow{} \text{Layer 5: Generator}$$
 
 ```
-+-----------------------------------------------------------------------------------+
-|                            LAYER 1: PARSING & EXTRACTION                          |
-|             Qwen 2.5 7B (Constrained JSON Mode) -- Symptoms, Timeline, Language   |
-+-----------------------------------------------------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|                        LAYER 2: EMERGENCY SAFETY FIREWALL                         |
-|   Deterministic Veto Gate (Stroke, Cardiac, Respiratory, Hemorrhagic Dengue)      |
-|   -> If Critical: HALT PIPELINE -> Immediate National 112 / 108 Emergency Banner  |
-+-----------------------------------------------------------------------------------+
-                                          | (Passes if non-emergency)
-                                          v
-+-----------------------------------------------------------------------------------+
-|                        LAYER 3: CLINICAL TRANSFORMER CLASSIFIER                   |
-|   Fine-Tuned PubMedBERT (BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext)      |
-|   35 Target Conditions (Primary Care + Indian Endemic) | Top-3 Differential       |
-|   XAI Feature Attribution: Saliency Heatmaps S(w_i) = ||(dz/de_i) * e_i||         |
-+-----------------------------------------------------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|                          LAYER 4: CLINICAL DECISION LAYER                         |
-|   * Bayesian Outpatient Prior Weighting (1.8x for Benign Primary Complaints)      |
-|   * Relative Likelihood Calibration (% Normalized over Top-3 + Match Bands)       |
-|   * Urgency Tier Assignment (Low / Moderate / High)                               |
-|   * Strict Home-Care Gating (Suppressed for High-Severity Conditions)             |
-|   * Regional Hospital Routing (Haversine Proximity + 24/7 Casualty Verification)  |
-+-----------------------------------------------------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|                    LAYER 5: CONSTRAINED BILINGUAL GENERATOR                       |
-|   Qwen 2.5 7B / Native Engine: Empathetic WhatsApp Triage Summary (English / Hindi)|
-|   Mandatory Prominent Clinical Disclaimer & Non-Diagnostic Reassurance            |
-+-----------------------------------------------------------------------------------+
++--------------------------------------+
+|    LAYER 1: PARSING & EXTRACTION     |
+|   Qwen 2.5 7B (Constrained JSON)     |
+|   * Symptoms, Timeline, Language     |
++--------------------------------------+
+                  |
+                  v
++--------------------------------------+
+|     LAYER 2: EMERGENCY FIREWALL      |
+|   Deterministic Clinical Veto Gate   |
+|   * FAST Stroke, Cardiac, Sepsis     |
++--------------------------------------+
+         |                     |
+   [Pass / Safe]          [Critical]
+         |                     |
+         v                     v
++------------------+   +---------------+
+| LAYER 3: ML BERT |   | HALT PIPELINE |
+| PubMedBERT (35c) |   | Red Hotlines  |
+| Top-3 Diff + XAI |   | (112 / 108)   |
++------------------+   +---------------+
+         |
+         v
++--------------------------------------+
+|      LAYER 4: DECISION & GATING      |
+|   * Bayesian Prior (1.8x Benign OPD) |
+|   * Relative Likelihood Calibration  |
+|   * Urgency (Low / Mod / High)       |
+|   * Strict Home-Care Gating          |
+|   * Bangalore Casualty Routing       |
++--------------------------------------+
+                  |
+                  v
++--------------------------------------+
+|   LAYER 5: BILINGUAL RESPONSE GEN    |
+|   Constrained LLM (English / Hindi)  |
+|   * Non-Diagnostic Disclaimer        |
+|   * Empathetic WhatsApp Summary      |
++--------------------------------------+
 ```
+
+```mermaid
+flowchart TD
+    subgraph L1["Layer 1: Parsing & Extraction"]
+        P1["Qwen 2.5 7B (JSON Mode)<br/>Symptoms, Timeline & Language"]
+    end
+
+    subgraph L2["Layer 2: Emergency Firewall"]
+        F1{"Deterministic Veto Gate<br/>Stroke, Cardiac, Sepsis?"}
+        E1["HALT PIPELINE<br/>Emergency Hotlines (112 / 108)"]
+    end
+
+    subgraph L3["Layer 3: Clinical Transformer"]
+        B1["PubMedBERT (35 Classes)<br/>Top-3 Differential & Saliency"]
+    end
+
+    subgraph L4["Layer 4: Decision & Gating"]
+        D1["Bayesian Prior Weighting (1.8x)<br/>Likelihood Calibration & Urgency<br/>Home-Care Gating & Routing"]
+    end
+
+    subgraph L5["Layer 5: Response Generation"]
+        G1["Constrained Bilingual Synthesis<br/>WhatsApp-Style English / Hindi"]
+    end
+
+    P1 --> F1
+    F1 -- "Emergency" --> E1
+    F1 -- "Non-Emergency" --> B1
+    B1 --> D1
+    D1 --> G1
+```
+*Fig. 1: MediAssist AI 5-Layer Defense-in-Depth Pipeline (budgeted for IEEE single-column width $\le 3.5\text{ in}$).*
 
 ### A. Layer 1: Conversational Entity and Timeline Extraction
 Natural patient inquiries frequently contain colloquial phrasing, misspellings, and temporal references (e.g., *"Kal raat se sar mein dard aur ulti ho rahi hai"*). Layer 1 utilizes Qwen 2.5 7B operating in native **JSON mode** (`format: "json"`). The model extracts a standardized JSON schema containing:
@@ -348,3 +382,28 @@ To compile this manuscript into IEEE conference or transaction format (`IEEEtran
    \end{table}
    ```
 4. **Elimination of Prose Inside Tables**: Qualitative clinical case studies (Section V-F) are formatted as structured vignette enumeration blocks rather than tabular cells, preventing multi-line text wrapping that causes awkward vertical column gaps.
+5. **Single-Column Architecture Flowchart (Fig. 1)**: For authors rendering the system architecture directly in LaTeX, use a TikZ block diagram bounded to `\columnwidth`:
+   ```latex
+   \begin{figure}[htbp]
+   \centering
+   \resizebox{0.95\columnwidth}{!}{%
+   \begin{tikzpicture}[node distance=1.1cm, auto,
+     block/.style={rectangle, draw, rounded corners, text width=5.6cm, text centered, minimum height=0.7cm, font=\small},
+     decision/.style={diamond, draw, aspect=2, text width=4.2cm, text centered, font=\small},
+     line/.style={draw, -latex', thick}]
+     \node [block] (p1) {\textbf{Layer 1: Parsing \& Extraction}\\Qwen 2.5 7B (JSON Mode)};
+     \node [decision, below of=p1, node distance=1.3cm] (f1) {\textbf{Layer 2: Emergency Firewall}\\Acute Veto Flag Triggered?};
+     \node [block, right of=f1, node distance=4.2cm, fill=red!10] (e1) {\textbf{HALT PIPELINE}\\Emergency Directives (112/108)};
+     \node [block, below of=f1, node distance=1.5cm] (b1) {\textbf{Layer 3: Clinical Classifier}\\PubMedBERT (35 Classes) + XAI};
+     \node [block, below of=b1] (d1) {\textbf{Layer 4: Decision \& Gating}\\Bayesian Priors + Calibration + Routing};
+     \node [block, below of=d1] (g1) {\textbf{Layer 5: Bilingual Generator}\\Constrained LLM (English / Hindi)};
+     \path [line] (p1) -- (f1);
+     \path [line] (f1) -- node [above] {Yes} (e1);
+     \path [line] (f1) -- node [right] {No} (b1);
+     \path [line] (b1) -- (d1);
+     \path [line] (d1) -- (g1);
+   \end{tikzpicture}}
+   \caption{MediAssist AI 5-Layer Defense-in-Depth Pipeline.}
+   \label{fig:architecture}
+   \end{figure}
+   ```
